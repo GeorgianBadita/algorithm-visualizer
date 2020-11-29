@@ -1,25 +1,25 @@
 import { MyDictionary } from '../../utils/dictionary';
 
 export type GraphNode = {
-  id: string;
-  weight?: number;
+    id: string;
+    weight?: number;
 };
 
 export type SimpleEdge = {
-  from: GraphNode;
-  to: GraphNode;
+    from: GraphNode;
+    to: GraphNode;
 };
 
 export type WeightedEdge = {
-  from: GraphNode;
-  to: GraphNode;
-  weight: number;
+    from: GraphNode;
+    to: GraphNode;
+    weight: number;
 };
 
 export type Edges = MyDictionary<GraphNode[]>;
 
 export type Graph = {
-  numberOfNodes: number;
-  nodes: GraphNode[];
-  edges: Edges;
+    numberOfNodes: number;
+    nodes: GraphNode[];
+    edges: Edges;
 };
