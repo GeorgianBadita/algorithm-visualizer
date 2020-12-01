@@ -1,5 +1,13 @@
 import { GraphNode } from '../../algorithms/graph-algorithms/graph';
-import { GraphActionTypes, ADD_NODE, DELETE_NODE, ADD_SIMPLE_EDGE, ADD_WEIGHTED_EDGE, DELETE_EDGE } from './types';
+import {
+    GraphActionTypes,
+    ADD_NODE,
+    DELETE_NODE,
+    ADD_SIMPLE_EDGE,
+    ADD_WEIGHTED_EDGE,
+    DELETE_EDGE,
+    INIT_GRAPH,
+} from './types';
 
 export const addNode = (node: GraphNode): GraphActionTypes => ({
     type: ADD_NODE,
@@ -34,4 +42,10 @@ export const deleteEdge = (from: GraphNode, to: GraphNode): GraphActionTypes => 
         from: from,
         to: to,
     },
+});
+
+export const initGraph = (height: number, width: number): GraphActionTypes => ({
+    type: INIT_GRAPH,
+    height: height,
+    width: width,
 });

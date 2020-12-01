@@ -1,5 +1,7 @@
-import { Graph } from '../../algorithms/graph-algorithms/graph';
+import { Edges, GraphNode } from '../../algorithms/graph-algorithms/graph';
 
 export interface GraphState {
-    graph: Graph;
+    numberOfNodes: number;
+    nodes: GraphNode[];
+    edges: Edges;
 }

@@ -1,15 +1,15 @@
 .node {
-    background: #7b7b7b;
-    border: 1px solid #fff;
+    background: #fff;
+    border: 1px solid #7b7b7b;
     float: left;
-    line-height: 45px;
-    height: 45px;
+    line-height: 30px;
+    height: 30px;
     text-align: center;
-    width: 45px;
+    width: 30px;
     cursor: pointer;
     border-radius: 5px;
-    color: #fff;
-    font-weight: 600;
+    color: #7b7b7b;
+    font-weight: 1000;
 }
 
 .node:focus {

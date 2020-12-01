@@ -5,6 +5,7 @@ export const DELETE_NODE = 'DELETE_NODE';
 export const ADD_SIMPLE_EDGE = 'ADD_SIMPLE_EDGE';
 export const ADD_WEIGHTED_EDGE = 'ADD_WEIGHTED_EDGE';
 export const DELETE_EDGE = 'DELETE_EDGE';
+export const INIT_GRAPH = 'INIT_GRAPH';
 
 interface AddNodeAction {
     type: typeof ADD_NODE;
@@ -34,9 +35,16 @@ interface DeleteEdgeAction {
     };
 }
 
+interface InitGraphAction {
+    type: typeof INIT_GRAPH;
+    height: number;
+    width: number;
+}
+
 export type GraphActionTypes =
     | AddNodeAction
     | DeleteNodeAction
     | AddWeightedEdgeAction
     | DeleteEdgeAction
-    | AddSimpleEdgeAction;
+    | AddSimpleEdgeAction
+    | InitGraphAction;

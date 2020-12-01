@@ -4,11 +4,16 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter } from 'react-router-dom';
+import reducer from './store/index';
+import { createStore, applyMiddleware } from 'redux';
+import { createLogger } from 'redux-logger';
+
+const store = createStore(reducer, applyMiddleware(createLogger()));
 
 ReactDOM.render(
     <React.StrictMode>
         <BrowserRouter>
-            <App />
+            <App store={store} />
         </BrowserRouter>
     </React.StrictMode>,
     document.getElementById('root'),
