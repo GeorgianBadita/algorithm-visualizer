@@ -1,0 +1,17 @@
+.node {
+    background: #7b7b7b;
+    border: 1px solid #fff;
+    float: left;
+    line-height: 45px;
+    height: 45px;
+    text-align: center;
+    width: 45px;
+    cursor: pointer;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: 600;
+}
+
+.node:focus {
+    outline: none;
+}
