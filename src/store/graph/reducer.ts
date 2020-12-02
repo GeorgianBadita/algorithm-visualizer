@@ -1,5 +1,5 @@
 import { Edges, GraphNode, SimpleEdge, WeightedEdge } from '../../algorithms/graph-algorithms/graph';
-import { validCoords } from '../../utils/utilsFunctions';
+import { fromIndexToPair, generateRandomNumber, validCoords } from '../../utils/utilsFunctions';
 import { GraphState } from './state';
 import {
     ADD_NODE,
@@ -15,6 +15,8 @@ const initialGraphState: GraphState = {
     numberOfNodes: 0,
     nodes: [],
     edges: {},
+    source: null,
+    destination: null,
 };
 
 const addNodeToGraph = (node: GraphNode, state: GraphState): GraphState => {
@@ -25,6 +27,8 @@ const addNodeToGraph = (node: GraphNode, state: GraphState): GraphState => {
             numberOfNodes: state.numberOfNodes + 1,
             nodes: [...state.nodes, node],
             edges: newEdges,
+            source: state.source,
+            destination: state.destination,
         };
     }
     return state;
@@ -48,6 +52,8 @@ const deleteNodeFromGraph = (node: GraphNode, state: GraphState): GraphState => 
         numberOfNodes: newNumofNodes,
         nodes: newNodesSet,
         edges: newEdgeSet,
+        source: state.source,
+        destination: state.destination,
     };
 };
 
@@ -64,6 +70,8 @@ const addEdge = (edge: SimpleEdge | WeightedEdge, state: GraphState, isWeighted:
         numberOfNodes: state.numberOfNodes + 1,
         nodes: [...state.nodes],
         edges: newEdges,
+        source: state.source,
+        destination: state.destination,
     };
 };
 
@@ -80,24 +88,35 @@ const deleteEdge = (edge: SimpleEdge | WeightedEdge, state: GraphState): GraphSt
         numberOfNodes: state.numberOfNodes,
         nodes: state.nodes,
         edges: newEdges,
+        source: state.source,
+        destination: state.destination,
     };
 };
 
-const initGraph = (height: number, width: number, state: GraphState): GraphState => {
+const initGraph = (height: number, width: number): GraphState => {
     const numberOfNodes = height * width;
     const nodes = Array.from({ length: numberOfNodes }, (_, i) => i).map((elem) => ({ id: `${elem}` } as GraphNode));
     const edges = nodes.reduce((edgeSet: Edges, node: GraphNode) => ({ ...edgeSet, [node.id]: [] }), {} as Edges);
+    const dx = [-1, 0, 0, 1];
+    const dy = [0, -1, 1, 0];
 
     for (let node = 0; node < height * width; ++node) {
-        const row = node / width;
-        const col = node % height;
-        //TODO: finish this
+        const { row, col } = fromIndexToPair(node, width);
+        for (let dir = 0; dir < 4; ++dir) {
+            const adjRow = row + dx[dir];
+            const adjCol = col + dy[dir];
+            if (validCoords(adjRow, adjCol, height, width)) {
+                edges[`${node}`].push({ id: `${adjRow * width + adjCol}` } as GraphNode);
+            }
+        }
     }
 
     return {
         numberOfNodes: numberOfNodes,
         nodes: nodes,
         edges: edges,
+        source: { id: `${generateRandomNumber(0, height * width)}` } as GraphNode,
+        destination: { id: `${generateRandomNumber(0, height * width)}` } as GraphNode,
     };
 };
 
@@ -114,7 +133,7 @@ export const graphReducer = (state = initialGraphState, action: GraphActionTypes
         case DELETE_EDGE:
             return deleteEdge(action.edge, state);
         case INIT_GRAPH:
-            return initGraph(action.height, action.width, state);
+            return initGraph(action.height, action.width);
         default:
             return state;
     }

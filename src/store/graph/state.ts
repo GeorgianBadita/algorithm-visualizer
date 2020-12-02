@@ -4,4 +4,6 @@ export interface GraphState {
     numberOfNodes: number;
     nodes: GraphNode[];
     edges: Edges;
+    source: GraphNode | null;
+    destination: GraphNode | null;
 }
