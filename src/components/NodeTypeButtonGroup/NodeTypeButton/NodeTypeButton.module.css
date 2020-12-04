@@ -1,0 +1,15 @@
+.nodeTypeButton {
+    border: 3px solid #000;
+    border-radius: 40px;
+    background: white;
+    color: #000;
+}
+
+.nodeTypeButton:focus {
+    outline: 0;
+}
+
+.nodeTypeButtonActive {
+    background: #343a40;
+    color: white;
+}

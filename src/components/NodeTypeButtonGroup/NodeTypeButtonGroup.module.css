@@ -1,0 +1,12 @@
+.nodeTypeButtonGroup {
+    margin-top: 45px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    align-items: center;
+}
+
+.buttons {
+    grid-auto-flow: column;
+    grid-column-gap: 20px;
+}
