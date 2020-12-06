@@ -1,4 +1,5 @@
 import { GraphNode } from '../algorithms/graph-algorithms/graph';
+import { BREADTH_FIRST_SEARCH, DIJKSTRA_ALGORITHM, GraphAlgoirhtmsType, NO_ALGORITHM } from '../App';
 import { DESTINATION_NODE, SIMPLE_NODE, SOURCE_NODE, WALL_NODE, WEIGHTED_NODE } from '../components/Graph/Node';
 import {
     DESTINATION_NODE_BUTTON,
@@ -183,4 +184,17 @@ export const reduxGraphUpdateDispatchHelper = (
 
 export const isBlockedNode = (coords: Pair, table: TableNodeType[][]): boolean => {
     return table[coords.row][coords.col].nodeType === WALL_NODE;
+};
+
+export const algNameToAlgType = (algName: string): GraphAlgoirhtmsType => {
+    switch (algName) {
+        case "Dijkstra's Algorithm": {
+            return DIJKSTRA_ALGORITHM as GraphAlgoirhtmsType;
+        }
+        case 'Breadth First Search': {
+            return BREADTH_FIRST_SEARCH as GraphAlgoirhtmsType;
+        }
+        default:
+            return NO_ALGORITHM as GraphAlgoirhtmsType;
+    }
 };

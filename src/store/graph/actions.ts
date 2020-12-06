@@ -1,4 +1,3 @@
-import { table } from 'console';
 import { GraphNode } from '../../algorithms/graph-algorithms/graph';
 import { TableNodeType } from '../../containers/GraphContainerAlgorithms';
 import {

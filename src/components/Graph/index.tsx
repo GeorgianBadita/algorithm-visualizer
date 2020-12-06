@@ -2,13 +2,8 @@ import React, { Dispatch, SetStateAction } from 'react';
 
 import Node from './Node/index';
 import classes from './Graph.module.css';
-import {
-    DESTINATION_NODE_BUTTON,
-    NodeTypeButtonType,
-    SOURCE_NODE_BUTTON,
-    WALL_NODE_BUTTON,
-} from '../NodeTypeButtonGroup/NodeTypeButton';
-import { fromPairToIndex, getNewGrid, reduxGraphUpdateDispatchHelper } from '../../utils/utilsFunctions';
+import { NodeTypeButtonType } from '../NodeTypeButtonGroup/NodeTypeButton';
+import { getNewGrid, reduxGraphUpdateDispatchHelper } from '../../utils/utilsFunctions';
 import { TableNodeType } from '../../containers/GraphContainerAlgorithms';
 import { GraphNode } from '../../algorithms/graph-algorithms/graph';
 import { GraphActionTypes } from '../../store/graph/types';
