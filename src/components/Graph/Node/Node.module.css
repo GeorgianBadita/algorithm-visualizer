@@ -8,7 +8,7 @@
     width: 30px;
     cursor: pointer;
     border-radius: 5px;
-    color: #7b7b7b;
+    color: #ece4e4;
     font-weight: 1000;
 }
 
@@ -42,6 +42,35 @@
     animation-iteration-count: 1;
     animation-play-state: running;
     animation-fill-mode: forwards;
+}
+
+.wall {
+    background-image: url('../../../assets/images/wall.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    animation-name: specialNodes;
+    animation-duration: 0.5s;
+    animation-timing-function: ease-out;
+    animation-direction: alternate;
+    animation-iteration-count: 1;
+    animation-play-state: running;
+    animation-fill-mode: forwards;
+}
+
+.weight {
+    background-image: url('../../../assets/images/weight.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    animation-name: specialNodes;
+    animation-duration: 0.5s;
+    animation-timing-function: ease-out;
+    animation-direction: alternate;
+    animation-iteration-count: 1;
+    animation-play-state: running;
+    animation-fill-mode: forwards;
+    z-index: -1;
 }
 
 @keyframes specialNodes {

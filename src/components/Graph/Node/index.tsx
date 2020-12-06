@@ -15,11 +15,12 @@ export type NodeType =
     | typeof DESTINATION_NODE;
 
 type NodeProps = {
+    onMouseEnter: (x: number, y: number) => void;
+    onMouseDown: (x: number, y: number) => void;
     nodeType: NodeType;
     row: number;
     col: number;
     weight?: number;
-    onClick?: () => void;
 };
 
 const Node = (props: NodeProps): JSX.Element => {
@@ -28,9 +29,17 @@ const Node = (props: NodeProps): JSX.Element => {
         cssClasses.push(classes.source);
     } else if (props.nodeType === DESTINATION_NODE) {
         cssClasses.push(classes.destination);
+    } else if (props.nodeType === WALL_NODE) {
+        cssClasses.push(classes.wall);
+    } else if (props.nodeType === WEIGHTED_NODE) {
+        cssClasses.push(classes.weight);
     }
     return (
-        <div onClick={props.onClick} className={cssClasses.join(' ')}>
+        <div
+            onMouseDown={() => props.onMouseDown(props.row, props.col)}
+            onMouseEnter={() => props.onMouseEnter(props.row, props.col)}
+            className={cssClasses.join(' ')}
+        >
             {props.nodeType === WEIGHTED_NODE ? props.weight : ''}
         </div>
     );

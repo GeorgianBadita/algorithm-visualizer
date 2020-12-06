@@ -6,4 +6,6 @@ export interface GraphState {
     edges: Edges;
     source: GraphNode | null;
     destination: GraphNode | null;
+    height: number;
+    width: number;
 }

@@ -1,4 +1,6 @@
+import { table } from 'console';
 import { GraphNode } from '../../algorithms/graph-algorithms/graph';
+import { TableNodeType } from '../../containers/GraphContainerAlgorithms';
 import {
     GraphActionTypes,
     ADD_NODE,
@@ -7,11 +9,14 @@ import {
     ADD_WEIGHTED_EDGE,
     DELETE_EDGE,
     INIT_GRAPH,
+    CHANGE_SOURCE_NODE,
+    CHANGE_DESTINATION_NODE,
 } from './types';
 
-export const addNode = (node: GraphNode): GraphActionTypes => ({
+export const addNode = (node: GraphNode, table: TableNodeType[][]): GraphActionTypes => ({
     type: ADD_NODE,
     node: node,
+    table: table,
 });
 
 export const deleteNode = (node: GraphNode): GraphActionTypes => ({
@@ -48,4 +53,14 @@ export const initGraph = (height: number, width: number): GraphActionTypes => ({
     type: INIT_GRAPH,
     height: height,
     width: width,
+});
+
+export const changeSourceNode = (newSource: GraphNode): GraphActionTypes => ({
+    type: CHANGE_SOURCE_NODE,
+    newSource: newSource,
+});
+
+export const changeDestinationNode = (newDest: GraphNode): GraphActionTypes => ({
+    type: CHANGE_DESTINATION_NODE,
+    newDest: newDest,
 });

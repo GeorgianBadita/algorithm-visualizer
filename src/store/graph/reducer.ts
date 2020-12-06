@@ -1,10 +1,19 @@
 import { Edges, GraphNode, SimpleEdge, WeightedEdge } from '../../algorithms/graph-algorithms/graph';
-import { fromIndexToPair, generateRandomNumber, validCoords } from '../../utils/utilsFunctions';
+import { TableNodeType } from '../../containers/GraphContainerAlgorithms';
+import {
+    fromIndexToPair,
+    fromPairToIndex,
+    generateRandomNumber,
+    isBlockedNode,
+    validCoords,
+} from '../../utils/utilsFunctions';
 import { GraphState } from './state';
 import {
     ADD_NODE,
     ADD_SIMPLE_EDGE,
     ADD_WEIGHTED_EDGE,
+    CHANGE_DESTINATION_NODE,
+    CHANGE_SOURCE_NODE,
     DELETE_EDGE,
     DELETE_NODE,
     GraphActionTypes,
@@ -17,18 +26,44 @@ const initialGraphState: GraphState = {
     edges: {},
     source: null,
     destination: null,
+    height: 0,
+    width: 0,
 };
 
-const addNodeToGraph = (node: GraphNode, state: GraphState): GraphState => {
-    if (!state.nodes.includes(node)) {
+const addNodeToGraph = (node: GraphNode, table: TableNodeType[][], state: GraphState): GraphState => {
+    if (!state.nodes.includes({ id: node.id })) {
         const newEdges = { ...state.edges };
         newEdges[node.id] = [];
+        const { row, col } = fromIndexToPair(parseInt(node.id, 10), state.width);
+        const dx = [-1, 0, 0, 1];
+        const dy = [0, -1, 1, 0];
+
+        for (let dir = 0; dir < 4; ++dir) {
+            const adjRow = row + dx[dir];
+            const adjCol = col + dy[dir];
+            if (validCoords(adjRow, adjCol, state.height, state.width)) {
+                const adjId = `${fromPairToIndex({ row: adjRow, col: adjCol }, state.width)}`;
+                const isAdjBlocked = isBlockedNode({ row: adjRow, col: adjCol }, table);
+                if (!isAdjBlocked && !newEdges[node.id].includes({ id: adjId } as GraphNode)) {
+                    newEdges[node.id].push({
+                        id: adjId,
+                    } as GraphNode);
+                }
+
+                if (!isAdjBlocked && !newEdges[adjId].includes({ id: node.id } as GraphNode)) {
+                    newEdges[adjId].push({ id: node.id } as GraphNode);
+                }
+            }
+        }
+
         return {
             numberOfNodes: state.numberOfNodes + 1,
             nodes: [...state.nodes, node],
             edges: newEdges,
             source: state.source,
             destination: state.destination,
+            height: state.height,
+            width: state.width,
         };
     }
     return state;
@@ -54,6 +89,8 @@ const deleteNodeFromGraph = (node: GraphNode, state: GraphState): GraphState => 
         edges: newEdgeSet,
         source: state.source,
         destination: state.destination,
+        height: state.height,
+        width: state.width,
     };
 };
 
@@ -72,6 +109,8 @@ const addEdge = (edge: SimpleEdge | WeightedEdge, state: GraphState, isWeighted:
         edges: newEdges,
         source: state.source,
         destination: state.destination,
+        height: state.height,
+        width: state.width,
     };
 };
 
@@ -90,6 +129,8 @@ const deleteEdge = (edge: SimpleEdge | WeightedEdge, state: GraphState): GraphSt
         edges: newEdges,
         source: state.source,
         destination: state.destination,
+        height: state.height,
+        width: state.width,
     };
 };
 
@@ -106,7 +147,7 @@ const initGraph = (height: number, width: number): GraphState => {
             const adjRow = row + dx[dir];
             const adjCol = col + dy[dir];
             if (validCoords(adjRow, adjCol, height, width)) {
-                edges[`${node}`].push({ id: `${adjRow * width + adjCol}` } as GraphNode);
+                edges[`${node}`].push({ id: `${fromPairToIndex({ row: adjRow, col: adjCol }, width)}` } as GraphNode);
             }
         }
     }
@@ -117,13 +158,25 @@ const initGraph = (height: number, width: number): GraphState => {
         edges: edges,
         source: { id: `${generateRandomNumber(0, height * width)}` } as GraphNode,
         destination: { id: `${generateRandomNumber(0, height * width)}` } as GraphNode,
+        width: width,
+        height: height,
     };
 };
+
+const changeSourceNode = (newSource: GraphNode, state: GraphState): GraphState => ({
+    ...state,
+    source: newSource,
+});
+
+const changeDestinationNode = (newDest: GraphNode, state: GraphState): GraphState => ({
+    ...state,
+    destination: newDest,
+});
 
 export const graphReducer = (state = initialGraphState, action: GraphActionTypes): GraphState => {
     switch (action.type) {
         case ADD_NODE:
-            return addNodeToGraph(action.node, state);
+            return addNodeToGraph(action.node, action.table, state);
         case DELETE_NODE:
             return deleteNodeFromGraph(action.node, state);
         case ADD_SIMPLE_EDGE:
@@ -134,6 +187,10 @@ export const graphReducer = (state = initialGraphState, action: GraphActionTypes
             return deleteEdge(action.edge, state);
         case INIT_GRAPH:
             return initGraph(action.height, action.width);
+        case CHANGE_SOURCE_NODE:
+            return changeSourceNode(action.newSource, state);
+        case CHANGE_DESTINATION_NODE:
+            return changeDestinationNode(action.newDest, state);
         default:
             return state;
     }

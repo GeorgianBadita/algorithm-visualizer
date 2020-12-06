@@ -3,3 +3,12 @@ body {
     padding: 0;
     font-family: 'open sans', sans-serif;
 }
+
+*,
+*::after,
+*::before {
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-app-region: no-drag;
+    cursor: default;
+}
