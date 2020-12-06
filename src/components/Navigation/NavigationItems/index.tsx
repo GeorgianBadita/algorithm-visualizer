@@ -1,8 +1,7 @@
 import React from 'react';
 import NavDropdown from 'react-bootstrap/esm/NavDropdown';
 import Nav from 'react-bootstrap/Nav';
-import NavigationItem from './NavigationItem';
-import { LINK_TYPE, ITEM_TYPE } from './NavigationItem';
+import NavigationItem, { LINK_TYPE, ITEM_TYPE, BUTTON_TYPE } from './NavigationItem';
 
 const NavigationItems = (): JSX.Element => {
     return (
@@ -12,6 +11,7 @@ const NavigationItems = (): JSX.Element => {
                 <NavigationItem navType={ITEM_TYPE} href={'/dijkstra'} text={"Dijkstra's Algorithm"} />
                 <NavigationItem navType={ITEM_TYPE} href={'/bfs'} text={'Breadth First Search'} />
             </NavDropdown>
+            <NavigationItem navType={BUTTON_TYPE} text={'VisualizeAlgorithm'} />
         </Nav>
     );
 };
