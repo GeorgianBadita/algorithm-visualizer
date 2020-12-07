@@ -1,6 +1,5 @@
 import { GraphNode } from '../../algorithms/graph-algorithms/graph';
 import { TableNodeType } from '../../containers/GraphContainerAlgorithms';
-import { GraphAlgoirhtmsType } from '../../utils/types/graph-algorithms/algorithm-types';
 import {
     GraphActionTypes,
     ADD_NODE,
@@ -12,6 +11,7 @@ import {
     CHANGE_SOURCE_NODE,
     CHANGE_DESTINATION_NODE,
     ADD_WEIGHTED_NODE,
+    CLEAR_GRAPH,
 } from './types';
 
 export const addNode = (node: GraphNode, table: TableNodeType[][]): GraphActionTypes => ({
@@ -70,4 +70,8 @@ export const changeSourceNode = (newSource: GraphNode): GraphActionTypes => ({
 export const changeDestinationNode = (newDest: GraphNode): GraphActionTypes => ({
     type: CHANGE_DESTINATION_NODE,
     newDest: newDest,
+});
+
+export const clearGraph = (): GraphActionTypes => ({
+    type: CLEAR_GRAPH,
 });

@@ -10,6 +10,7 @@ export const DELETE_EDGE = 'DELETE_EDGE';
 export const INIT_GRAPH = 'INIT_GRAPH';
 export const CHANGE_SOURCE_NODE = 'CHANGE_SOURCE_NODE';
 export const CHANGE_DESTINATION_NODE = 'CAHGNE_DESTINATION_NODE';
+export const CLEAR_GRAPH = 'CLEAR_GRAPH';
 
 interface AddNodeAction {
     type: typeof ADD_NODE;
@@ -62,6 +63,10 @@ interface ChangeDestinationNodeAction {
     newDest: GraphNode;
 }
 
+interface ClearGraphAction {
+    type: typeof CLEAR_GRAPH;
+}
+
 export type GraphActionTypes =
     | AddNodeAction
     | AddWeightedNodeAction
@@ -71,4 +76,5 @@ export type GraphActionTypes =
     | AddSimpleEdgeAction
     | InitGraphAction
     | ChangeSourceNodeAction
-    | ChangeDestinationNodeAction;
+    | ChangeDestinationNodeAction
+    | ClearGraphAction;

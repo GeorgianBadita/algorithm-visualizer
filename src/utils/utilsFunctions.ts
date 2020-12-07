@@ -25,6 +25,8 @@ import { TableNodeType } from '../containers/GraphContainerAlgorithms';
 import { GraphState } from '../store/graph/state';
 import { GraphAlgorithmResult, GraphAlgOutput, Pair } from './types/graph-algorithms/algorithm-results-types';
 import { dijkstra } from '../algorithms/graph-algorithms/dijkstra';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const validCoords = (x: number, y: number, height: number, width: number): boolean => {
     return x >= 0 && y >= 0 && x < height && y < width;
@@ -37,10 +39,11 @@ export const generateRandomNumber = (start: number, end: number): number => {
     return Math.floor(Math.random() * (end - start) + start);
 };
 
-export const fromIndexToPair = (index: number, width: number): Pair => {
+export const fromIndexToPair = (index: number, width: number, weight?: number): Pair => {
     return {
         row: (index / width) | 0,
         col: index % width,
+        weight: weight,
     };
 };
 
@@ -223,7 +226,7 @@ export const algNameToAlgType = (algName: string): GraphAlgoirhtmsType => {
 };
 
 const fromGraphNodesToPairs = (graphNodes: GraphNode[], width: number): Pair[] => {
-    return graphNodes.map((elem: GraphNode) => fromIndexToPair(parseInt(elem.id, 10), width));
+    return graphNodes.map((elem: GraphNode) => fromIndexToPair(parseInt(elem.id, 10), width, elem.weight));
 };
 
 export const getShortestPath = (
@@ -282,4 +285,23 @@ export const getVisitedNodes = (algType: GraphAlgoirhtmsType, graphState: GraphS
         default:
             return { visitedNodesInOrder: [], shortestPath: [] };
     }
+};
+
+export const checkCanPutWeight = (
+    currentSelectedAlg: GraphAlgoirhtmsType,
+    currentSelectedButton: NodeTypeButtonType,
+): boolean => {
+    return !(currentSelectedAlg === BREADTH_FIRST_SEARCH && currentSelectedButton === WEIGHTED_NODE_BUTTON);
+};
+
+export const createErrorToast = (err: string): void => {
+    toast.warn(err, {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+    });
 };

@@ -13,7 +13,7 @@ const heapComparator = (node1: GraphNode, node2: GraphNode): number => {
 export const dijkstra = (source: GraphNode, destination: GraphNode, graph: Graph): GraphAlgOutput => {
     const pq: Heap<GraphNode> = new Heap(heapComparator);
 
-    graph.nodes.map((elem: GraphNode) => {
+    graph.nodes = graph.nodes.map((elem: GraphNode) => {
         if (elem.weight) {
             return elem;
         }

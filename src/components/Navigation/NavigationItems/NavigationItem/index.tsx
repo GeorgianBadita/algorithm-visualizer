@@ -15,14 +15,16 @@ import {
 } from '../../../../utils/types/graph-algorithms/navigation-item-type';
 import { NO_ALGORITHM } from '../../../../utils/types/graph-algorithms/algorithm-types';
 import { AlgorithmType } from '../../../../App';
+import classes from './NavigationItem.module.css';
 
 type NavigationItemProps = {
     navType: NavigationItemType;
     href?: string;
     text: string;
     changeSelectedAlg?: (alg: AlgorithmType) => AppActionTypes;
-    changeApprunningState?: (state: boolean) => AppActionTypes;
     selectedAlg?: AlgorithmType;
+    running?: boolean;
+    onClick?: () => void;
 };
 
 const NavigationItem = (props: NavigationItemProps): JSX.Element => {
@@ -45,10 +47,13 @@ const NavigationItem = (props: NavigationItemProps): JSX.Element => {
         item = (
             <Form inline>
                 <Button
-                    disabled={props.selectedAlg === NO_ALGORITHM}
-                    className="mr-auto"
+                    className={classes.toolbarButton}
+                    disabled={
+                        (props.selectedAlg && props.selectedAlg === NO_ALGORITHM) ||
+                        (props.running && props.running === true)
+                    }
                     onClick={() => {
-                        if (props.changeApprunningState) props.changeApprunningState(true);
+                        if (props.onClick) props.onClick();
                     }}
                     variant="primary"
                 >

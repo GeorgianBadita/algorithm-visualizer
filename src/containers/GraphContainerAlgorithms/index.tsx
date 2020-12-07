@@ -7,6 +7,9 @@ import {
     SIMPLE_NODE,
     SOURCE_NODE,
     VISITED_NODE,
+    VISITED_WEIGHT_NODE,
+    VISITED_WEIGHT_SHORTEST_PATH_NODE,
+    WEIGHTED_NODE,
 } from '../../utils/types/graph-algorithms/node-type';
 import classes from './GraphContainerAlgorithms.module.css';
 import { connect, ConnectedProps } from 'react-redux';
@@ -75,6 +78,8 @@ const GraphContainerAlgorithms = (props: GraphContainerAlgorithmsProps): JSX.Ele
     const [table, setTable] = React.useState([[]] as TableNodeType[][]);
     const [tableInitialized, setTableInitialized] = React.useState(false);
     const [activeNodeType, setActiveNodeType] = React.useState(RESTORE_NODE_BUTTON as NodeTypeButtonType);
+    const [stillRunning, setStillRunning] = React.useState(false);
+
     const tableRef = React.useRef(table);
     tableRef.current = table;
 
@@ -98,13 +103,20 @@ const GraphContainerAlgorithms = (props: GraphContainerAlgorithmsProps): JSX.Ele
         let currentDelay = DEFAULT_FIRST_PERIOD_SHORTEST_PATH;
         shortestPath.forEach((pair: Pair) => {
             setTimeout(() => {
-                const { row, col } = pair;
+                const { row, col, weight } = pair;
                 const newTable = copyTableImmutable(tableRef.current);
-                newTable[row][col] = { nodeType: SHORTEST_PATH_NODE };
+                if (newTable[row][col].nodeType === VISITED_WEIGHT_NODE) {
+                    newTable[row][col] = { nodeType: VISITED_WEIGHT_SHORTEST_PATH_NODE, weight: weight };
+                } else {
+                    newTable[row][col] = { nodeType: SHORTEST_PATH_NODE, weight: weight };
+                }
                 setTable(newTable);
             }, currentDelay);
             currentDelay += DEFAULT_INCREMENT_SHORTEST_PATH;
         });
+        setTimeout(() => {
+            props.changeRunningState(false);
+        }, currentDelay);
     };
 
     const handleAlgorithmStartsRunning = () => {
@@ -112,15 +124,20 @@ const GraphContainerAlgorithms = (props: GraphContainerAlgorithmsProps): JSX.Ele
             props.selectedAlg,
             props.graphState,
         );
+        console.log(`SHORTEST PATH LENGTH: ${shortestPath.length}`);
         let currentSetTimeOutDelay = DEFAULT_FIRST_PERIOD_VISITED;
         visitedNodesInOrder.forEach((pair: Pair, index: number) => {
             setTimeout(() => {
-                const { row, col } = pair;
+                const { row, col, weight } = pair;
                 const newTable = copyTableImmutable(tableRef.current);
-                newTable[row][col] = { nodeType: VISITED_NODE };
+                if (newTable[row][col].nodeType === WEIGHTED_NODE) {
+                    newTable[row][col] = { nodeType: VISITED_WEIGHT_NODE, weight: weight };
+                } else {
+                    newTable[row][col] = { nodeType: VISITED_NODE, weight: weight };
+                }
                 setTable(newTable);
 
-                if (index == visitedNodesInOrder.length - 1) {
+                if (index === visitedNodesInOrder.length - 1) {
                     handleShowShortestPath(shortestPath);
                 }
             }, currentSetTimeOutDelay);
@@ -135,11 +152,11 @@ const GraphContainerAlgorithms = (props: GraphContainerAlgorithmsProps): JSX.Ele
     }, [height, width]);
 
     React.useEffect(() => {
-        if (props.runningAlg) {
+        if (props.runningAlg && !stillRunning) {
+            setStillRunning(true);
             handleAlgorithmStartsRunning();
-            props.changeRunningState(false);
         }
-    }, [props.runningAlg]);
+    }, [props.runningAlg, stillRunning]);
 
     if (!tableInitialized) {
         initSourceDest();
@@ -157,12 +174,14 @@ const GraphContainerAlgorithms = (props: GraphContainerAlgorithmsProps): JSX.Ele
                     height={height}
                     table={table}
                     activeNodeTypeButton={activeNodeType}
+                    selectedAlg={props.selectedAlg}
                     setGraph={setTable}
                     changeSourceNode={props.changeSorce}
                     changeDestinationNode={props.changeDestination}
                     deleteNode={props.deleteNode}
                     addNode={props.addNode}
                     addWeightedNode={props.addWeightedNode}
+                    running={props.runningAlg}
                 />
             </div>
         </>

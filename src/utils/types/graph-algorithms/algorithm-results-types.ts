@@ -13,4 +13,5 @@ export type GraphAlgorithmResult = {
 export type Pair = {
     row: number;
     col: number;
+    weight?: number;
 };

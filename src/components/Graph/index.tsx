@@ -3,11 +3,13 @@ import React, { Dispatch, SetStateAction } from 'react';
 import Node from './Node/index';
 import classes from './Graph.module.css';
 
-import { getNewGrid, reduxGraphUpdateDispatchHelper } from '../../utils/utilsFunctions';
+import { checkCanPutWeight, getNewGrid, reduxGraphUpdateDispatchHelper } from '../../utils/utilsFunctions';
 import { TableNodeType } from '../../containers/GraphContainerAlgorithms';
 import { GraphNode } from '../../algorithms/graph-algorithms/graph';
 import { GraphActionTypes } from '../../store/graph/types';
 import { NodeTypeButtonType } from '../../utils/types/graph-algorithms/node-type-button-type';
+import { GraphAlgoirhtmsType } from '../../utils/types/graph-algorithms/algorithm-types';
+import { toast } from 'react-toastify';
 
 const DEFAULT_WEIGHT_VALUE = 10;
 
@@ -16,7 +18,9 @@ type GraphProps = {
     width: number;
     table: TableNodeType[][];
     activeNodeTypeButton: NodeTypeButtonType;
+    selectedAlg: GraphAlgoirhtmsType;
     setGraph: Dispatch<SetStateAction<TableNodeType[][]>>;
+    running: boolean;
     changeSourceNode: (newSoruce: GraphNode) => GraphActionTypes;
     changeDestinationNode: (newDest: GraphNode) => GraphActionTypes;
     deleteNode: (node: GraphNode) => GraphActionTypes;
@@ -29,6 +33,14 @@ const Graph = (props: GraphProps): JSX.Element => {
 
     const handleOnMouseEnter = (x: number, y: number): void => {
         if (!isClicked) return;
+        if (!checkCanPutWeight(props.selectedAlg, props.activeNodeTypeButton)) {
+            toast(`You cannot use weights with ${props.selectedAlg}`);
+            return;
+        }
+        if (props.running) {
+            toast(`You cannot modify graph while algorithm is running`);
+            return;
+        }
         props.setGraph(getNewGrid(props.table, props.activeNodeTypeButton, x, y));
         reduxGraphUpdateDispatchHelper(
             props.table,
@@ -50,6 +62,14 @@ const Graph = (props: GraphProps): JSX.Element => {
     };
 
     const handleOnMouseDown = (x: number, y: number) => {
+        if (!checkCanPutWeight(props.selectedAlg, props.activeNodeTypeButton)) {
+            toast(`You cannot use weights with ${props.selectedAlg}`);
+            return;
+        }
+        if (props.running) {
+            toast(`You cannot modify graph while algorithm is running`);
+            return;
+        }
         props.setGraph(getNewGrid(props.table, props.activeNodeTypeButton, x, y));
         reduxGraphUpdateDispatchHelper(
             props.table,

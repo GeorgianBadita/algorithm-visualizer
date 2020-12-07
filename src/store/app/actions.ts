@@ -1,5 +1,5 @@
 import { AlgorithmType } from '../../App';
-import { AppActionTypes, CHANGE_ALGORITHM, CHANGE_RUNNING_STATE } from './types';
+import { AppActionTypes, CHANGE_ALGORITHM, CHANGE_RUNNING_STATE, CLEAR_APP } from './types';
 
 export const changeAlgorithm = (alg: AlgorithmType): AppActionTypes => ({
     type: CHANGE_ALGORITHM,
@@ -9,4 +9,8 @@ export const changeAlgorithm = (alg: AlgorithmType): AppActionTypes => ({
 export const changeRunningState = (state: boolean): AppActionTypes => ({
     type: CHANGE_RUNNING_STATE,
     state: state,
+});
+
+export const clearApp = (): AppActionTypes => ({
+    type: CLEAR_APP,
 });

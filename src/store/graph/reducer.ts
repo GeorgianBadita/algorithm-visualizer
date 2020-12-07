@@ -8,6 +8,7 @@ import {
     validCoords,
 } from '../../utils/utilsFunctions';
 import { GraphState } from './state';
+
 import {
     ADD_NODE,
     ADD_SIMPLE_EDGE,
@@ -15,6 +16,7 @@ import {
     ADD_WEIGHTED_NODE,
     CHANGE_DESTINATION_NODE,
     CHANGE_SOURCE_NODE,
+    CLEAR_GRAPH,
     DELETE_EDGE,
     DELETE_NODE,
     GraphActionTypes,
@@ -48,7 +50,6 @@ const addNodeToGraph = (node: GraphNode, table: TableNodeType[][], state: GraphS
                 if (!isAdjBlocked && !newEdges[node.id].includes({ id: adjId } as GraphNode)) {
                     newEdges[node.id].push({
                         id: adjId,
-                        weight: node.weight,
                     } as GraphNode);
                 }
 
@@ -175,6 +176,12 @@ const changeDestinationNode = (newDest: GraphNode, state: GraphState): GraphStat
     destination: newDest,
 });
 
+const clearGraph = (state: GraphState): GraphState => ({
+    ...initGraph(state.height, state.width),
+    source: state.source,
+    destination: state.destination,
+});
+
 export const graphReducer = (state = initialGraphState, action: GraphActionTypes): GraphState => {
     switch (action.type) {
         case ADD_NODE:
@@ -195,6 +202,8 @@ export const graphReducer = (state = initialGraphState, action: GraphActionTypes
             return changeSourceNode(action.newSource, state);
         case CHANGE_DESTINATION_NODE:
             return changeDestinationNode(action.newDest, state);
+        case CLEAR_GRAPH:
+            return clearGraph(state);
         default:
             return state;
     }

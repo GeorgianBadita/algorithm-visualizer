@@ -1,7 +1,23 @@
 import { GraphAlgOutput } from '../../utils/types/graph-algorithms/algorithm-results-types';
-import { GraphNode, Graph, ParentVectorType } from './graph';
+import { GraphNode, Graph, ParentVectorType, Edges } from './graph';
 
 export const bfs = (startNode: GraphNode, destinationNode: GraphNode, graph: Graph): GraphAlgOutput => {
+    startNode = { ...startNode, weight: 0 };
+    destinationNode = { ...destinationNode, weight: 1 };
+    graph.nodes = graph.nodes.map((elem: GraphNode) => {
+        return { id: elem.id, weight: 1 };
+    });
+
+    graph.edges = Object.keys(graph.edges).reduce((oldE: Edges, key: string) => {
+        oldE[key] = graph.edges[key].map((elem: GraphNode) => {
+            if (elem.weight) {
+                return elem;
+            }
+            return { id: elem.id, weight: 1 };
+        });
+        return oldE;
+    }, {});
+
     const queue: GraphNode[] = [startNode];
     const visitedNodes: GraphNode[] = [startNode];
     const visitedInOrder: GraphNode[] = [];
@@ -22,8 +38,8 @@ export const bfs = (startNode: GraphNode, destinationNode: GraphNode, graph: Gra
                     exists = true;
                 }
             });
-            if (!exists) {
-                queue.push({ ...elem });
+            if (!exists && currentNode.weight !== undefined) {
+                queue.push({ ...elem, weight: 1 + currentNode.weight });
                 parent[elem.id] = { ...currentNode };
                 visitedNodes.push({ ...elem });
             }

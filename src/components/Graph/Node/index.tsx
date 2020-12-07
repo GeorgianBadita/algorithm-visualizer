@@ -5,6 +5,8 @@ import {
     SHORTEST_PATH_NODE,
     SOURCE_NODE,
     VISITED_NODE,
+    VISITED_WEIGHT_NODE,
+    VISITED_WEIGHT_SHORTEST_PATH_NODE,
     WALL_NODE,
     WEIGHTED_NODE,
 } from '../../../utils/types/graph-algorithms/node-type';
@@ -33,6 +35,10 @@ const Node = (props: NodeProps): JSX.Element => {
         cssClasses.push(classes.visited);
     } else if (props.nodeType === SHORTEST_PATH_NODE) {
         cssClasses.push(classes.shortestPath);
+    } else if (props.nodeType === VISITED_WEIGHT_NODE) {
+        cssClasses.push(classes.visitedWeight);
+    } else if (props.nodeType === VISITED_WEIGHT_SHORTEST_PATH_NODE) {
+        cssClasses.push(classes.visitedShortestPathWeight);
     }
     return (
         <div
@@ -40,7 +46,7 @@ const Node = (props: NodeProps): JSX.Element => {
             onMouseEnter={() => props.onMouseEnter(props.row, props.col)}
             className={cssClasses.join(' ')}
         >
-            {props.nodeType === WEIGHTED_NODE ? props.weight : ''}
+            {props.weight || ''}
         </div>
     );
 };

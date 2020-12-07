@@ -7,8 +7,10 @@ import NavigationItems from '../NavigationItems';
 type ToolbarProps = {
     title: string;
     selectedAlg: AlgorithmType;
+    running: boolean;
     setSelectedAlg: (alg: AlgorithmType) => AppActionTypes;
     changeRunningState: (state: boolean) => AppActionTypes;
+    clearApp: () => void;
 };
 
 const Toolbar = (props: ToolbarProps): JSX.Element => (
@@ -18,9 +20,11 @@ const Toolbar = (props: ToolbarProps): JSX.Element => (
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <NavigationItems
+                    running={props.running}
                     selectedAlg={props.selectedAlg}
                     setSelectedAlg={props.setSelectedAlg}
                     changeApprunningState={props.changeRunningState}
+                    clearApp={props.clearApp}
                 />
             </Navbar.Collapse>
         </Navbar>

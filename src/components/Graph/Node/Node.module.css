@@ -59,7 +59,39 @@
 }
 
 .weight {
-    background-image: url('../../../assets/images/weight.png');
+    background: url('../../../assets/images/weight.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    animation-name: specialNodes;
+    animation-duration: 0.5s;
+    animation-timing-function: ease-out;
+    animation-direction: alternate;
+    animation-iteration-count: 1;
+    animation-play-state: running;
+    animation-fill-mode: forwards;
+    z-index: -1;
+}
+
+.visitedWeight {
+    background: url('../../../assets/images/weight.png') repeat,
+        radial-gradient(circle, rgba(63, 94, 251, 1) 0%, rgba(252, 70, 107, 1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    animation-name: specialNodes;
+    animation-duration: 0.5s;
+    animation-timing-function: ease-out;
+    animation-direction: alternate;
+    animation-iteration-count: 1;
+    animation-play-state: running;
+    animation-fill-mode: forwards;
+    z-index: -1;
+}
+
+.visitedShortestPathWeight {
+    background: url('../../../assets/images/weight.png') repeat,
+        linear-gradient(to right top, #051937, #004d7a, #008793, #00bf72, #a8eb12);
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;

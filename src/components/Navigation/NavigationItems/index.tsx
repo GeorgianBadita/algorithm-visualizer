@@ -9,11 +9,23 @@ import NavigationItem from './NavigationItem';
 
 type NavigationItemsProps = {
     selectedAlg: GraphAlgoirhtmsType;
+    running: boolean;
     setSelectedAlg: (alg: AlgorithmType) => AppActionTypes;
     changeApprunningState: (state: boolean) => AppActionTypes;
+    clearApp: () => void;
 };
 
 const NavigationItems = (props: NavigationItemsProps): JSX.Element => {
+    const handleOnStateSetToTrue = () => {
+        props.changeApprunningState(true);
+    };
+
+    const clear = () => {
+        props.clearApp();
+        //TODO: find another way to do this, reloading it's hacky :)
+        window.location.reload();
+    };
+
     return (
         <Nav className="mr-auto">
             <NavigationItem navType={LINK_TYPE} href={'/'} text={'Home'} />
@@ -32,9 +44,11 @@ const NavigationItems = (props: NavigationItemsProps): JSX.Element => {
             <NavigationItem
                 navType={BUTTON_TYPE}
                 text={props.selectedAlg === NO_ALGORITHM ? 'Choose an Algorithm' : (props.selectedAlg as string)}
-                changeApprunningState={props.changeApprunningState}
                 selectedAlg={props.selectedAlg}
+                running={props.running}
+                onClick={handleOnStateSetToTrue}
             />
+            <NavigationItem running={props.running} navType={BUTTON_TYPE} text={'Clear Graph'} onClick={clear} />
         </Nav>
     );
 };
