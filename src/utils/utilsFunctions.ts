@@ -2,6 +2,7 @@ import { bfs } from '../algorithms/graph-algorithms/bfs';
 import { Graph, GraphNode, ParentVectorType } from '../algorithms/graph-algorithms/graph';
 import {
     A_STAR,
+    BEST_FIRST_SEARCH,
     BREADTH_FIRST_SEARCH,
     DIJKSTRA_ALGORITHM,
     GraphAlgoirhtmsType,
@@ -29,6 +30,7 @@ import { dijkstra } from '../algorithms/graph-algorithms/dijkstra';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { aStar } from '../algorithms/graph-algorithms/a_star';
+import { bestFirstSearch } from '../algorithms/graph-algorithms/best-first-search';
 
 export const validCoords = (x: number, y: number, height: number, width: number): boolean => {
     return x >= 0 && y >= 0 && x < height && y < width;
@@ -225,6 +227,9 @@ export const algNameToAlgType = (algName: string): GraphAlgoirhtmsType => {
         case 'A* Algorithm': {
             return A_STAR;
         }
+        case 'Best First Search': {
+            return BEST_FIRST_SEARCH;
+        }
         default:
             return NO_ALGORITHM as GraphAlgoirhtmsType;
     }
@@ -302,7 +307,22 @@ export const getVisitedNodes = (algType: GraphAlgoirhtmsType, graphState: GraphS
                     ),
                 };
             }
-
+            return { visitedNodesInOrder: [], shortestPath: [] };
+        case BEST_FIRST_SEARCH:
+            if (graphState.source && graphState.destination) {
+                const { visitedNodes, parentVector }: GraphAlgOutput = bestFirstSearch(
+                    graphState.source,
+                    graphState.destination,
+                    graphState,
+                );
+                return {
+                    visitedNodesInOrder: fromGraphNodesToPairs(visitedNodes, graphState.width),
+                    shortestPath: fromGraphNodesToPairs(
+                        getShortestPath(graphState.source, graphState.destination, parentVector),
+                        graphState.width,
+                    ),
+                };
+            }
             return { visitedNodesInOrder: [], shortestPath: [] };
         default:
             return { visitedNodesInOrder: [], shortestPath: [] };
@@ -313,7 +333,10 @@ export const checkCanPutWeight = (
     currentSelectedAlg: GraphAlgoirhtmsType,
     currentSelectedButton: NodeTypeButtonType,
 ): boolean => {
-    return !(currentSelectedAlg === BREADTH_FIRST_SEARCH && currentSelectedButton === WEIGHTED_NODE_BUTTON);
+    return !(
+        (currentSelectedAlg === BREADTH_FIRST_SEARCH || currentSelectedAlg === BEST_FIRST_SEARCH) &&
+        currentSelectedButton === WEIGHTED_NODE_BUTTON
+    );
 };
 
 export const createErrorToast = (err: string): void => {
