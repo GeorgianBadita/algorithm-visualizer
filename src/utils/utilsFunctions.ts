@@ -1,6 +1,7 @@
 import { bfs } from '../algorithms/graph-algorithms/bfs';
 import { Graph, GraphNode, ParentVectorType } from '../algorithms/graph-algorithms/graph';
 import {
+    A_STAR,
     BREADTH_FIRST_SEARCH,
     DIJKSTRA_ALGORITHM,
     GraphAlgoirhtmsType,
@@ -27,6 +28,7 @@ import { GraphAlgorithmResult, GraphAlgOutput, Pair } from './types/graph-algori
 import { dijkstra } from '../algorithms/graph-algorithms/dijkstra';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { aStar } from '../algorithms/graph-algorithms/a_star';
 
 export const validCoords = (x: number, y: number, height: number, width: number): boolean => {
     return x >= 0 && y >= 0 && x < height && y < width;
@@ -220,6 +222,9 @@ export const algNameToAlgType = (algName: string): GraphAlgoirhtmsType => {
         case 'Breadth First Search': {
             return BREADTH_FIRST_SEARCH as GraphAlgoirhtmsType;
         }
+        case 'A* Algorithm': {
+            return A_STAR;
+        }
         default:
             return NO_ALGORITHM as GraphAlgoirhtmsType;
     }
@@ -282,6 +287,23 @@ export const getVisitedNodes = (algType: GraphAlgoirhtmsType, graphState: GraphS
                 };
             }
             return { visitedNodesInOrder: [], shortestPath: [] };
+        case A_STAR:
+            if (graphState.source && graphState.destination) {
+                const { visitedNodes, parentVector }: GraphAlgOutput = aStar(
+                    graphState.source,
+                    graphState.destination,
+                    graphState,
+                );
+                return {
+                    visitedNodesInOrder: fromGraphNodesToPairs(visitedNodes, graphState.width),
+                    shortestPath: fromGraphNodesToPairs(
+                        getShortestPath(graphState.source, graphState.destination, parentVector),
+                        graphState.width,
+                    ),
+                };
+            }
+
+            return { visitedNodesInOrder: [], shortestPath: [] };
         default:
             return { visitedNodesInOrder: [], shortestPath: [] };
     }
@@ -304,4 +326,8 @@ export const createErrorToast = (err: string): void => {
         draggable: true,
         progress: undefined,
     });
+};
+
+export const computeDistance = (p1: Pair, p2: Pair): number => {
+    return Math.sqrt((p1.row - p2.row) * (p1.row - p2.row) + (p1.col - p2.col) * (p1.col - p2.col));
 };

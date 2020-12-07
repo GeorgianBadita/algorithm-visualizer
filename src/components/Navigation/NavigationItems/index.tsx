@@ -40,6 +40,7 @@ const NavigationItems = (props: NavigationItemsProps): JSX.Element => {
                     navType={ITEM_TYPE}
                     text={'Breadth First Search'}
                 />
+                <NavigationItem changeSelectedAlg={props.setSelectedAlg} navType={ITEM_TYPE} text={'A* Algorithm'} />
             </NavDropdown>
             <NavigationItem
                 navType={BUTTON_TYPE}
