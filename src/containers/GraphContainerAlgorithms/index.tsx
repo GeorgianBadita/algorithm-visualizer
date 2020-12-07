@@ -10,7 +10,14 @@ import {
 } from '../../utils/types/graph-algorithms/node-type';
 import classes from './GraphContainerAlgorithms.module.css';
 import { connect, ConnectedProps } from 'react-redux';
-import { addNode, changeDestinationNode, changeSourceNode, deleteNode, initGraph } from '../../store/graph/actions';
+import {
+    addNode,
+    addWeightedNode,
+    changeDestinationNode,
+    changeSourceNode,
+    deleteNode,
+    initGraph,
+} from '../../store/graph/actions';
 import { AlgorithmVisualizerState } from '../../store/state';
 import { copyTableImmutable, fromIndexToPair, getVisitedNodes } from '../../utils/utilsFunctions';
 import NodeTypeButtonGroup from '../../components/NodeTypeButtonGroup';
@@ -45,6 +52,7 @@ const mapDispatchToProps = {
     initGraph: initGraph,
     deleteNode: deleteNode,
     addNode: addNode,
+    addWeightedNode: addWeightedNode,
     changeSorce: changeSourceNode,
     changeDestination: changeDestinationNode,
     changeRunningState: changeRunningState,
@@ -154,6 +162,7 @@ const GraphContainerAlgorithms = (props: GraphContainerAlgorithmsProps): JSX.Ele
                     changeDestinationNode={props.changeDestination}
                     deleteNode={props.deleteNode}
                     addNode={props.addNode}
+                    addWeightedNode={props.addWeightedNode}
                 />
             </div>
         </>

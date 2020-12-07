@@ -23,3 +23,5 @@ export type Graph = {
     nodes: GraphNode[];
     edges: Edges;
 };
+
+export type ParentVectorType = MyDictionary<GraphNode>;

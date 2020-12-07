@@ -1,8 +1,5 @@
-import { MyDictionary } from '../../utils/dictionary';
 import { GraphAlgOutput } from '../../utils/types/graph-algorithms/algorithm-results-types';
-import { GraphNode, Graph } from './graph';
-
-export type ParentVectorType = MyDictionary<GraphNode>;
+import { GraphNode, Graph, ParentVectorType } from './graph';
 
 export const bfs = (startNode: GraphNode, destinationNode: GraphNode, graph: Graph): GraphAlgOutput => {
     const queue: GraphNode[] = [startNode];
@@ -27,7 +24,7 @@ export const bfs = (startNode: GraphNode, destinationNode: GraphNode, graph: Gra
             });
             if (!exists) {
                 queue.push({ ...elem });
-                parent[elem.id] = currentNode;
+                parent[elem.id] = { ...currentNode };
                 visitedNodes.push({ ...elem });
             }
         });
@@ -38,19 +35,4 @@ export const bfs = (startNode: GraphNode, destinationNode: GraphNode, graph: Gra
         visitedNodes: visitedInOrder,
         parentVector: parent,
     };
-};
-
-export const getShortestPath = (
-    source: GraphNode,
-    destination: GraphNode,
-    parentVector: ParentVectorType,
-): GraphNode[] => {
-    const result: GraphNode[] = [];
-    let currentNode = destination;
-    while (currentNode.id !== source.id) {
-        result.push({ ...currentNode });
-        currentNode = parentVector[currentNode.id];
-    }
-    result.shift();
-    return result.reverse();
 };

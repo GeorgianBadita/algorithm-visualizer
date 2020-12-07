@@ -2,6 +2,7 @@ import { GraphNode, SimpleEdge, WeightedEdge } from '../../algorithms/graph-algo
 import { TableNodeType } from '../../containers/GraphContainerAlgorithms';
 
 export const ADD_NODE = 'ADD_NODE';
+export const ADD_WEIGHTED_NODE = 'ADD_WEIGHTED_NODE';
 export const DELETE_NODE = 'DELETE_NODE';
 export const ADD_SIMPLE_EDGE = 'ADD_SIMPLE_EDGE';
 export const ADD_WEIGHTED_EDGE = 'ADD_WEIGHTED_EDGE';
@@ -12,6 +13,12 @@ export const CHANGE_DESTINATION_NODE = 'CAHGNE_DESTINATION_NODE';
 
 interface AddNodeAction {
     type: typeof ADD_NODE;
+    node: GraphNode;
+    table: TableNodeType[][];
+}
+
+interface AddWeightedNodeAction {
+    type: typeof ADD_WEIGHTED_NODE;
     node: GraphNode;
     table: TableNodeType[][];
 }
@@ -57,6 +64,7 @@ interface ChangeDestinationNodeAction {
 
 export type GraphActionTypes =
     | AddNodeAction
+    | AddWeightedNodeAction
     | DeleteNodeAction
     | AddWeightedEdgeAction
     | DeleteEdgeAction

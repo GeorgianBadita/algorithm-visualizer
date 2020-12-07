@@ -21,7 +21,8 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
     "redux": "^4.0.5",
-    "redux-logger": "^3.0.6"
+    "redux-logger": "^3.0.6",
+    "ts-heap": "^1.1.3"
   },
   "scripts": {
     "start": "react-scripts start",

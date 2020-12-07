@@ -1,5 +1,5 @@
-import { bfs, getShortestPath } from '../algorithms/graph-algorithms/bfs';
-import { Graph, GraphNode } from '../algorithms/graph-algorithms/graph';
+import { bfs } from '../algorithms/graph-algorithms/bfs';
+import { Graph, GraphNode, ParentVectorType } from '../algorithms/graph-algorithms/graph';
 import {
     BREADTH_FIRST_SEARCH,
     DIJKSTRA_ALGORITHM,
@@ -24,6 +24,7 @@ import {
 import { TableNodeType } from '../containers/GraphContainerAlgorithms';
 import { GraphState } from '../store/graph/state';
 import { GraphAlgorithmResult, GraphAlgOutput, Pair } from './types/graph-algorithms/algorithm-results-types';
+import { dijkstra } from '../algorithms/graph-algorithms/dijkstra';
 
 export const validCoords = (x: number, y: number, height: number, width: number): boolean => {
     return x >= 0 && y >= 0 && x < height && y < width;
@@ -147,9 +148,11 @@ export const reduxGraphUpdateDispatchHelper = (
     changeDestinationNodeHandler: (x: GraphNode) => void,
     deleteNodeHandler: (node: GraphNode) => void,
     addNodeHandler: (node: GraphNode, table: TableNodeType[][]) => void,
+    addWeightedNodeHandler: (node: GraphNode, table: TableNodeType[][]) => void,
     x: number,
     y: number,
     width: number,
+    weight?: number,
 ): void => {
     switch (activeNodeButton) {
         case SOURCE_NODE_BUTTON:
@@ -176,6 +179,17 @@ export const reduxGraphUpdateDispatchHelper = (
             }
             deleteNodeHandler({ id: `${fromPairToIndex({ row: x, col: y }, width)}` });
             break;
+        case WEIGHTED_NODE_BUTTON: {
+            if (
+                table[x][y].nodeType === SOURCE_NODE ||
+                table[x][y].nodeType === DESTINATION_NODE ||
+                table[x][y].nodeType === WEIGHTED_NODE
+            ) {
+                break;
+            }
+            addWeightedNodeHandler({ id: `${fromPairToIndex({ row: x, col: y }, width)}`, weight: weight }, table);
+            break;
+        }
         case RESTORE_NODE_BUTTON:
             if (
                 table[x][y].nodeType === SOURCE_NODE ||
@@ -212,6 +226,21 @@ const fromGraphNodesToPairs = (graphNodes: GraphNode[], width: number): Pair[] =
     return graphNodes.map((elem: GraphNode) => fromIndexToPair(parseInt(elem.id, 10), width));
 };
 
+export const getShortestPath = (
+    source: GraphNode,
+    destination: GraphNode,
+    parentVector: ParentVectorType,
+): GraphNode[] => {
+    const result: GraphNode[] = [];
+    let currentNode = destination;
+    while (currentNode.id !== source.id) {
+        result.push({ ...currentNode });
+        currentNode = parentVector[currentNode.id];
+    }
+    result.shift();
+    return result.reverse();
+};
+
 export const getVisitedNodes = (algType: GraphAlgoirhtmsType, graphState: GraphState): GraphAlgorithmResult => {
     switch (algType) {
         case BREADTH_FIRST_SEARCH:
@@ -221,6 +250,26 @@ export const getVisitedNodes = (algType: GraphAlgoirhtmsType, graphState: GraphS
                     nodes: graphState.nodes,
                     edges: graphState.edges,
                 } as Graph);
+                return {
+                    visitedNodesInOrder: fromGraphNodesToPairs(visitedNodes, graphState.width),
+                    shortestPath: fromGraphNodesToPairs(
+                        getShortestPath(graphState.source, graphState.destination, parentVector),
+                        graphState.width,
+                    ),
+                };
+            }
+            return { visitedNodesInOrder: [], shortestPath: [] };
+        case DIJKSTRA_ALGORITHM:
+            if (graphState.source && graphState.destination) {
+                const { visitedNodes, parentVector }: GraphAlgOutput = dijkstra(
+                    graphState.source,
+                    graphState.destination,
+                    {
+                        numberOfNodes: graphState.numberOfNodes,
+                        nodes: graphState.nodes,
+                        edges: graphState.edges,
+                    } as Graph,
+                );
                 return {
                     visitedNodesInOrder: fromGraphNodesToPairs(visitedNodes, graphState.width),
                     shortestPath: fromGraphNodesToPairs(

@@ -12,6 +12,7 @@ import {
     ADD_NODE,
     ADD_SIMPLE_EDGE,
     ADD_WEIGHTED_EDGE,
+    ADD_WEIGHTED_NODE,
     CHANGE_DESTINATION_NODE,
     CHANGE_SOURCE_NODE,
     DELETE_EDGE,
@@ -47,11 +48,12 @@ const addNodeToGraph = (node: GraphNode, table: TableNodeType[][], state: GraphS
                 if (!isAdjBlocked && !newEdges[node.id].includes({ id: adjId } as GraphNode)) {
                     newEdges[node.id].push({
                         id: adjId,
+                        weight: node.weight,
                     } as GraphNode);
                 }
 
                 if (!isAdjBlocked && !newEdges[adjId].includes({ id: node.id } as GraphNode)) {
-                    newEdges[adjId].push({ id: node.id } as GraphNode);
+                    newEdges[adjId].push({ id: node.id, weight: node.weight } as GraphNode);
                 }
             }
         }
@@ -177,6 +179,8 @@ export const graphReducer = (state = initialGraphState, action: GraphActionTypes
     switch (action.type) {
         case ADD_NODE:
             return addNodeToGraph(action.node, action.table, state);
+        case ADD_WEIGHTED_NODE:
+            return addNodeToGraph(action.node, action.table, deleteNodeFromGraph(action.node, state));
         case DELETE_NODE:
             return deleteNodeFromGraph(action.node, state);
         case ADD_SIMPLE_EDGE:

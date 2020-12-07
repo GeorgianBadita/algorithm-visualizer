@@ -1,5 +1,4 @@
-import { ParentVectorType } from '../../../algorithms/graph-algorithms/bfs';
-import { GraphNode } from '../../../algorithms/graph-algorithms/graph';
+import { GraphNode, ParentVectorType } from '../../../algorithms/graph-algorithms/graph';
 
 export type GraphAlgOutput = {
     visitedNodes: GraphNode[];

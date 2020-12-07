@@ -9,6 +9,8 @@ import { GraphNode } from '../../algorithms/graph-algorithms/graph';
 import { GraphActionTypes } from '../../store/graph/types';
 import { NodeTypeButtonType } from '../../utils/types/graph-algorithms/node-type-button-type';
 
+const DEFAULT_WEIGHT_VALUE = 10;
+
 type GraphProps = {
     height: number;
     width: number;
@@ -19,6 +21,7 @@ type GraphProps = {
     changeDestinationNode: (newDest: GraphNode) => GraphActionTypes;
     deleteNode: (node: GraphNode) => GraphActionTypes;
     addNode: (node: GraphNode, table: TableNodeType[][]) => GraphActionTypes;
+    addWeightedNode: (node: GraphNode, table: TableNodeType[][]) => GraphActionTypes;
 };
 
 const Graph = (props: GraphProps): JSX.Element => {
@@ -34,9 +37,11 @@ const Graph = (props: GraphProps): JSX.Element => {
             props.changeDestinationNode,
             props.deleteNode,
             props.addNode,
+            props.addWeightedNode,
             x,
             y,
             props.width,
+            DEFAULT_WEIGHT_VALUE,
         );
     };
 
@@ -53,9 +58,11 @@ const Graph = (props: GraphProps): JSX.Element => {
             props.changeDestinationNode,
             props.deleteNode,
             props.addNode,
+            props.addWeightedNode,
             x,
             y,
             props.width,
+            DEFAULT_WEIGHT_VALUE,
         );
         setIsClicked(true);
     };
