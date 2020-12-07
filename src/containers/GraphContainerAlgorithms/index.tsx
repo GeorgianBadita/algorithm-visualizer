@@ -1,19 +1,39 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import Graph from '../../components/Graph';
-import { DESTINATION_NODE, NodeType, SIMPLE_NODE, SOURCE_NODE } from '../../components/Graph/Node';
+import {
+    DESTINATION_NODE,
+    NodeType,
+    SHORTEST_PATH_NODE,
+    SIMPLE_NODE,
+    SOURCE_NODE,
+    VISITED_NODE,
+} from '../../components/Graph/Node';
 import classes from './GraphContainerAlgorithms.module.css';
 import { connect, ConnectedProps } from 'react-redux';
 import { addNode, changeDestinationNode, changeSourceNode, deleteNode, initGraph } from '../../store/graph/actions';
 import { AlgorithmVisualizerState } from '../../store/state';
-import { fromIndexToPair } from '../../utils/utilsFunctions';
+import {
+    copyTableImmutable,
+    fromIndexToPair,
+    getVisitedNodes,
+    GraphAlgorithmOutputType,
+    Pair,
+} from '../../utils/utilsFunctions';
 import NodeTypeButtonGroup from '../../components/NodeTypeButtonGroup';
 import { NodeTypeButtonType, RESTORE_NODE_BUTTON } from '../../components/NodeTypeButtonGroup/NodeTypeButton';
+import { changeRunningState } from '../../store/app/actions';
 
 const DEFAULT_HEIGHT = 22;
 const DEFAULT_WIDTH = 58;
 
-// const DEFAULT_HEIGHT = 3;
-// const DEFAULT_WIDTH = 3;
+// const DEFAULT_HEIGHT = 4;
+// const DEFAULT_WIDTH = 4;
+
+const DEFAULT_FIRST_PERIOD_VISITED = 2;
+const DEFAULT_INCREMENT_VISITED = 3;
+
+const DEFAULT_FIRST_PERIOD_SHORTEST_PATH = 10;
+const DEFAULT_INCREMENT_SHORTEST_PATH = 5;
 
 export type TableNodeType = {
     nodeType: NodeType;
@@ -32,11 +52,15 @@ const mapDispatchToProps = {
     addNode: addNode,
     changeSorce: changeSourceNode,
     changeDestination: changeDestinationNode,
+    changeRunningState: changeRunningState,
 };
 
 const mapStateToProps = (state: AlgorithmVisualizerState) => ({
     source: state.graph.source,
     destination: state.graph.destination,
+    runningAlg: state.app.running,
+    selectedAlg: state.app.selectedAlg,
+    graphState: state.graph,
 });
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
@@ -48,6 +72,8 @@ const GraphContainerAlgorithms = (props: GraphContainerAlgorithmsProps): JSX.Ele
     const [table, setTable] = React.useState([[]] as TableNodeType[][]);
     const [tableInitialized, setTableInitialized] = React.useState(false);
     const [activeNodeType, setActiveNodeType] = React.useState(RESTORE_NODE_BUTTON as NodeTypeButtonType);
+    const tableRef = React.useRef(table);
+    tableRef.current = table;
 
     const initSourceDest = () => {
         if (props.source?.id && props.destination?.id) {
@@ -65,11 +91,52 @@ const GraphContainerAlgorithms = (props: GraphContainerAlgorithmsProps): JSX.Ele
         }
     };
 
+    const handleShowShortestPath = (shortestPath: Pair[]) => {
+        let currentDelay = DEFAULT_FIRST_PERIOD_SHORTEST_PATH;
+        shortestPath.forEach((pair: Pair) => {
+            setTimeout(() => {
+                const { row, col } = pair;
+                const newTable = copyTableImmutable(tableRef.current);
+                newTable[row][col] = { nodeType: SHORTEST_PATH_NODE };
+                setTable(newTable);
+            }, currentDelay);
+            currentDelay += DEFAULT_INCREMENT_SHORTEST_PATH;
+        });
+    };
+
+    const handleAlgorithmStartsRunning = () => {
+        const { visitedNodesInOrder, shortestPath }: GraphAlgorithmOutputType = getVisitedNodes(
+            props.selectedAlg,
+            props.graphState,
+        );
+        let currentSetTimeOutDelay = DEFAULT_FIRST_PERIOD_VISITED;
+        visitedNodesInOrder.forEach((pair: Pair, index: number) => {
+            setTimeout(() => {
+                const { row, col } = pair;
+                const newTable = copyTableImmutable(tableRef.current);
+                newTable[row][col] = { nodeType: VISITED_NODE };
+                setTable(newTable);
+
+                if (index == visitedNodesInOrder.length - 1) {
+                    handleShowShortestPath(shortestPath);
+                }
+            }, currentSetTimeOutDelay);
+            currentSetTimeOutDelay += DEFAULT_INCREMENT_VISITED;
+        });
+    };
+
     React.useEffect(() => {
         const newTable = initData(height, width);
         props.initGraph(height, width);
         setTable(newTable);
     }, [height, width]);
+
+    React.useEffect(() => {
+        if (props.runningAlg) {
+            handleAlgorithmStartsRunning();
+            props.changeRunningState(false);
+        }
+    }, [props.runningAlg]);
 
     if (!tableInitialized) {
         initSourceDest();
@@ -98,4 +165,4 @@ const GraphContainerAlgorithms = (props: GraphContainerAlgorithmsProps): JSX.Ele
     );
 };
 
-export default connector(GraphContainerAlgorithms);
+export default React.memo(connector(GraphContainerAlgorithms));

@@ -1,4 +1,5 @@
-import { GraphNode } from '../algorithms/graph-algorithms/graph';
+import { bfs, getShortestPath } from '../algorithms/graph-algorithms/bfs';
+import { Graph, GraphNode } from '../algorithms/graph-algorithms/graph';
 import { BREADTH_FIRST_SEARCH, DIJKSTRA_ALGORITHM, GraphAlgoirhtmsType, NO_ALGORITHM } from '../App';
 import { DESTINATION_NODE, SIMPLE_NODE, SOURCE_NODE, WALL_NODE, WEIGHTED_NODE } from '../components/Graph/Node';
 import {
@@ -10,6 +11,7 @@ import {
     WEIGHTED_NODE_BUTTON,
 } from '../components/NodeTypeButtonGroup/NodeTypeButton';
 import { TableNodeType } from '../containers/GraphContainerAlgorithms';
+import { GraphState } from '../store/graph/state';
 
 export type Pair = {
     row: number;
@@ -38,7 +40,7 @@ export const fromPairToIndex = (pair: Pair, width: number): number => {
     return pair.row * width + pair.col;
 };
 
-const copyTableImmutable = (table: TableNodeType[][]): TableNodeType[][] => {
+export const copyTableImmutable = (table: TableNodeType[][]): TableNodeType[][] => {
     return table.map((arr: TableNodeType[]) => {
         return arr.map((elem: TableNodeType) => ({ ...elem } as TableNodeType));
     }) as TableNodeType[][];
@@ -144,7 +146,7 @@ export const reduxGraphUpdateDispatchHelper = (
 ): void => {
     switch (activeNodeButton) {
         case SOURCE_NODE_BUTTON:
-            if (table[x][y].nodeType === SIMPLE_NODE) {
+            if (table[x][y].nodeType !== SIMPLE_NODE) {
                 break;
             }
 
@@ -152,7 +154,7 @@ export const reduxGraphUpdateDispatchHelper = (
 
             break;
         case DESTINATION_NODE_BUTTON:
-            if (table[x][y].nodeType === SIMPLE_NODE) {
+            if (table[x][y].nodeType !== SIMPLE_NODE) {
                 break;
             }
             changeDestinationNodeHandler({ id: `${fromPairToIndex({ row: x, col: y }, width)}` });
@@ -196,5 +198,45 @@ export const algNameToAlgType = (algName: string): GraphAlgoirhtmsType => {
         }
         default:
             return NO_ALGORITHM as GraphAlgoirhtmsType;
+    }
+};
+
+const fromGraphNodesToPairs = (graphNodes: GraphNode[], width: number): Pair[] => {
+    return graphNodes.map((elem: GraphNode) => fromIndexToPair(parseInt(elem.id, 10), width));
+};
+
+export type GraphAlgorithmOutputType = {
+    visitedNodesInOrder: Pair[];
+    shortestPath: Pair[];
+};
+
+export const getVisitedNodes = (algType: GraphAlgoirhtmsType, graphState: GraphState): GraphAlgorithmOutputType => {
+    switch (algType) {
+        case BREADTH_FIRST_SEARCH:
+            if (graphState.source && graphState.destination) {
+                const { visitedNodes, parentVector } = bfs(graphState.source, graphState.destination, {
+                    numberOfNodes: graphState.numberOfNodes,
+                    nodes: graphState.nodes,
+                    edges: graphState.edges,
+                } as Graph);
+                return {
+                    visitedNodesInOrder: fromGraphNodesToPairs(visitedNodes, graphState.width),
+                    shortestPath: fromGraphNodesToPairs(
+                        getShortestPath(graphState.source, graphState.destination, parentVector),
+                        graphState.width,
+                    ),
+                };
+                // return fromGraphNodesToPairs(
+                //     bfs(graphState.source, graphState.destination, {
+                //         numberOfNodes: graphState.numberOfNodes,
+                //         nodes: graphState.nodes,
+                //         edges: graphState.edges,
+                //     } as Graph).visitedNodes,
+                //     graphState.width,
+                // );
+            }
+            return { visitedNodesInOrder: [], shortestPath: [] };
+        default:
+            return { visitedNodesInOrder: [], shortestPath: [] };
     }
 };

@@ -73,6 +73,30 @@
     z-index: -1;
 }
 
+.visited {
+    background: radial-gradient(circle, rgba(63, 94, 251, 1) 0%, rgba(252, 70, 107, 1) 100%);
+    animation-name: specialNodes;
+    animation-duration: 0.3s;
+    animation-timing-function: ease-out;
+    animation-direction: alternate;
+    animation-iteration-count: 1;
+    animation-play-state: running;
+    animation-fill-mode: forwards;
+    z-index: -1;
+}
+
+.shortestPath {
+    background-image: linear-gradient(to right top, #051937, #004d7a, #008793, #00bf72, #a8eb12);
+    animation-name: specialNodes;
+    animation-duration: 0.5s;
+    animation-timing-function: ease-out;
+    animation-direction: alternate;
+    animation-iteration-count: 1;
+    animation-play-state: running;
+    animation-fill-mode: forwards;
+    z-index: -1;
+}
+
 @keyframes specialNodes {
     0% {
         transform: scale(0.3);

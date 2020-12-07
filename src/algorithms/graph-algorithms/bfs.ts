@@ -1,20 +1,61 @@
+import { MyDictionary } from '../../utils/dictionary';
+import { Pair } from '../../utils/utilsFunctions';
 import { GraphNode, Graph } from './graph';
 
-export const bfs = (startNode: GraphNode, destinationNode: GraphNode, graph: Graph): GraphNode[] => {
+export type ParentVectorType = MyDictionary<GraphNode>;
+
+export type BfsOutput = {
+    visitedNodes: GraphNode[];
+    parentVector: ParentVectorType;
+};
+
+export const bfs = (startNode: GraphNode, destinationNode: GraphNode, graph: Graph): BfsOutput => {
     const queue: GraphNode[] = [startNode];
-    const visitedNodes: GraphNode[] = [];
+    const visitedNodes: GraphNode[] = [startNode];
+    const visitedInOrder: GraphNode[] = [];
+    const parent: ParentVectorType = {};
+
     while (queue.length > 0) {
         const currentNode = { ...queue[0] };
-        visitedNodes.push(currentNode);
+        visitedInOrder.push(currentNode);
         queue.shift();
-        if (currentNode === destinationNode) {
+        if (currentNode.id === destinationNode.id) {
             break;
         }
+
         graph.edges[currentNode.id].forEach((elem: GraphNode) => {
-            if (!visitedNodes.includes(elem)) {
-                queue.push(elem);
+            let exists = false;
+            visitedNodes.forEach((visitedNode: GraphNode) => {
+                if (visitedNode.id === elem.id) {
+                    exists = true;
+                }
+            });
+            if (!exists) {
+                queue.push({ ...elem });
+                parent[elem.id] = currentNode;
+                visitedNodes.push({ ...elem });
             }
         });
     }
-    return visitedNodes;
+    visitedInOrder.shift();
+    visitedInOrder.pop();
+    return {
+        visitedNodes: visitedInOrder,
+        parentVector: parent,
+    };
+};
+
+export const getShortestPath = (
+    source: GraphNode,
+    destination: GraphNode,
+    parentVector: ParentVectorType,
+): GraphNode[] => {
+    const result: GraphNode[] = [];
+    let currentNode = destination;
+    while (currentNode.id !== source.id) {
+        result.push({ ...currentNode });
+        currentNode = parentVector[currentNode.id];
+    }
+    result.shift();
+    return result.reverse();
 };

@@ -6,13 +6,17 @@ export const SIMPLE_NODE = 'SIMPLE_NODE';
 export const WALL_NODE = 'WALL_NODE';
 export const SOURCE_NODE = 'START_NODE';
 export const DESTINATION_NODE = 'DESTINATION_NODE';
+export const VISITED_NODE = 'VISITED_NODE';
+export const SHORTEST_PATH_NODE = 'SHORTEST_PATH_NODE';
 
 export type NodeType =
     | typeof WEIGHTED_NODE
     | typeof SIMPLE_NODE
     | typeof WALL_NODE
     | typeof SOURCE_NODE
-    | typeof DESTINATION_NODE;
+    | typeof DESTINATION_NODE
+    | typeof VISITED_NODE
+    | typeof SHORTEST_PATH_NODE;
 
 type NodeProps = {
     onMouseEnter: (x: number, y: number) => void;
@@ -33,6 +37,10 @@ const Node = (props: NodeProps): JSX.Element => {
         cssClasses.push(classes.wall);
     } else if (props.nodeType === WEIGHTED_NODE) {
         cssClasses.push(classes.weight);
+    } else if (props.nodeType === VISITED_NODE) {
+        cssClasses.push(classes.visited);
+    } else if (props.nodeType === SHORTEST_PATH_NODE) {
+        cssClasses.push(classes.shortestPath);
     }
     return (
         <div
@@ -44,4 +52,4 @@ const Node = (props: NodeProps): JSX.Element => {
         </div>
     );
 };
-export default Node;
+export default React.memo(Node);
