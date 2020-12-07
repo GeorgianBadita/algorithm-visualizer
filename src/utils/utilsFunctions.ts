@@ -1,7 +1,13 @@
 import { bfs, getShortestPath } from '../algorithms/graph-algorithms/bfs';
 import { Graph, GraphNode } from '../algorithms/graph-algorithms/graph';
 import { BREADTH_FIRST_SEARCH, DIJKSTRA_ALGORITHM, GraphAlgoirhtmsType, NO_ALGORITHM } from '../App';
-import { DESTINATION_NODE, SIMPLE_NODE, SOURCE_NODE, WALL_NODE, WEIGHTED_NODE } from '../components/Graph/Node';
+import {
+    DESTINATION_NODE,
+    SIMPLE_NODE,
+    SOURCE_NODE,
+    WALL_NODE,
+    WEIGHTED_NODE,
+} from '../utils/types/graph-algorithms/node-type';
 import {
     DESTINATION_NODE_BUTTON,
     NodeTypeButtonType,
@@ -9,14 +15,10 @@ import {
     SOURCE_NODE_BUTTON,
     WALL_NODE_BUTTON,
     WEIGHTED_NODE_BUTTON,
-} from '../components/NodeTypeButtonGroup/NodeTypeButton';
+} from './types/graph-algorithms/node-type-button-type';
 import { TableNodeType } from '../containers/GraphContainerAlgorithms';
 import { GraphState } from '../store/graph/state';
-
-export type Pair = {
-    row: number;
-    col: number;
-};
+import { GraphAlgorithmResult, GraphAlgOutput, Pair } from './types/graph-algorithms/algorithm-results-types';
 
 export const validCoords = (x: number, y: number, height: number, width: number): boolean => {
     return x >= 0 && y >= 0 && x < height && y < width;
@@ -205,16 +207,11 @@ const fromGraphNodesToPairs = (graphNodes: GraphNode[], width: number): Pair[] =
     return graphNodes.map((elem: GraphNode) => fromIndexToPair(parseInt(elem.id, 10), width));
 };
 
-export type GraphAlgorithmOutputType = {
-    visitedNodesInOrder: Pair[];
-    shortestPath: Pair[];
-};
-
-export const getVisitedNodes = (algType: GraphAlgoirhtmsType, graphState: GraphState): GraphAlgorithmOutputType => {
+export const getVisitedNodes = (algType: GraphAlgoirhtmsType, graphState: GraphState): GraphAlgorithmResult => {
     switch (algType) {
         case BREADTH_FIRST_SEARCH:
             if (graphState.source && graphState.destination) {
-                const { visitedNodes, parentVector } = bfs(graphState.source, graphState.destination, {
+                const { visitedNodes, parentVector }: GraphAlgOutput = bfs(graphState.source, graphState.destination, {
                     numberOfNodes: graphState.numberOfNodes,
                     nodes: graphState.nodes,
                     edges: graphState.edges,
@@ -226,14 +223,6 @@ export const getVisitedNodes = (algType: GraphAlgoirhtmsType, graphState: GraphS
                         graphState.width,
                     ),
                 };
-                // return fromGraphNodesToPairs(
-                //     bfs(graphState.source, graphState.destination, {
-                //         numberOfNodes: graphState.numberOfNodes,
-                //         nodes: graphState.nodes,
-                //         edges: graphState.edges,
-                //     } as Graph).visitedNodes,
-                //     graphState.width,
-                // );
             }
             return { visitedNodesInOrder: [], shortestPath: [] };
         default:

@@ -8,8 +8,8 @@ import GraphContainerAlgorithms from '../GraphContainerAlgorithms';
 const AlgVisualizerRouting = (): JSX.Element => (
     <>
         <Switch>
-            <Route path={'/graph-algorithms'} exact component={GraphContainerAlgorithms} />
-            <Redirect to={'/graph-algorithms'} />
+            <Route path={'/'} exact component={GraphContainerAlgorithms} />
+            <Redirect to={'/'} />
         </Switch>
     </>
 );

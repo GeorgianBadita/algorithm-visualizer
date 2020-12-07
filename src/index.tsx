@@ -12,7 +12,7 @@ const store = createStore(rootReducer, applyMiddleware(createLogger()));
 
 ReactDOM.render(
     <React.StrictMode>
-        <BrowserRouter>
+        <BrowserRouter basename={process.env.PUBLIC_URL}>
             <App store={store} />
         </BrowserRouter>
     </React.StrictMode>,

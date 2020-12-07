@@ -7,21 +7,16 @@ import {
     SIMPLE_NODE,
     SOURCE_NODE,
     VISITED_NODE,
-} from '../../components/Graph/Node';
+} from '../../utils/types/graph-algorithms/node-type';
 import classes from './GraphContainerAlgorithms.module.css';
 import { connect, ConnectedProps } from 'react-redux';
 import { addNode, changeDestinationNode, changeSourceNode, deleteNode, initGraph } from '../../store/graph/actions';
 import { AlgorithmVisualizerState } from '../../store/state';
-import {
-    copyTableImmutable,
-    fromIndexToPair,
-    getVisitedNodes,
-    GraphAlgorithmOutputType,
-    Pair,
-} from '../../utils/utilsFunctions';
+import { copyTableImmutable, fromIndexToPair, getVisitedNodes } from '../../utils/utilsFunctions';
 import NodeTypeButtonGroup from '../../components/NodeTypeButtonGroup';
-import { NodeTypeButtonType, RESTORE_NODE_BUTTON } from '../../components/NodeTypeButtonGroup/NodeTypeButton';
+import { NodeTypeButtonType, RESTORE_NODE_BUTTON } from '../../utils/types/graph-algorithms/node-type-button-type';
 import { changeRunningState } from '../../store/app/actions';
+import { GraphAlgorithmResult, Pair } from '../../utils/types/graph-algorithms/algorithm-results-types';
 
 const DEFAULT_HEIGHT = 22;
 const DEFAULT_WIDTH = 58;
@@ -105,7 +100,7 @@ const GraphContainerAlgorithms = (props: GraphContainerAlgorithmsProps): JSX.Ele
     };
 
     const handleAlgorithmStartsRunning = () => {
-        const { visitedNodesInOrder, shortestPath }: GraphAlgorithmOutputType = getVisitedNodes(
+        const { visitedNodesInOrder, shortestPath }: GraphAlgorithmResult = getVisitedNodes(
             props.selectedAlg,
             props.graphState,
         );

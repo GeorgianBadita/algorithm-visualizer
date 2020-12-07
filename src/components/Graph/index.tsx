@@ -2,11 +2,12 @@ import React, { Dispatch, SetStateAction } from 'react';
 
 import Node from './Node/index';
 import classes from './Graph.module.css';
-import { NodeTypeButtonType } from '../NodeTypeButtonGroup/NodeTypeButton';
+
 import { getNewGrid, reduxGraphUpdateDispatchHelper } from '../../utils/utilsFunctions';
 import { TableNodeType } from '../../containers/GraphContainerAlgorithms';
 import { GraphNode } from '../../algorithms/graph-algorithms/graph';
 import { GraphActionTypes } from '../../store/graph/types';
+import { NodeTypeButtonType } from '../../utils/types/graph-algorithms/node-type-button-type';
 
 type GraphProps = {
     height: number;

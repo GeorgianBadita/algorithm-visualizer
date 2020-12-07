@@ -1,3 +1,4 @@
 node_modules
 public
 src/serviceWorker.ts
+jest.config.js

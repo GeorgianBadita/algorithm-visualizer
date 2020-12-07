@@ -1,15 +1,10 @@
 import { MyDictionary } from '../../utils/dictionary';
-import { Pair } from '../../utils/utilsFunctions';
+import { GraphAlgOutput } from '../../utils/types/graph-algorithms/algorithm-results-types';
 import { GraphNode, Graph } from './graph';
 
 export type ParentVectorType = MyDictionary<GraphNode>;
 
-export type BfsOutput = {
-    visitedNodes: GraphNode[];
-    parentVector: ParentVectorType;
-};
-
-export const bfs = (startNode: GraphNode, destinationNode: GraphNode, graph: Graph): BfsOutput => {
+export const bfs = (startNode: GraphNode, destinationNode: GraphNode, graph: Graph): GraphAlgOutput => {
     const queue: GraphNode[] = [startNode];
     const visitedNodes: GraphNode[] = [startNode];
     const visitedInOrder: GraphNode[] = [];

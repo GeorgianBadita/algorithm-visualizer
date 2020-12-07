@@ -1,13 +1,14 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
-import NodeTypeButton, {
+import {
     DESTINATION_NODE_BUTTON,
     RESTORE_NODE_BUTTON,
     SOURCE_NODE_BUTTON,
     WALL_NODE_BUTTON,
     WEIGHTED_NODE_BUTTON,
     NodeTypeButtonType,
-} from './NodeTypeButton';
+} from '../../utils/types/graph-algorithms/node-type-button-type';
+import NodeTypeButton from './NodeTypeButton';
 import classes from './NodeTypeButtonGroup.module.css';
 import startArrow from '../../assets/images/startArrow.png';
 import destination from '../../assets/images/destination.png';

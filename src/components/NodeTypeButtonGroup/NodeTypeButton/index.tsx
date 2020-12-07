@@ -1,19 +1,7 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import NodeTypeImage from './NodeTypeImage';
 import classes from './NodeTypeButton.module.css';
-
-export const WALL_NODE_BUTTON = 'WALL_NODE_BUTTON';
-export const RESTORE_NODE_BUTTON = 'RESTORE_NODE_BUTTON';
-export const WEIGHTED_NODE_BUTTON = 'WEIGHTED_NODE_BUTTON';
-export const SOURCE_NODE_BUTTON = 'SOURCE_NODE_BUTTON';
-export const DESTINATION_NODE_BUTTON = 'DESTINATION_NODE_BUTTON';
-
-export type NodeTypeButtonType =
-    | typeof WALL_NODE_BUTTON
-    | typeof RESTORE_NODE_BUTTON
-    | typeof WEIGHTED_NODE_BUTTON
-    | typeof SOURCE_NODE_BUTTON
-    | typeof DESTINATION_NODE_BUTTON;
+import { NodeTypeButtonType } from '../../../utils/types/graph-algorithms/node-type-button-type';
 
 type NodeTypeButtonProps = {
     buttonType: NodeTypeButtonType;
