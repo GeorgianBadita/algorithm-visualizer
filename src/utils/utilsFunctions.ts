@@ -1,6 +1,11 @@
 import { bfs, getShortestPath } from '../algorithms/graph-algorithms/bfs';
 import { Graph, GraphNode } from '../algorithms/graph-algorithms/graph';
-import { BREADTH_FIRST_SEARCH, DIJKSTRA_ALGORITHM, GraphAlgoirhtmsType, NO_ALGORITHM } from '../App';
+import {
+    BREADTH_FIRST_SEARCH,
+    DIJKSTRA_ALGORITHM,
+    GraphAlgoirhtmsType,
+    NO_ALGORITHM,
+} from './types/graph-algorithms/algorithm-types';
 import {
     DESTINATION_NODE,
     SIMPLE_NODE,

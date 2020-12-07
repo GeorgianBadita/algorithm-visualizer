@@ -4,7 +4,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { algNameToAlgType } from '../../../../utils/utilsFunctions';
-import { AlgorithmType, NO_ALGORITHM } from '../../../../App';
+
 import { AppActionTypes } from '../../../../store/app/types';
 import {
     BUTTON_TYPE,
@@ -13,6 +13,8 @@ import {
     LINK_TYPE,
     NavigationItemType,
 } from '../../../../utils/types/graph-algorithms/navigation-item-type';
+import { NO_ALGORITHM } from '../../../../utils/types/graph-algorithms/algorithm-types';
+import { AlgorithmType } from '../../../../App';
 
 type NavigationItemProps = {
     navType: NavigationItemType;

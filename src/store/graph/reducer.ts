@@ -20,7 +20,7 @@ import {
     INIT_GRAPH,
 } from './types';
 
-const initialGraphState: GraphState = {
+export const initialGraphState: GraphState = {
     numberOfNodes: 0,
     nodes: [],
     edges: {},
@@ -31,7 +31,7 @@ const initialGraphState: GraphState = {
 };
 
 const addNodeToGraph = (node: GraphNode, table: TableNodeType[][], state: GraphState): GraphState => {
-    if (!state.nodes.includes({ id: node.id })) {
+    if (!state.nodes.some((elem: GraphNode) => elem.id === node.id)) {
         const newEdges = { ...state.edges };
         newEdges[node.id] = [];
         const { row, col } = fromIndexToPair(parseInt(node.id, 10), state.width);
@@ -70,7 +70,7 @@ const addNodeToGraph = (node: GraphNode, table: TableNodeType[][], state: GraphS
 };
 
 const deleteNodeFromGraph = (node: GraphNode, state: GraphState): GraphState => {
-    if (state.numberOfNodes === 0) {
+    if (state.numberOfNodes === 0 || !state.nodes.some((elem: GraphNode) => elem.id === node.id)) {
         return state;
     }
     const newNumofNodes = state.numberOfNodes - 1;
