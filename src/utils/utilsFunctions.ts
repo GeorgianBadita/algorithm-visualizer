@@ -10,6 +10,7 @@ import {
 } from './types/graph-algorithms/algorithm-types';
 import {
     DESTINATION_NODE,
+    SHORTEST_PATH_NODE,
     SIMPLE_NODE,
     SOURCE_NODE,
     WALL_NODE,
@@ -353,4 +354,10 @@ export const createErrorToast = (err: string): void => {
 
 export const computeDistance = (p1: Pair, p2: Pair): number => {
     return Math.sqrt((p1.row - p2.row) * (p1.row - p2.row) + (p1.col - p2.col) * (p1.col - p2.col));
+};
+
+export const hasShortestPathNodes = (table: TableNodeType[][]): boolean => {
+    return table.some((row: TableNodeType[]) =>
+        row.some((elem: TableNodeType) => elem.nodeType === SHORTEST_PATH_NODE),
+    );
 };

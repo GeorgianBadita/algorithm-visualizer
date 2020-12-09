@@ -4,14 +4,13 @@ import {
     GraphActionTypes,
     ADD_NODE,
     DELETE_NODE,
-    ADD_SIMPLE_EDGE,
-    ADD_WEIGHTED_EDGE,
-    DELETE_EDGE,
     INIT_GRAPH,
     CHANGE_SOURCE_NODE,
     CHANGE_DESTINATION_NODE,
     ADD_WEIGHTED_NODE,
     CLEAR_GRAPH,
+    RESET_GRAPH_FOR_NEW_ALGORITHM,
+    CHANGE_TABLE,
 } from './types';
 
 export const addNode = (node: GraphNode, table: TableNodeType[][]): GraphActionTypes => ({
@@ -29,31 +28,6 @@ export const addWeightedNode = (node: GraphNode, table: TableNodeType[][]): Grap
 export const deleteNode = (node: GraphNode): GraphActionTypes => ({
     type: DELETE_NODE,
     node: node,
-});
-
-export const addSimpleEdge = (from: GraphNode, to: GraphNode): GraphActionTypes => ({
-    type: ADD_SIMPLE_EDGE,
-    edge: {
-        from: from,
-        to: to,
-    },
-});
-
-export const addWeightedEdge = (from: GraphNode, to: GraphNode, weight: number): GraphActionTypes => ({
-    type: ADD_WEIGHTED_EDGE,
-    weightedEdge: {
-        from: from,
-        to: to,
-        weight: weight,
-    },
-});
-
-export const deleteEdge = (from: GraphNode, to: GraphNode): GraphActionTypes => ({
-    type: DELETE_EDGE,
-    edge: {
-        from: from,
-        to: to,
-    },
 });
 
 export const initGraph = (height: number, width: number): GraphActionTypes => ({
@@ -74,4 +48,13 @@ export const changeDestinationNode = (newDest: GraphNode): GraphActionTypes => (
 
 export const clearGraph = (): GraphActionTypes => ({
     type: CLEAR_GRAPH,
+});
+
+export const changeTable = (newTable: TableNodeType[][]): GraphActionTypes => ({
+    type: CHANGE_TABLE,
+    table: newTable,
+});
+
+export const resetGraphForNewAlgorithm = (): GraphActionTypes => ({
+    type: RESET_GRAPH_FOR_NEW_ALGORITHM,
 });

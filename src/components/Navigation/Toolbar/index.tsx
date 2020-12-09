@@ -10,6 +10,7 @@ type ToolbarProps = {
     running: boolean;
     setSelectedAlg: (alg: AlgorithmType) => AppActionTypes;
     changeRunningState: (state: boolean) => AppActionTypes;
+    resetGraphForRunningAlg: () => void;
     clearApp: () => void;
 };
 
@@ -25,6 +26,7 @@ const Toolbar = (props: ToolbarProps): JSX.Element => (
                     setSelectedAlg={props.setSelectedAlg}
                     changeApprunningState={props.changeRunningState}
                     clearApp={props.clearApp}
+                    resetGraphForAlg={props.resetGraphForRunningAlg}
                 />
             </Navbar.Collapse>
         </Navbar>

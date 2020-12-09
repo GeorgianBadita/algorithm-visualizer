@@ -2,7 +2,7 @@ import React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import Toolbar from '../../components/Navigation/Toolbar';
 import { changeAlgorithm, changeRunningState, clearApp } from '../../store/app/actions';
-import { clearGraph } from '../../store/graph/actions';
+import { clearGraph, resetGraphForNewAlgorithm } from '../../store/graph/actions';
 import { AlgorithmVisualizerState } from '../../store/state';
 
 interface BasicLayoutProps {
@@ -14,6 +14,7 @@ const mapDispatchToProps = {
     changeAppRunningState: changeRunningState,
     clearAppState: clearApp,
     clearGraph: clearGraph,
+    resetGraphForRunningAlg: resetGraphForNewAlgorithm,
 };
 
 const mapStateToProps = (state: AlgorithmVisualizerState, ownProps: BasicLayoutProps) => ({
@@ -41,6 +42,7 @@ const Layout = (props: LayoutProps): JSX.Element => {
                 setSelectedAlg={props.setSelectedAlgorithm}
                 changeRunningState={props.changeAppRunningState}
                 clearApp={clearApp}
+                resetGraphForRunningAlg={props.resetGraphForRunningAlg}
             />
             <main>{props.children}</main>
         </>

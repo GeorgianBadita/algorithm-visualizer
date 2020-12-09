@@ -1,6 +1,18 @@
-import { Edges, GraphNode, SimpleEdge, WeightedEdge } from '../../algorithms/graph-algorithms/graph';
+import { stat } from 'fs';
+import { Edges, GraphNode } from '../../algorithms/graph-algorithms/graph';
 import { TableNodeType } from '../../containers/GraphContainerAlgorithms';
 import {
+    DESTINATION_NODE,
+    SHORTEST_PATH_NODE,
+    SIMPLE_NODE,
+    SOURCE_NODE,
+    VISITED_NODE,
+    VISITED_WEIGHT_NODE,
+    VISITED_WEIGHT_SHORTEST_PATH_NODE,
+    WEIGHTED_NODE,
+} from '../../utils/types/graph-algorithms/node-type';
+import {
+    copyTableImmutable,
     fromIndexToPair,
     fromPairToIndex,
     generateRandomNumber,
@@ -11,16 +23,15 @@ import { GraphState } from './state';
 
 import {
     ADD_NODE,
-    ADD_SIMPLE_EDGE,
-    ADD_WEIGHTED_EDGE,
     ADD_WEIGHTED_NODE,
     CHANGE_DESTINATION_NODE,
     CHANGE_SOURCE_NODE,
+    CHANGE_TABLE,
     CLEAR_GRAPH,
-    DELETE_EDGE,
     DELETE_NODE,
     GraphActionTypes,
     INIT_GRAPH,
+    RESET_GRAPH_FOR_NEW_ALGORITHM,
 } from './types';
 
 export const initialGraphState: GraphState = {
@@ -31,6 +42,14 @@ export const initialGraphState: GraphState = {
     destination: null,
     height: 0,
     width: 0,
+    table: [[]] as TableNodeType[][],
+    initializedtable: false,
+};
+
+const initData = (height: number, width: number): TableNodeType[][] => {
+    return Array(height)
+        .fill(null)
+        .map(() => Array(width).fill({ nodeType: SIMPLE_NODE }));
 };
 
 const addNodeToGraph = (node: GraphNode, table: TableNodeType[][], state: GraphState): GraphState => {
@@ -67,6 +86,8 @@ const addNodeToGraph = (node: GraphNode, table: TableNodeType[][], state: GraphS
             destination: state.destination,
             height: state.height,
             width: state.width,
+            table: copyTableImmutable(state.table),
+            initializedtable: state.initializedtable,
         };
     }
     return state;
@@ -94,46 +115,8 @@ const deleteNodeFromGraph = (node: GraphNode, state: GraphState): GraphState => 
         destination: state.destination,
         height: state.height,
         width: state.width,
-    };
-};
-
-const addEdge = (edge: SimpleEdge | WeightedEdge, state: GraphState, isWeighted: boolean): GraphState => {
-    if (state.edges[edge.from.id].includes(edge.to)) {
-        return state;
-    }
-    const newEdges = { ...state.edges };
-    if (isWeighted) {
-        edge.to.weight = (edge as WeightedEdge).weight;
-    }
-    newEdges[edge.from.id].push(edge.to);
-    return {
-        numberOfNodes: state.numberOfNodes + 1,
-        nodes: [...state.nodes],
-        edges: newEdges,
-        source: state.source,
-        destination: state.destination,
-        height: state.height,
-        width: state.width,
-    };
-};
-
-const deleteEdge = (edge: SimpleEdge | WeightedEdge, state: GraphState): GraphState => {
-    const keys: string[] = Object.keys(state.edges);
-    if (!keys.includes(edge.to.id) || !keys.includes(edge.from.id)) {
-        return state;
-    }
-    const newEdges = { ...state.edges };
-    newEdges[edge.from.id] = newEdges[edge.from.id].filter((node: GraphNode) => node.id !== edge.to.id);
-    newEdges[edge.to.id] = newEdges[edge.to.id].filter((node: GraphNode) => node.id !== edge.from.id);
-
-    return {
-        numberOfNodes: state.numberOfNodes,
-        nodes: state.nodes,
-        edges: newEdges,
-        source: state.source,
-        destination: state.destination,
-        height: state.height,
-        width: state.width,
+        table: copyTableImmutable(state.table),
+        initializedtable: state.initializedtable,
     };
 };
 
@@ -155,32 +138,90 @@ const initGraph = (height: number, width: number): GraphState => {
         }
     }
 
+    const source = { id: `${generateRandomNumber(0, height * width)}` } as GraphNode;
+    const destination = { id: `${generateRandomNumber(0, height * width)}` } as GraphNode;
+
+    const src = fromIndexToPair(parseInt(source.id, 10), width);
+    const dst = fromIndexToPair(parseInt(destination.id, 10), width);
+    const table = initData(height, width);
+
+    table[src.row][src.col] = { nodeType: SOURCE_NODE };
+    table[dst.row][dst.col] = { nodeType: DESTINATION_NODE };
+
     return {
         numberOfNodes: numberOfNodes,
         nodes: nodes,
         edges: edges,
-        source: { id: `${generateRandomNumber(0, height * width)}` } as GraphNode,
-        destination: { id: `${generateRandomNumber(0, height * width)}` } as GraphNode,
+        source: source,
+        destination: destination,
         width: width,
         height: height,
+        table: table,
+        initializedtable: true,
     };
 };
 
-const changeSourceNode = (newSource: GraphNode, state: GraphState): GraphState => ({
-    ...state,
-    source: newSource,
-});
+const changeSourceNode = (newSource: GraphNode, state: GraphState): GraphState => {
+    const table = copyTableImmutable(state.table);
+    const { row, col } = fromIndexToPair(parseInt(state.source?.id || '0', 10), state.width);
+    table[row][col] = { nodeType: SIMPLE_NODE };
+    const p1 = fromIndexToPair(parseInt(newSource.id, 10), state.width);
+    table[p1.row][p1.col] = { nodeType: SOURCE_NODE };
+    return {
+        ...state,
+        source: newSource,
+    };
+};
 
-const changeDestinationNode = (newDest: GraphNode, state: GraphState): GraphState => ({
-    ...state,
-    destination: newDest,
-});
+const changeDestinationNode = (newDest: GraphNode, state: GraphState): GraphState => {
+    const table = copyTableImmutable(state.table);
+    const { row, col } = fromIndexToPair(parseInt(state.destination?.id || '0', 10), state.width);
+    table[row][col] = { nodeType: SIMPLE_NODE };
+    const p1 = fromIndexToPair(parseInt(newDest.id, 10), state.width);
+    table[p1.row][p1.col] = { nodeType: DESTINATION_NODE };
+    return {
+        ...state,
+        destination: newDest,
+    };
+};
 
 const clearGraph = (state: GraphState): GraphState => ({
     ...initGraph(state.height, state.width),
     source: state.source,
     destination: state.destination,
+    table: copyTableImmutable(state.table).map((row: TableNodeType[]) =>
+        row.map((elem: TableNodeType) =>
+            elem.nodeType === SOURCE_NODE || elem.nodeType === DESTINATION_NODE ? elem : { nodeType: SIMPLE_NODE },
+        ),
+    ),
 });
+
+const resetGraphForNewAlgorithm = (state: GraphState): GraphState => {
+    const newTable = copyTableImmutable(state.table).map((row: TableNodeType[]) =>
+        row.map((elem: TableNodeType) => {
+            if (elem.nodeType === SHORTEST_PATH_NODE || elem.nodeType === VISITED_NODE) {
+                return { nodeType: SIMPLE_NODE } as TableNodeType;
+            } else if (elem.nodeType === VISITED_WEIGHT_NODE || elem.nodeType === VISITED_WEIGHT_SHORTEST_PATH_NODE) {
+                return { nodeType: WEIGHTED_NODE } as TableNodeType;
+            }
+
+            return { nodeType: elem.nodeType } as TableNodeType;
+        }),
+    );
+    return {
+        ...state,
+        table: newTable,
+        source: state.source,
+        destination: state.destination,
+    };
+};
+
+const changeTable = (newTable: TableNodeType[][], state: GraphState): GraphState => {
+    return {
+        ...state,
+        table: copyTableImmutable(newTable),
+    };
+};
 
 export const graphReducer = (state = initialGraphState, action: GraphActionTypes): GraphState => {
     switch (action.type) {
@@ -190,12 +231,6 @@ export const graphReducer = (state = initialGraphState, action: GraphActionTypes
             return addNodeToGraph(action.node, action.table, deleteNodeFromGraph(action.node, state));
         case DELETE_NODE:
             return deleteNodeFromGraph(action.node, state);
-        case ADD_SIMPLE_EDGE:
-            return addEdge(action.edge, state, false);
-        case ADD_WEIGHTED_EDGE:
-            return addEdge(action.weightedEdge, state, false);
-        case DELETE_EDGE:
-            return deleteEdge(action.edge, state);
         case INIT_GRAPH:
             return initGraph(action.height, action.width);
         case CHANGE_SOURCE_NODE:
@@ -204,6 +239,10 @@ export const graphReducer = (state = initialGraphState, action: GraphActionTypes
             return changeDestinationNode(action.newDest, state);
         case CLEAR_GRAPH:
             return clearGraph(state);
+        case CHANGE_TABLE:
+            return changeTable(action.table, state);
+        case RESET_GRAPH_FOR_NEW_ALGORITHM:
+            return resetGraphForNewAlgorithm(state);
         default:
             return state;
     }

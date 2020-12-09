@@ -13,17 +13,18 @@ type NavigationItemsProps = {
     setSelectedAlg: (alg: AlgorithmType) => AppActionTypes;
     changeApprunningState: (state: boolean) => AppActionTypes;
     clearApp: () => void;
+    resetGraphForAlg: () => void;
 };
 
 const NavigationItems = (props: NavigationItemsProps): JSX.Element => {
     const handleOnStateSetToTrue = () => {
         props.changeApprunningState(true);
+        props.resetGraphForAlg();
     };
 
     const clear = () => {
+        props.changeApprunningState(false);
         props.clearApp();
-        //TODO: find another way to do this, reloading it's hacky :)
-        window.location.reload();
     };
 
     return (

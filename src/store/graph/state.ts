@@ -1,4 +1,5 @@
 import { Edges, GraphNode } from '../../algorithms/graph-algorithms/graph';
+import { TableNodeType } from '../../containers/GraphContainerAlgorithms';
 
 export interface GraphState {
     numberOfNodes: number;
@@ -8,4 +9,6 @@ export interface GraphState {
     destination: GraphNode | null;
     height: number;
     width: number;
+    table: TableNodeType[][];
+    initializedtable: boolean;
 }

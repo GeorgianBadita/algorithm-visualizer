@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React from 'react';
 
 import Node from './Node/index';
 import classes from './Graph.module.css';
@@ -19,7 +19,7 @@ type GraphProps = {
     table: TableNodeType[][];
     activeNodeTypeButton: NodeTypeButtonType;
     selectedAlg: GraphAlgoirhtmsType;
-    setGraph: Dispatch<SetStateAction<TableNodeType[][]>>;
+    setGraph: (value: TableNodeType[][]) => void;
     running: boolean;
     changeSourceNode: (newSoruce: GraphNode) => GraphActionTypes;
     changeDestinationNode: (newDest: GraphNode) => GraphActionTypes;

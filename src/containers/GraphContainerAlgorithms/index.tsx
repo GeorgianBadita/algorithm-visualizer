@@ -4,7 +4,6 @@ import {
     DESTINATION_NODE,
     NodeType,
     SHORTEST_PATH_NODE,
-    SIMPLE_NODE,
     SOURCE_NODE,
     VISITED_NODE,
     VISITED_WEIGHT_NODE,
@@ -18,11 +17,17 @@ import {
     addWeightedNode,
     changeDestinationNode,
     changeSourceNode,
+    changeTable,
     deleteNode,
     initGraph,
 } from '../../store/graph/actions';
 import { AlgorithmVisualizerState } from '../../store/state';
-import { copyTableImmutable, fromIndexToPair, getVisitedNodes } from '../../utils/utilsFunctions';
+import {
+    copyTableImmutable,
+    createErrorToast,
+    getVisitedNodes,
+    hasShortestPathNodes,
+} from '../../utils/utilsFunctions';
 import NodeTypeButtonGroup from '../../components/NodeTypeButtonGroup';
 import { NodeTypeButtonType, RESTORE_NODE_BUTTON } from '../../utils/types/graph-algorithms/node-type-button-type';
 import { changeRunningState } from '../../store/app/actions';
@@ -45,12 +50,6 @@ export type TableNodeType = {
     weight?: number;
 };
 
-const initData = (height: number, width: number): TableNodeType[][] => {
-    return Array(height)
-        .fill(null)
-        .map(() => Array(width).fill({ nodeType: SIMPLE_NODE }));
-};
-
 const mapDispatchToProps = {
     initGraph: initGraph,
     deleteNode: deleteNode,
@@ -59,6 +58,7 @@ const mapDispatchToProps = {
     changeSorce: changeSourceNode,
     changeDestination: changeDestinationNode,
     changeRunningState: changeRunningState,
+    setTable: changeTable,
 };
 
 const mapStateToProps = (state: AlgorithmVisualizerState) => ({
@@ -67,6 +67,7 @@ const mapStateToProps = (state: AlgorithmVisualizerState) => ({
     runningAlg: state.app.running,
     selectedAlg: state.app.selectedAlg,
     graphState: state.graph,
+    table: state.graph.table,
 });
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
@@ -75,29 +76,11 @@ type GraphContainerAlgorithmsProps = ConnectedProps<typeof connector>;
 const GraphContainerAlgorithms = (props: GraphContainerAlgorithmsProps): JSX.Element => {
     const [height, setHeight] = React.useState(DEFAULT_HEIGHT);
     const [width, setWidth] = React.useState(DEFAULT_WIDTH);
-    const [table, setTable] = React.useState([[]] as TableNodeType[][]);
-    const [tableInitialized, setTableInitialized] = React.useState(false);
     const [activeNodeType, setActiveNodeType] = React.useState(RESTORE_NODE_BUTTON as NodeTypeButtonType);
     const [stillRunning, setStillRunning] = React.useState(false);
 
-    const tableRef = React.useRef(table);
-    tableRef.current = table;
-
-    const initSourceDest = () => {
-        if (props.source?.id && props.destination?.id) {
-            const sourceIndex = parseInt(props.source.id, 10);
-            const destinationIdex = parseInt(props.destination.id, 10);
-
-            const sourcePair = fromIndexToPair(sourceIndex, width);
-            const destinationPair = fromIndexToPair(destinationIdex, width);
-
-            const newTable = [...table];
-            newTable[sourcePair.row][sourcePair.col] = { nodeType: SOURCE_NODE } as TableNodeType;
-            newTable[destinationPair.row][destinationPair.col] = { nodeType: DESTINATION_NODE } as TableNodeType;
-            setTable(newTable);
-            setTableInitialized(true);
-        }
-    };
+    const tableRef = React.useRef(props.table);
+    tableRef.current = props.table;
 
     const handleShowShortestPath = (shortestPath: Pair[]) => {
         let currentDelay = DEFAULT_FIRST_PERIOD_SHORTEST_PATH;
@@ -110,16 +93,23 @@ const GraphContainerAlgorithms = (props: GraphContainerAlgorithmsProps): JSX.Ele
                 } else {
                     newTable[row][col] = { nodeType: SHORTEST_PATH_NODE, weight: weight };
                 }
-                setTable(newTable);
+
+                props.setTable(newTable);
             }, currentDelay);
             currentDelay += DEFAULT_INCREMENT_SHORTEST_PATH;
         });
         setTimeout(() => {
             props.changeRunningState(false);
+            setStillRunning(false);
         }, currentDelay);
     };
 
     const handleAlgorithmStartsRunning = () => {
+        if (hasShortestPathNodes(props.table)) {
+            createErrorToast('You');
+            return;
+        }
+
         const { visitedNodesInOrder, shortestPath }: GraphAlgorithmResult = getVisitedNodes(
             props.selectedAlg,
             props.graphState,
@@ -135,8 +125,8 @@ const GraphContainerAlgorithms = (props: GraphContainerAlgorithmsProps): JSX.Ele
                 } else {
                     newTable[row][col] = { nodeType: VISITED_NODE, weight: weight };
                 }
-                setTable(newTable);
 
+                props.setTable(newTable);
                 if (index === visitedNodesInOrder.length - 1) {
                     handleShowShortestPath(shortestPath);
                 }
@@ -146,9 +136,7 @@ const GraphContainerAlgorithms = (props: GraphContainerAlgorithmsProps): JSX.Ele
     };
 
     React.useEffect(() => {
-        const newTable = initData(height, width);
         props.initGraph(height, width);
-        setTable(newTable);
     }, [height, width]);
 
     React.useEffect(() => {
@@ -157,10 +145,6 @@ const GraphContainerAlgorithms = (props: GraphContainerAlgorithmsProps): JSX.Ele
             handleAlgorithmStartsRunning();
         }
     }, [props.runningAlg, stillRunning]);
-
-    if (!tableInitialized) {
-        initSourceDest();
-    }
 
     return (
         <>
@@ -172,10 +156,10 @@ const GraphContainerAlgorithms = (props: GraphContainerAlgorithmsProps): JSX.Ele
                 <Graph
                     width={width}
                     height={height}
-                    table={table}
+                    table={props.table}
                     activeNodeTypeButton={activeNodeType}
                     selectedAlg={props.selectedAlg}
-                    setGraph={setTable}
+                    setGraph={props.setTable}
                     changeSourceNode={props.changeSorce}
                     changeDestinationNode={props.changeDestination}
                     deleteNode={props.deleteNode}
