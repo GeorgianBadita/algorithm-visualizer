@@ -24,7 +24,7 @@ type NavigationItemProps = {
     changeSelectedAlg?: (alg: AlgorithmType) => AppActionTypes;
     selectedAlg?: AlgorithmType;
     running?: boolean;
-    onClick?: () => void;
+    onClick?: any;
 };
 
 const NavigationItem = (props: NavigationItemProps): JSX.Element => {
@@ -35,7 +35,7 @@ const NavigationItem = (props: NavigationItemProps): JSX.Element => {
         item = (
             <NavDropdown.Item
                 onClick={() => {
-                    if (props.changeSelectedAlg) props.changeSelectedAlg(algNameToAlgType(props.text));
+                    if (props.onClick) props.onClick(props.text);
                 }}
             >
                 {props.text}

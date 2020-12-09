@@ -1,8 +1,10 @@
 import { AlgorithmType } from '../../App';
+import { SpeedType } from '../../utils/types/graph-algorithms/alg-speed-type';
 
 export const CHANGE_ALGORITHM = 'CHANGE_ALGORITHM';
 export const CHANGE_RUNNING_STATE = 'CHANGE_RUNNINT_STATE';
 export const CLEAR_APP = 'CLEAR_APP';
+export const CHANGE_SPEED = 'CHANGE_SPEED';
 
 interface ChangeAlgorithmAction {
     type: typeof CHANGE_ALGORITHM;
@@ -18,4 +20,9 @@ interface ClearAppAction {
     type: typeof CLEAR_APP;
 }
 
-export type AppActionTypes = ChangeAlgorithmAction | ChangeRunningStateAction | ClearAppAction;
+interface ChangeSpeedAction {
+    type: typeof CHANGE_SPEED;
+    speed: SpeedType;
+}
+
+export type AppActionTypes = ChangeAlgorithmAction | ChangeRunningStateAction | ClearAppAction | ChangeSpeedAction;

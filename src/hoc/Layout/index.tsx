@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import Toolbar from '../../components/Navigation/Toolbar';
-import { changeAlgorithm, changeRunningState, clearApp } from '../../store/app/actions';
+import { changeAlgorithm, changeRunningState, changeSpeed, clearApp } from '../../store/app/actions';
 import { clearGraph, resetGraphForNewAlgorithm } from '../../store/graph/actions';
 import { AlgorithmVisualizerState } from '../../store/state';
 
@@ -15,6 +15,7 @@ const mapDispatchToProps = {
     clearAppState: clearApp,
     clearGraph: clearGraph,
     resetGraphForRunningAlg: resetGraphForNewAlgorithm,
+    changeSpeed: changeSpeed,
 };
 
 const mapStateToProps = (state: AlgorithmVisualizerState, ownProps: BasicLayoutProps) => ({
@@ -43,6 +44,7 @@ const Layout = (props: LayoutProps): JSX.Element => {
                 changeRunningState={props.changeAppRunningState}
                 clearApp={clearApp}
                 resetGraphForRunningAlg={props.resetGraphForRunningAlg}
+                changeAlgSpeed={props.changeSpeed}
             />
             <main>{props.children}</main>
         </>

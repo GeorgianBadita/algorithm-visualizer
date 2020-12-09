@@ -1,4 +1,3 @@
-import { stat } from 'fs';
 import { Edges, GraphNode } from '../../algorithms/graph-algorithms/graph';
 import { TableNodeType } from '../../containers/GraphContainerAlgorithms';
 import {
@@ -202,7 +201,9 @@ const resetGraphForNewAlgorithm = (state: GraphState): GraphState => {
             if (elem.nodeType === SHORTEST_PATH_NODE || elem.nodeType === VISITED_NODE) {
                 return { nodeType: SIMPLE_NODE } as TableNodeType;
             } else if (elem.nodeType === VISITED_WEIGHT_NODE || elem.nodeType === VISITED_WEIGHT_SHORTEST_PATH_NODE) {
-                return { nodeType: WEIGHTED_NODE } as TableNodeType;
+                return { nodeType: WEIGHTED_NODE, weight: elem.weight } as TableNodeType;
+            } else if (elem.nodeType === WEIGHTED_NODE) {
+                return elem;
             }
 
             return { nodeType: elem.nodeType } as TableNodeType;

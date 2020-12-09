@@ -10,7 +10,6 @@ import {
 } from './types/graph-algorithms/algorithm-types';
 import {
     DESTINATION_NODE,
-    SHORTEST_PATH_NODE,
     SIMPLE_NODE,
     SOURCE_NODE,
     WALL_NODE,
@@ -32,6 +31,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { aStar } from '../algorithms/graph-algorithms/a_star';
 import { bestFirstSearch } from '../algorithms/graph-algorithms/best-first-search';
+import { HIGH_SPEED, LOW_SPEED, MEDIUM_SPEED, SpeedType } from './types/graph-algorithms/alg-speed-type';
 
 export const validCoords = (x: number, y: number, height: number, width: number): boolean => {
     return x >= 0 && y >= 0 && x < height && y < width;
@@ -70,11 +70,7 @@ export const getNewGrid = (
 ): TableNodeType[][] => {
     switch (activeNodeTypeButton) {
         case WALL_NODE_BUTTON: {
-            if (
-                table[x][y].nodeType === SOURCE_NODE ||
-                table[x][y].nodeType === DESTINATION_NODE ||
-                table[x][y].nodeType === WALL_NODE
-            ) {
+            if (table[x][y].nodeType !== SIMPLE_NODE && table[x][y].nodeType !== WEIGHTED_NODE) {
                 return table as TableNodeType[][];
             }
             const newTable = copyTableImmutable(table);
@@ -82,11 +78,7 @@ export const getNewGrid = (
             return newTable;
         }
         case WEIGHTED_NODE_BUTTON: {
-            if (
-                table[x][y].nodeType === SOURCE_NODE ||
-                table[x][y].nodeType === DESTINATION_NODE ||
-                table[x][y].nodeType === WEIGHTED_NODE
-            ) {
+            if (table[x][y].nodeType !== SIMPLE_NODE && table[x][y].nodeType !== WALL_NODE) {
                 return table as TableNodeType[][];
             }
 
@@ -178,21 +170,14 @@ export const reduxGraphUpdateDispatchHelper = (
             changeDestinationNodeHandler({ id: `${fromPairToIndex({ row: x, col: y }, width)}` });
             break;
         case WALL_NODE_BUTTON:
-            if (
-                table[x][y].nodeType === SOURCE_NODE ||
-                table[x][y].nodeType === DESTINATION_NODE ||
-                table[x][y].nodeType === WALL_NODE
-            ) {
+            if (table[x][y].nodeType !== SIMPLE_NODE && table[x][y].nodeType !== WEIGHTED_NODE) {
                 break;
             }
+
             deleteNodeHandler({ id: `${fromPairToIndex({ row: x, col: y }, width)}` });
             break;
         case WEIGHTED_NODE_BUTTON: {
-            if (
-                table[x][y].nodeType === SOURCE_NODE ||
-                table[x][y].nodeType === DESTINATION_NODE ||
-                table[x][y].nodeType === WEIGHTED_NODE
-            ) {
+            if (table[x][y].nodeType !== SIMPLE_NODE && table[x][y].nodeType !== WALL_NODE) {
                 break;
             }
             addWeightedNodeHandler({ id: `${fromPairToIndex({ row: x, col: y }, width)}`, weight: weight }, table);
@@ -341,7 +326,7 @@ export const checkCanPutWeight = (
 };
 
 export const createErrorToast = (err: string): void => {
-    toast.warn(err, {
+    toast.error(err, {
         position: 'bottom-right',
         autoClose: 5000,
         hideProgressBar: false,
@@ -356,8 +341,27 @@ export const computeDistance = (p1: Pair, p2: Pair): number => {
     return Math.sqrt((p1.row - p2.row) * (p1.row - p2.row) + (p1.col - p2.col) * (p1.col - p2.col));
 };
 
-export const hasShortestPathNodes = (table: TableNodeType[][]): boolean => {
-    return table.some((row: TableNodeType[]) =>
-        row.some((elem: TableNodeType) => elem.nodeType === SHORTEST_PATH_NODE),
+export const algorithmDoesNoatAcceptWeights = (table: TableNodeType[][], selectedAlg: GraphAlgoirhtmsType): boolean => {
+    const existsWeights = table.some((row: TableNodeType[]) =>
+        row.some((elem: TableNodeType) => elem.nodeType === WEIGHTED_NODE),
     );
+    if (!existsWeights) {
+        return false;
+    }
+    const notSupportingWeights: GraphAlgoirhtmsType[] = [BEST_FIRST_SEARCH, BREADTH_FIRST_SEARCH];
+
+    return !(notSupportingWeights.filter((alg: GraphAlgoirhtmsType) => alg === selectedAlg).length === 0);
+};
+
+export const speedStrTpSpeed = (newSpeed: string): SpeedType => {
+    switch (newSpeed) {
+        case 'Low Speed':
+            return LOW_SPEED;
+        case 'Medium Speed':
+            return MEDIUM_SPEED;
+        case 'High Speed':
+            return HIGH_SPEED;
+        default:
+            return MEDIUM_SPEED;
+    }
 };
