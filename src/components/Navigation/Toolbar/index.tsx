@@ -12,7 +12,6 @@ type ToolbarProps = {
     setSelectedAlg: (alg: AlgorithmType) => AppActionTypes;
     changeRunningState: (state: boolean) => AppActionTypes;
     resetGraphForRunningAlg: () => void;
-    clearApp: () => void;
     changeAlgSpeed: (newValue: SpeedType) => void;
 };
 
@@ -27,7 +26,6 @@ const Toolbar = (props: ToolbarProps): JSX.Element => (
                     selectedAlg={props.selectedAlg}
                     setSelectedAlg={props.setSelectedAlg}
                     changeApprunningState={props.changeRunningState}
-                    clearApp={props.clearApp}
                     resetGraphForAlg={props.resetGraphForRunningAlg}
                     changeAlgSpeed={props.changeAlgSpeed}
                 />

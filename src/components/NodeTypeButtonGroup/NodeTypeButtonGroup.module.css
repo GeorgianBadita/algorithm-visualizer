@@ -10,3 +10,7 @@
     grid-auto-flow: column;
     grid-column-gap: 20px;
 }
+
+.clearButton {
+    margin-left: 100px;
+}

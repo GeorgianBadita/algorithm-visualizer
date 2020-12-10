@@ -14,7 +14,6 @@ type NavigationItemsProps = {
     running: boolean;
     setSelectedAlg: (alg: AlgorithmType) => AppActionTypes;
     changeApprunningState: (state: boolean) => AppActionTypes;
-    clearApp: () => void;
     resetGraphForAlg: () => void;
     changeAlgSpeed: (newValue: SpeedType) => void;
 };
@@ -23,11 +22,6 @@ const NavigationItems = (props: NavigationItemsProps): JSX.Element => {
     const handleOnStateSetToTrue = () => {
         props.changeApprunningState(true);
         props.resetGraphForAlg();
-    };
-
-    const clear = () => {
-        props.changeApprunningState(false);
-        props.clearApp();
     };
 
     const changeAlg = (newValue: string) => {
@@ -74,7 +68,6 @@ const NavigationItems = (props: NavigationItemsProps): JSX.Element => {
                 running={props.running}
                 onClick={handleOnStateSetToTrue}
             />
-            <NavigationItem running={props.running} navType={BUTTON_TYPE} text={'Clear Graph'} onClick={clear} />
             <NavDropdown title="Speed" id="basic-nav-dropdown">
                 <NavigationItem navType={ITEM_TYPE} text={'Low Speed'} onClick={changeSpeed} />
                 <NavigationItem navType={ITEM_TYPE} text={'Medium Speed'} onClick={changeSpeed} />

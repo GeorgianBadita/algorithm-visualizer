@@ -97,6 +97,7 @@ export const getNewGrid = (
 
             const newTable = copyTableImmutable(table);
             newTable[x][y].nodeType = SIMPLE_NODE;
+            newTable[x][y].weight = undefined;
             return newTable;
         }
         case SOURCE_NODE_BUTTON: {

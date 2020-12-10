@@ -10,11 +10,13 @@ import {
 } from '../../utils/types/graph-algorithms/node-type-button-type';
 import NodeTypeButton from './NodeTypeButton';
 import classes from './NodeTypeButtonGroup.module.css';
-import startArrow from '../../assets/images/startArrow.png';
+import start from '../../assets/images/start.png';
 import destination from '../../assets/images/destination.png';
 import wall from '../../assets/images/wall.png';
 import weight from '../../assets/images/weight.png';
 import simple from '../../assets/images/simple.png';
+import Button from 'react-bootstrap/Button';
+import { GraphAlgoirhtmsType, NO_ALGORITHM } from '../../utils/types/graph-algorithms/algorithm-types';
 
 type ButtonData = {
     text: string;
@@ -44,7 +46,7 @@ const initButtons: ButtonData[] = [
     },
     {
         text: 'Move source node',
-        image: startArrow,
+        image: start,
         active: false,
         type: SOURCE_NODE_BUTTON,
     },
@@ -59,14 +61,18 @@ const initButtons: ButtonData[] = [
 type NodeTypeButtonGroupProps = {
     activeNodeTypeButton?: NodeTypeButtonType;
     setActiveNodeTypeButton: Dispatch<SetStateAction<NodeTypeButtonType>>;
-    onWallNodeTypeClick?: () => void;
-    onWeightNodeTypeClick?: () => void;
-    onSimpleNodeTypeClick?: () => void;
-    onSourceNodeTypeClick?: () => void;
-    onDestinationNodeTypeClick?: () => void;
+    selectedAlg: GraphAlgoirhtmsType;
+    running: boolean;
+    clearApp: () => void;
+    changeAppRunningState: (newState: boolean) => void;
 };
 
 const NodeTypeButtonGroup = (props: NodeTypeButtonGroupProps): JSX.Element => {
+    const clear = () => {
+        props.changeAppRunningState(false);
+        props.clearApp();
+    };
+
     const getInitButtons = (): JSX.Element[] => {
         return initButtons.map((buttonData) => (
             <NodeTypeButton
@@ -83,6 +89,13 @@ const NodeTypeButtonGroup = (props: NodeTypeButtonGroupProps): JSX.Element => {
     return (
         <div className={classes.nodeTypeButtonGroup}>
             <ButtonGroup className={classes.buttons}>{getInitButtons()}</ButtonGroup>
+            <Button
+                onClick={() => clear()}
+                className={classes.clearButton}
+                disabled={props.running && props.running === true}
+            >
+                Clear
+            </Button>
         </div>
     );
 };

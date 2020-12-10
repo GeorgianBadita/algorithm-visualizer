@@ -29,11 +29,6 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 type LayoutProps = ConnectedProps<typeof connector>;
 
 const Layout = (props: LayoutProps): JSX.Element => {
-    const clearApp = () => {
-        props.clearAppState();
-        props.clearGraph();
-    };
-
     return (
         <>
             <Toolbar
@@ -42,7 +37,6 @@ const Layout = (props: LayoutProps): JSX.Element => {
                 selectedAlg={props.selectedAlgorithm}
                 setSelectedAlg={props.setSelectedAlgorithm}
                 changeRunningState={props.changeAppRunningState}
-                clearApp={clearApp}
                 resetGraphForRunningAlg={props.resetGraphForRunningAlg}
                 changeAlgSpeed={props.changeSpeed}
             />

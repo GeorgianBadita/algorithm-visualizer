@@ -16,6 +16,7 @@ import {
     changeDestinationNode,
     changeSourceNode,
     changeTable,
+    clearGraph,
     deleteNode,
     initGraph,
 } from '../../store/graph/actions';
@@ -28,7 +29,7 @@ import {
 } from '../../utils/utilsFunctions';
 import NodeTypeButtonGroup from '../../components/NodeTypeButtonGroup';
 import { NodeTypeButtonType, RESTORE_NODE_BUTTON } from '../../utils/types/graph-algorithms/node-type-button-type';
-import { changeRunningState } from '../../store/app/actions';
+import { changeRunningState, clearApp } from '../../store/app/actions';
 import { GraphAlgorithmResult, Pair } from '../../utils/types/graph-algorithms/algorithm-results-types';
 
 const DEFAULT_HEIGHT = 22;
@@ -64,6 +65,8 @@ const mapDispatchToProps = {
     changeRunningState: changeRunningState,
     setTable: changeTable,
     setRunning: changeRunningState,
+    clearAppState: clearApp,
+    clearGraph: clearGraph,
 };
 
 const mapStateToProps = (state: AlgorithmVisualizerState) => ({
@@ -74,6 +77,7 @@ const mapStateToProps = (state: AlgorithmVisualizerState) => ({
     graphState: state.graph,
     table: state.graph.table,
     speed: state.app.speed,
+    running: state.app.running,
 });
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
@@ -153,9 +157,18 @@ const GraphContainerAlgorithms = (props: GraphContainerAlgorithmsProps): JSX.Ele
         }
     }, [props.runningAlg, stillRunning]);
 
+    const clearApp = () => {
+        props.clearAppState();
+        props.clearGraph();
+    };
+
     return (
         <>
             <NodeTypeButtonGroup
+                selectedAlg={props.selectedAlg}
+                running={props.running}
+                clearApp={clearApp}
+                changeAppRunningState={props.changeRunningState}
                 activeNodeTypeButton={activeNodeType}
                 setActiveNodeTypeButton={setActiveNodeType as Dispatch<SetStateAction<NodeTypeButtonType>>}
             />

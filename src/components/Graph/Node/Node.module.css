@@ -17,7 +17,7 @@
 }
 
 .source {
-    background-image: url('../../../assets/images/startArrow.png');
+    background-image: url('../../../assets/images/start.png');
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
@@ -74,8 +74,7 @@
 }
 
 .visitedWeight {
-    background: url('../../../assets/images/weight.png') repeat,
-        radial-gradient(circle, rgba(63, 94, 251, 1) 0%, rgba(252, 70, 107, 1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    background: url('../../../assets/images/weight.png') repeat, radial-gradient(circle, #2193b0 0%, #6dd5ed 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
@@ -90,8 +89,7 @@
 }
 
 .visitedShortestPathWeight {
-    background: url('../../../assets/images/weight.png') repeat,
-        linear-gradient(to right top, #051937, #004d7a, #008793, #00bf72, #a8eb12);
+    background: url('../../../assets/images/weight.png') repeat, radial-gradient(circle, #fceabb 0%, #f8b500 100%);
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
@@ -103,10 +101,11 @@
     animation-play-state: running;
     animation-fill-mode: forwards;
     z-index: -1;
+    color: black;
 }
 
 .visited {
-    background: radial-gradient(circle, rgba(63, 94, 251, 1) 0%, rgba(252, 70, 107, 1) 100%);
+    background: radial-gradient(circle, #2193b0 0%, #6dd5ed 100%);
     animation-name: specialNodes;
     animation-duration: 0.3s;
     animation-timing-function: ease-out;
@@ -118,7 +117,7 @@
 }
 
 .shortestPath {
-    background-image: linear-gradient(to right top, #051937, #004d7a, #008793, #00bf72, #a8eb12);
+    background-image: radial-gradient(circle, #fceabb 0%, #f8b500 100%);
     animation-name: specialNodes;
     animation-duration: 0.5s;
     animation-timing-function: ease-out;
@@ -127,6 +126,7 @@
     animation-play-state: running;
     animation-fill-mode: forwards;
     z-index: -1;
+    color: black;
 }
 
 @keyframes specialNodes {
