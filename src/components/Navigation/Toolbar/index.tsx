@@ -2,17 +2,14 @@ import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import { AlgorithmType } from '../../../App';
 import { AppActionTypes } from '../../../store/app/types';
-import { SpeedType } from '../../../utils/types/graph-algorithms/alg-speed-type';
 import NavigationItems from '../NavigationItems';
 
 type ToolbarProps = {
     title: string;
     selectedAlg: AlgorithmType;
     running: boolean;
-    setSelectedAlg: (alg: AlgorithmType) => AppActionTypes;
     changeRunningState: (state: boolean) => AppActionTypes;
     resetGraphForRunningAlg: () => void;
-    changeAlgSpeed: (newValue: SpeedType) => void;
 };
 
 const Toolbar = (props: ToolbarProps): JSX.Element => (
@@ -24,10 +21,8 @@ const Toolbar = (props: ToolbarProps): JSX.Element => (
                 <NavigationItems
                     running={props.running}
                     selectedAlg={props.selectedAlg}
-                    setSelectedAlg={props.setSelectedAlg}
                     changeApprunningState={props.changeRunningState}
                     resetGraphForAlg={props.resetGraphForRunningAlg}
-                    changeAlgSpeed={props.changeAlgSpeed}
                 />
             </Navbar.Collapse>
         </Navbar>

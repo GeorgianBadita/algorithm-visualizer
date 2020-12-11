@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import { GraphAlgoirhtmsType } from './utils/types/graph-algorithms/algorithm-types';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import 'semantic-ui-css/semantic.min.css';
 
 type AppProps = {
     store: any;

@@ -29,7 +29,7 @@ import {
 } from '../../utils/utilsFunctions';
 import NodeTypeButtonGroup from '../../components/NodeTypeButtonGroup';
 import { NodeTypeButtonType, RESTORE_NODE_BUTTON } from '../../utils/types/graph-algorithms/node-type-button-type';
-import { changeRunningState, clearApp } from '../../store/app/actions';
+import { changeAlgorithm, changeRunningState, changeSpeed, clearApp } from '../../store/app/actions';
 import { GraphAlgorithmResult, Pair } from '../../utils/types/graph-algorithms/algorithm-results-types';
 
 const DEFAULT_HEIGHT = 22;
@@ -45,9 +45,9 @@ const DEFAULT_FIRST_PERIOD_SHORTEST_PATH = 10;
 const DEFAULT_INCREMENT_SHORTEST_PATH = 5;
 
 const SPEED_MAPPING = {
-    'Low Speed': 6,
-    'Medium Speed': 3,
-    'High Speed': 1,
+    'Low Speed': 10,
+    'Medium Speed': 4,
+    'High Speed': 0.75,
 };
 
 export type TableNodeType = {
@@ -67,6 +67,8 @@ const mapDispatchToProps = {
     setRunning: changeRunningState,
     clearAppState: clearApp,
     clearGraph: clearGraph,
+    setSelectedAlg: changeAlgorithm,
+    setSpeed: changeSpeed,
 };
 
 const mapStateToProps = (state: AlgorithmVisualizerState) => ({
@@ -166,11 +168,13 @@ const GraphContainerAlgorithms = (props: GraphContainerAlgorithmsProps): JSX.Ele
         <>
             <NodeTypeButtonGroup
                 selectedAlg={props.selectedAlg}
+                setSelectedAlg={props.setSelectedAlg}
                 running={props.running}
                 clearApp={clearApp}
                 changeAppRunningState={props.changeRunningState}
                 activeNodeTypeButton={activeNodeType}
                 setActiveNodeTypeButton={setActiveNodeType as Dispatch<SetStateAction<NodeTypeButtonType>>}
+                setSpeed={props.setSpeed}
             />
             <div className={classes.graphContainerAlgorithms}>
                 <Graph

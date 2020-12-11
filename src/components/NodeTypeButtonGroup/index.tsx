@@ -16,7 +16,11 @@ import wall from '../../assets/images/wall.png';
 import weight from '../../assets/images/weight.png';
 import simple from '../../assets/images/simple.png';
 import Button from 'react-bootstrap/Button';
-import { GraphAlgoirhtmsType, NO_ALGORITHM } from '../../utils/types/graph-algorithms/algorithm-types';
+import { GraphAlgoirhtmsType } from '../../utils/types/graph-algorithms/algorithm-types';
+import { Dropdown } from 'semantic-ui-react';
+import { AlgorithmType } from '../../App';
+import { algNameToAlgType, speedStrToSpeed } from '../../utils/utilsFunctions';
+import { SpeedType } from '../../utils/types/graph-algorithms/alg-speed-type';
 
 type ButtonData = {
     text: string;
@@ -58,6 +62,48 @@ const initButtons: ButtonData[] = [
     },
 ];
 
+const algOptions = [
+    {
+        key: 'Breadth First Search',
+        value: 'Breadth First Search',
+        text: 'Breadth First Search',
+    },
+    {
+        key: "Dijkstra's Algorithm",
+        value: "Dijkstra's Algorithm",
+        text: "Dijkstra's Algorithm",
+    },
+
+    {
+        key: 'A* Alrogithm',
+        value: 'A* Algorithm',
+        text: 'A* Algorithm',
+    },
+    {
+        key: 'Best First Search',
+        value: 'Best First Search',
+        text: 'Best First Search',
+    },
+];
+
+const speedOptions = [
+    {
+        key: 'Low Speed',
+        value: 'Low Speed',
+        text: 'Low Speed',
+    },
+    {
+        key: 'Medium Speed',
+        value: 'Medium Speed',
+        text: 'Medium Speed',
+    },
+    {
+        key: 'High Speed',
+        value: 'High Speed',
+        text: 'High Speed',
+    },
+];
+
 type NodeTypeButtonGroupProps = {
     activeNodeTypeButton?: NodeTypeButtonType;
     setActiveNodeTypeButton: Dispatch<SetStateAction<NodeTypeButtonType>>;
@@ -65,6 +111,8 @@ type NodeTypeButtonGroupProps = {
     running: boolean;
     clearApp: () => void;
     changeAppRunningState: (newState: boolean) => void;
+    setSelectedAlg: (alg: AlgorithmType) => void;
+    setSpeed: (speed: SpeedType) => void;
 };
 
 const NodeTypeButtonGroup = (props: NodeTypeButtonGroupProps): JSX.Element => {
@@ -87,16 +135,39 @@ const NodeTypeButtonGroup = (props: NodeTypeButtonGroupProps): JSX.Element => {
     };
 
     return (
-        <div className={classes.nodeTypeButtonGroup}>
-            <ButtonGroup className={classes.buttons}>{getInitButtons()}</ButtonGroup>
-            <Button
-                onClick={() => clear()}
-                className={classes.clearButton}
-                disabled={props.running && props.running === true}
-            >
-                Clear
-            </Button>
-        </div>
+        <>
+            <div className={classes.nodeTypeButtonGroup}>
+                <Dropdown // Dropdown for Algorithm selection
+                    className={classes.select}
+                    selection
+                    options={algOptions}
+                    defaultValue={algOptions[0].value}
+                    onChange={(_, data) => {
+                        if (data.value) props.setSelectedAlg(algNameToAlgType(data.value.toString()));
+                    }}
+                    disabled={props.running}
+                />
+                <Dropdown // Dropdown for speed selection
+                    className={classes.select}
+                    selection
+                    options={speedOptions}
+                    defaultValue={speedOptions[1].value}
+                    onChange={(_, data) => {
+                        if (data.value) props.setSpeed(speedStrToSpeed(data.value.toString()));
+                    }}
+                    disabled={props.running}
+                />
+                <ButtonGroup className={classes.buttons}>{getInitButtons()}</ButtonGroup>
+                <Button //clear button
+                    onClick={() => clear()}
+                    className={classes.clearButton}
+                    variant="outline-danger"
+                    disabled={props.running && props.running === true}
+                >
+                    Clear
+                </Button>
+            </div>
+        </>
     );
 };
 

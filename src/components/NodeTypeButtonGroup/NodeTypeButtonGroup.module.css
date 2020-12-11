@@ -12,5 +12,9 @@
 }
 
 .clearButton {
-    margin-left: 100px;
+    margin-left: 20px;
+}
+
+.select {
+    margin-right: 20px;
 }

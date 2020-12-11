@@ -9,6 +9,11 @@
     outline: 0;
 }
 
+.nodeTypeButton:hover {
+    background: #23282c;
+    color: white;
+}
+
 .nodeTypeButtonActive {
     background: #343a40;
     color: white;

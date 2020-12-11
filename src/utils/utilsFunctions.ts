@@ -354,7 +354,7 @@ export const algorithmDoesNoatAcceptWeights = (table: TableNodeType[][], selecte
     return !(notSupportingWeights.filter((alg: GraphAlgoirhtmsType) => alg === selectedAlg).length === 0);
 };
 
-export const speedStrTpSpeed = (newSpeed: string): SpeedType => {
+export const speedStrToSpeed = (newSpeed: string): SpeedType => {
     switch (newSpeed) {
         case 'Low Speed':
             return LOW_SPEED;
