@@ -31,6 +31,7 @@ import NodeTypeButtonGroup from '../../components/NodeTypeButtonGroup';
 import { NodeTypeButtonType, RESTORE_NODE_BUTTON } from '../../utils/types/graph-algorithms/node-type-button-type';
 import { changeAlgorithm, changeRunningState, changeSpeed, clearApp } from '../../store/app/actions';
 import { GraphAlgorithmResult, Pair } from '../../utils/types/graph-algorithms/algorithm-results-types';
+import { useWindowSize } from '../../hooks/hooks';
 
 const DEFAULT_HEIGHT = 22;
 const DEFAULT_WIDTH = 58;
@@ -86,13 +87,15 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 type GraphContainerAlgorithmsProps = ConnectedProps<typeof connector>;
 
 const GraphContainerAlgorithms = (props: GraphContainerAlgorithmsProps): JSX.Element => {
-    const [height, setHeight] = React.useState(DEFAULT_HEIGHT);
-    const [width, setWidth] = React.useState(DEFAULT_WIDTH);
+    // const [height, setHeight] = React.useState(DEFAULT_HEIGHT);
+    // const [width, setWidth] = React.useState(DEFAULT_WIDTH);
+    const [width, height] = useWindowSize();
     const [activeNodeType, setActiveNodeType] = React.useState(RESTORE_NODE_BUTTON as NodeTypeButtonType);
     const [stillRunning, setStillRunning] = React.useState(false);
     const tableRef = React.useRef(props.table);
     tableRef.current = props.table;
-
+    console.log(width);
+    console.log(height);
     const speedMultiplier = SPEED_MAPPING[props.speed];
 
     const handleShowShortestPath = (shortestPath: Pair[]) => {
@@ -124,6 +127,8 @@ const GraphContainerAlgorithms = (props: GraphContainerAlgorithmsProps): JSX.Ele
             props.setRunning(false);
             return;
         }
+
+        //Handle the case where there is no path to the destination node
         const { visitedNodesInOrder, shortestPath }: GraphAlgorithmResult = getVisitedNodes(
             props.selectedAlg,
             props.graphState,

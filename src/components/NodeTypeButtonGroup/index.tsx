@@ -62,7 +62,7 @@ const initButtons: ButtonData[] = [
     },
 ];
 
-const algOptions = [
+const algDropdownOptions = [
     {
         key: 'Breadth First Search',
         value: 'Breadth First Search',
@@ -86,7 +86,7 @@ const algOptions = [
     },
 ];
 
-const speedOptions = [
+const speedDropdownOptions = [
     {
         key: 'Low Speed',
         value: 'Low Speed',
@@ -119,6 +119,8 @@ const NodeTypeButtonGroup = (props: NodeTypeButtonGroupProps): JSX.Element => {
     const clear = () => {
         props.changeAppRunningState(false);
         props.clearApp();
+        window.location.reload();
+        //TODO: this is a hacky way to do this, solve this issue
     };
 
     const getInitButtons = (): JSX.Element[] => {
@@ -140,8 +142,8 @@ const NodeTypeButtonGroup = (props: NodeTypeButtonGroupProps): JSX.Element => {
                 <Dropdown // Dropdown for Algorithm selection
                     className={classes.select}
                     selection
-                    options={algOptions}
-                    defaultValue={algOptions[0].value}
+                    options={algDropdownOptions}
+                    defaultValue={algDropdownOptions[0].value}
                     onChange={(_, data) => {
                         if (data.value) props.setSelectedAlg(algNameToAlgType(data.value.toString()));
                     }}
@@ -150,8 +152,8 @@ const NodeTypeButtonGroup = (props: NodeTypeButtonGroupProps): JSX.Element => {
                 <Dropdown // Dropdown for speed selection
                     className={classes.select}
                     selection
-                    options={speedOptions}
-                    defaultValue={speedOptions[1].value}
+                    options={speedDropdownOptions}
+                    defaultValue={speedDropdownOptions[1].value}
                     onChange={(_, data) => {
                         if (data.value) props.setSpeed(speedStrToSpeed(data.value.toString()));
                     }}
@@ -159,7 +161,7 @@ const NodeTypeButtonGroup = (props: NodeTypeButtonGroupProps): JSX.Element => {
                 />
                 <ButtonGroup className={classes.buttons}>{getInitButtons()}</ButtonGroup>
                 <Button //clear button
-                    onClick={() => clear()}
+                    onClick={clear}
                     className={classes.clearButton}
                     variant="outline-danger"
                     disabled={props.running && props.running === true}

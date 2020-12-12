@@ -9,7 +9,7 @@ const AlgVisualizerRouting = (): JSX.Element => (
     <>
         <Switch>
             <Route path={'/graphs'} exact component={GraphContainerAlgorithms} />
-            <Redirect to={'/'} />
+            <Redirect to={'/graphs'} />
         </Switch>
     </>
 );

@@ -15,6 +15,7 @@ import {
     fromIndexToPair,
     fromPairToIndex,
     generateRandomNumber,
+    getWeightFromNode,
     isBlockedNode,
     validCoords,
 } from '../../utils/utilsFunctions';
@@ -54,6 +55,12 @@ const initData = (height: number, width: number): TableNodeType[][] => {
 const addNodeToGraph = (node: GraphNode, table: TableNodeType[][], state: GraphState): GraphState => {
     if (!state.nodes.some((elem: GraphNode) => elem.id === node.id)) {
         const newEdges = { ...state.edges };
+        // const newEdges = Object.keys(state.edges).reduce((edges: Edges, key: string) => {
+        //     edges[key] = state.edges[key].map((node: GraphNode) => ({ ...node }));
+
+        //     return edges;
+        // }, {});
+
         newEdges[node.id] = [];
         const { row, col } = fromIndexToPair(parseInt(node.id, 10), state.width);
         const dx = [-1, 0, 0, 1];
@@ -66,9 +73,16 @@ const addNodeToGraph = (node: GraphNode, table: TableNodeType[][], state: GraphS
                 const adjId = `${fromPairToIndex({ row: adjRow, col: adjCol }, state.width)}`;
                 const isAdjBlocked = isBlockedNode({ row: adjRow, col: adjCol }, table);
                 if (!isAdjBlocked && !newEdges[node.id].includes({ id: adjId } as GraphNode)) {
-                    newEdges[node.id].push({
-                        id: adjId,
-                    } as GraphNode);
+                    if (table[adjRow][adjCol].nodeType === WEIGHTED_NODE) {
+                        newEdges[node.id].push({
+                            id: adjId,
+                            weight: getWeightFromNode(adjId, state.nodes),
+                        } as GraphNode);
+                    } else {
+                        newEdges[node.id].push({
+                            id: adjId,
+                        } as GraphNode);
+                    }
                 }
 
                 if (!isAdjBlocked && !newEdges[adjId].includes({ id: node.id } as GraphNode)) {

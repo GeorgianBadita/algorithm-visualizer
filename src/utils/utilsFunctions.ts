@@ -10,8 +10,12 @@ import {
 } from './types/graph-algorithms/algorithm-types';
 import {
     DESTINATION_NODE,
+    SHORTEST_PATH_NODE,
     SIMPLE_NODE,
     SOURCE_NODE,
+    VISITED_NODE,
+    VISITED_WEIGHT_NODE,
+    VISITED_WEIGHT_SHORTEST_PATH_NODE,
     WALL_NODE,
     WEIGHTED_NODE,
 } from '../utils/types/graph-algorithms/node-type';
@@ -90,7 +94,11 @@ export const getNewGrid = (
             if (
                 table[x][y].nodeType === SOURCE_NODE ||
                 table[x][y].nodeType === DESTINATION_NODE ||
-                table[x][y].nodeType === SIMPLE_NODE
+                table[x][y].nodeType === SIMPLE_NODE ||
+                table[x][y].nodeType === VISITED_NODE ||
+                table[x][y].nodeType === VISITED_WEIGHT_NODE ||
+                table[x][y].nodeType === SHORTEST_PATH_NODE ||
+                table[x][y].nodeType === VISITED_WEIGHT_SHORTEST_PATH_NODE
             ) {
                 return table as TableNodeType[][];
             }
@@ -188,10 +196,15 @@ export const reduxGraphUpdateDispatchHelper = (
             if (
                 table[x][y].nodeType === SOURCE_NODE ||
                 table[x][y].nodeType === DESTINATION_NODE ||
-                table[x][y].nodeType === SIMPLE_NODE
+                table[x][y].nodeType === SIMPLE_NODE ||
+                table[x][y].nodeType === VISITED_NODE ||
+                table[x][y].nodeType === VISITED_WEIGHT_NODE ||
+                table[x][y].nodeType === SHORTEST_PATH_NODE ||
+                table[x][y].nodeType === VISITED_WEIGHT_SHORTEST_PATH_NODE
             ) {
                 break;
             }
+            deleteNodeHandler({ id: `${fromPairToIndex({ row: x, col: y }, width)}` });
             addNodeHandler({ id: `${fromPairToIndex({ row: x, col: y }, width)}` }, table);
             break;
         default:
@@ -233,7 +246,7 @@ export const getShortestPath = (
 ): GraphNode[] => {
     const result: GraphNode[] = [];
     let currentNode = destination;
-    while (currentNode.id !== source.id) {
+    while (currentNode !== undefined && currentNode.id !== source.id) {
         result.push({ ...currentNode });
         currentNode = parentVector[currentNode.id];
     }
@@ -365,4 +378,14 @@ export const speedStrToSpeed = (newSpeed: string): SpeedType => {
         default:
             return MEDIUM_SPEED;
     }
+};
+
+export const getWeightFromNode = (adjId: string, nodes: GraphNode[]): number | undefined => {
+    let weight = undefined;
+    nodes.forEach((node: GraphNode) => {
+        if (node.id === adjId) {
+            weight = node.weight;
+        }
+    });
+    return weight;
 };
