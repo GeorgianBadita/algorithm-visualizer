@@ -1,5 +1,5 @@
-import { AlgorithmType } from '../../App';
-import { SpeedType } from '../../utils/types/graph-algorithms/alg-speed-type';
+import { SpeedType } from '../../utils/types/app-types/alg-speed-type';
+import { AlgorithmType } from '../../utils/types/app-types/algorithm-classes-types';
 import { AppActionTypes, CHANGE_ALGORITHM, CHANGE_RUNNING_STATE, CHANGE_SPEED, CLEAR_APP } from './types';
 
 export const changeAlgorithm = (alg: AlgorithmType): AppActionTypes => ({

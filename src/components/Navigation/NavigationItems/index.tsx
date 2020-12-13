@@ -2,12 +2,12 @@ import React from 'react';
 import NavDropdown from 'react-bootstrap/esm/NavDropdown';
 import Nav from 'react-bootstrap/Nav';
 import { AppActionTypes } from '../../../store/app/types';
-import { GraphAlgoirhtmsType } from '../../../utils/types/graph-algorithms/algorithm-types';
+import { AlgorithmType } from '../../../utils/types/app-types/algorithm-classes-types';
 import { ITEM_TYPE, BUTTON_TYPE } from '../../../utils/types/graph-algorithms/navigation-item-type';
 import NavigationItem from './NavigationItem';
 
 type NavigationItemsProps = {
-    selectedAlg: GraphAlgoirhtmsType;
+    selectedAlg: AlgorithmType;
     running: boolean;
     changeApprunningState: (state: boolean) => AppActionTypes;
     resetGraphForAlg: () => void;

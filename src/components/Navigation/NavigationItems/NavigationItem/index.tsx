@@ -13,11 +13,12 @@ import {
     LINK_TYPE,
     NavigationItemType,
 } from '../../../../utils/types/graph-algorithms/navigation-item-type';
-import { NO_ALGORITHM } from '../../../../utils/types/graph-algorithms/algorithm-types';
-import { AlgorithmType } from '../../../../App';
+import { NO_ALGORITHM } from '../../../../utils/types/graph-algorithms/graph-algorithm-types';
+
 import classes from './NavigationItem.module.css';
-import { withRouter, RouteComponentProps, Link } from 'react-router-dom';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 import NavItem from 'react-bootstrap/esm/NavItem';
+import { AlgorithmType } from '../../../../utils/types/app-types/algorithm-classes-types';
 
 type NavigationItemRouterProps = RouteComponentProps<any> & {
     navType: NavigationItemType;

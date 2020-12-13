@@ -8,8 +8,8 @@ import { TableNodeType } from '../../containers/GraphContainerAlgorithms';
 import { GraphNode } from '../../algorithms/graph-algorithms/graph';
 import { GraphActionTypes } from '../../store/graph/types';
 import { NodeTypeButtonType } from '../../utils/types/graph-algorithms/node-type-button-type';
-import { GraphAlgoirhtmsType } from '../../utils/types/graph-algorithms/algorithm-types';
 import { toast } from 'react-toastify';
+import { AlgorithmType } from '../../utils/types/app-types/algorithm-classes-types';
 
 const DEFAULT_WEIGHT_VALUE = 10;
 
@@ -18,7 +18,7 @@ type GraphProps = {
     width: number;
     table: TableNodeType[][];
     activeNodeTypeButton: NodeTypeButtonType;
-    selectedAlg: GraphAlgoirhtmsType;
+    selectedAlg: AlgorithmType;
     setGraph: (value: TableNodeType[][]) => void;
     running: boolean;
     changeSourceNode: (newSoruce: GraphNode) => GraphActionTypes;

@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
-import { AlgorithmType } from '../../../App';
 import { AppActionTypes } from '../../../store/app/types';
+import { AlgorithmType } from '../../../utils/types/app-types/algorithm-classes-types';
 import NavigationItems from '../NavigationItems';
 
 type ToolbarProps = {

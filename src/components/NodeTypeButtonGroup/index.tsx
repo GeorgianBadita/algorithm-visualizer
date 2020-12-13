@@ -16,11 +16,11 @@ import wall from '../../assets/images/wall.png';
 import weight from '../../assets/images/weight.png';
 import simple from '../../assets/images/simple.png';
 import Button from 'react-bootstrap/Button';
-import { GraphAlgoirhtmsType } from '../../utils/types/graph-algorithms/algorithm-types';
+import { GraphAlgoirhtmsType } from '../../utils/types/graph-algorithms/graph-algorithm-types';
 import { Dropdown } from 'semantic-ui-react';
-import { AlgorithmType } from '../../App';
 import { algNameToAlgType, speedStrToSpeed } from '../../utils/utilsFunctions';
-import { SpeedType } from '../../utils/types/graph-algorithms/alg-speed-type';
+import { SpeedType } from '../../utils/types/app-types/alg-speed-type';
+import { AlgorithmType } from '../../utils/types/app-types/algorithm-classes-types';
 
 type ButtonData = {
     text: string;
@@ -107,7 +107,7 @@ const speedDropdownOptions = [
 type NodeTypeButtonGroupProps = {
     activeNodeTypeButton?: NodeTypeButtonType;
     setActiveNodeTypeButton: Dispatch<SetStateAction<NodeTypeButtonType>>;
-    selectedAlg: GraphAlgoirhtmsType;
+    selectedAlg: AlgorithmType;
     running: boolean;
     clearApp: () => void;
     changeAppRunningState: (newState: boolean) => void;

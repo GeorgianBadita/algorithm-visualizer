@@ -7,7 +7,7 @@ import {
     DIJKSTRA_ALGORITHM,
     GraphAlgoirhtmsType,
     NO_ALGORITHM,
-} from './types/graph-algorithms/algorithm-types';
+} from './types/graph-algorithms/graph-algorithm-types';
 import {
     DESTINATION_NODE,
     SHORTEST_PATH_NODE,
@@ -35,7 +35,8 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { aStar } from '../algorithms/graph-algorithms/a_star';
 import { bestFirstSearch } from '../algorithms/graph-algorithms/best-first-search';
-import { HIGH_SPEED, LOW_SPEED, MEDIUM_SPEED, SpeedType } from './types/graph-algorithms/alg-speed-type';
+import { HIGH_SPEED, LOW_SPEED, MEDIUM_SPEED, SpeedType } from './types/app-types/alg-speed-type';
+import { AlgorithmType } from './types/app-types/algorithm-classes-types';
 
 export const validCoords = (x: number, y: number, height: number, width: number): boolean => {
     return x >= 0 && y >= 0 && x < height && y < width;
@@ -64,6 +65,30 @@ export const copyTableImmutable = (table: TableNodeType[][]): TableNodeType[][] 
     return table.map((arr: TableNodeType[]) => {
         return arr.map((elem: TableNodeType) => ({ ...elem } as TableNodeType));
     }) as TableNodeType[][];
+};
+
+export const createErrorToast = (err: string): void => {
+    toast.error(err, {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+    });
+};
+
+export const wasAlgorithmRunning = (table: TableNodeType[][]): boolean => {
+    return table.some((row: TableNodeType[]) =>
+        row.some(
+            (elem: TableNodeType) =>
+                elem.nodeType === VISITED_NODE ||
+                elem.nodeType === VISITED_WEIGHT_NODE ||
+                elem.nodeType === SHORTEST_PATH_NODE ||
+                elem.nodeType === VISITED_WEIGHT_SHORTEST_PATH_NODE,
+        ),
+    );
 };
 
 export const getNewGrid = (
@@ -112,6 +137,10 @@ export const getNewGrid = (
             if (table[x][y].nodeType !== SIMPLE_NODE) {
                 return table as TableNodeType[][];
             }
+            if (wasAlgorithmRunning(table)) {
+                createErrorToast('You cannot move the source node, on a visited graph');
+                return table as TableNodeType[][];
+            }
             const newTable = copyTableImmutable(table).map((row: TableNodeType[]): TableNodeType[] => {
                 return row.map(
                     (elem: TableNodeType): TableNodeType => {
@@ -130,7 +159,10 @@ export const getNewGrid = (
             if (table[x][y].nodeType !== SIMPLE_NODE) {
                 return table as TableNodeType[][];
             }
-
+            if (wasAlgorithmRunning(table)) {
+                createErrorToast('You cannot move the destination node, on a visited graph');
+                return table as TableNodeType[][];
+            }
             const newTable = copyTableImmutable(table).map((row: TableNodeType[]): TableNodeType[] => {
                 return row.map(
                     (elem: TableNodeType): TableNodeType => {
@@ -168,12 +200,17 @@ export const reduxGraphUpdateDispatchHelper = (
             if (table[x][y].nodeType !== SIMPLE_NODE) {
                 break;
             }
-
+            if (wasAlgorithmRunning(table)) {
+                break;
+            }
             changeSourceNodeHandler({ id: `${fromPairToIndex({ row: x, col: y }, width)}` });
 
             break;
         case DESTINATION_NODE_BUTTON:
             if (table[x][y].nodeType !== SIMPLE_NODE) {
+                break;
+            }
+            if (wasAlgorithmRunning(table)) {
                 break;
             }
             changeDestinationNodeHandler({ id: `${fromPairToIndex({ row: x, col: y }, width)}` });
@@ -254,7 +291,7 @@ export const getShortestPath = (
     return result.reverse();
 };
 
-export const getVisitedNodes = (algType: GraphAlgoirhtmsType, graphState: GraphState): GraphAlgorithmResult => {
+export const getVisitedNodes = (algType: AlgorithmType, graphState: GraphState): GraphAlgorithmResult => {
     switch (algType) {
         case BREADTH_FIRST_SEARCH:
             if (graphState.source && graphState.destination) {
@@ -330,7 +367,7 @@ export const getVisitedNodes = (algType: GraphAlgoirhtmsType, graphState: GraphS
 };
 
 export const checkCanPutWeight = (
-    currentSelectedAlg: GraphAlgoirhtmsType,
+    currentSelectedAlg: AlgorithmType,
     currentSelectedButton: NodeTypeButtonType,
 ): boolean => {
     return !(
@@ -339,23 +376,11 @@ export const checkCanPutWeight = (
     );
 };
 
-export const createErrorToast = (err: string): void => {
-    toast.error(err, {
-        position: 'bottom-right',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-    });
-};
-
 export const computeDistance = (p1: Pair, p2: Pair): number => {
     return Math.sqrt((p1.row - p2.row) * (p1.row - p2.row) + (p1.col - p2.col) * (p1.col - p2.col));
 };
 
-export const algorithmDoesNoatAcceptWeights = (table: TableNodeType[][], selectedAlg: GraphAlgoirhtmsType): boolean => {
+export const algorithmDoesNoatAcceptWeights = (table: TableNodeType[][], selectedAlg: AlgorithmType): boolean => {
     const existsWeights = table.some((row: TableNodeType[]) =>
         row.some((elem: TableNodeType) => elem.nodeType === WEIGHTED_NODE),
     );

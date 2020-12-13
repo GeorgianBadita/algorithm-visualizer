@@ -3,7 +3,7 @@ import Layout from './hoc/Layout';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AlgVisualizerRouting from './containers/AlgVisualizerRouting';
 import { Provider } from 'react-redux';
-import { GraphAlgoirhtmsType } from './utils/types/graph-algorithms/algorithm-types';
+import { GraphAlgoirhtmsType } from './utils/types/graph-algorithms/graph-algorithm-types';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'semantic-ui-css/semantic.min.css';
@@ -11,8 +11,6 @@ import 'semantic-ui-css/semantic.min.css';
 type AppProps = {
     store: any;
 };
-
-export type AlgorithmType = GraphAlgoirhtmsType;
 
 const App = (props: AppProps): JSX.Element => {
     return (

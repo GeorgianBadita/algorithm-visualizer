@@ -1,5 +1,5 @@
-import { AlgorithmType } from '../../App';
-import { SpeedType } from '../../utils/types/graph-algorithms/alg-speed-type';
+import { SpeedType } from '../../utils/types/app-types/alg-speed-type';
+import { AlgorithmType } from '../../utils/types/app-types/algorithm-classes-types';
 
 export interface AppState {
     selectedAlg: AlgorithmType;
