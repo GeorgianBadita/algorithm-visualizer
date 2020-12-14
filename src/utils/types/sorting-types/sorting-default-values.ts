@@ -1,0 +1,1 @@
+export const DEFAULT_STACK_HEIGHT = 100;

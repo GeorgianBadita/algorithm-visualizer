@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import GraphContainerAlgorithms from '../GraphContainerAlgorithms';
-import { SortingContainerAlgorithms } from '../SortingContainerAlgorithms';
+import SortingContainerAlgorithms from '../SortingContainerAlgorithms';
 
 /**
  * Routing component
