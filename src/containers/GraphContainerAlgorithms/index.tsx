@@ -143,8 +143,16 @@ const GraphContainerAlgorithms = (props: GraphContainerAlgorithmsProps): JSX.Ele
             currentSetTimeOutDelay += DEFAULT_INCREMENT_VISITED;
         });
     };
+    const clearApp = () => {
+        props.clearAppState();
+        props.clearGraph();
+    };
 
     React.useEffect(() => {
+        if (props.running || stillRunning) {
+            clearApp();
+        }
+
         props.initGraph(height, width);
     }, [height, width]);
 
@@ -154,11 +162,6 @@ const GraphContainerAlgorithms = (props: GraphContainerAlgorithmsProps): JSX.Ele
             handleAlgorithmStartsRunning();
         }
     }, [props.runningAlg, stillRunning]);
-
-    const clearApp = () => {
-        props.clearAppState();
-        props.clearGraph();
-    };
 
     return (
         <>

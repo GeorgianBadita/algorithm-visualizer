@@ -16,7 +16,6 @@ import wall from '../../assets/images/wall.png';
 import weight from '../../assets/images/weight.png';
 import simple from '../../assets/images/simple.png';
 import Button from 'react-bootstrap/Button';
-import { GraphAlgoirhtmsType } from '../../utils/types/graph-algorithms/graph-algorithm-types';
 import { Dropdown } from 'semantic-ui-react';
 import { algNameToAlgType, speedStrToSpeed } from '../../utils/utilsFunctions';
 import { SpeedType } from '../../utils/types/app-types/alg-speed-type';
