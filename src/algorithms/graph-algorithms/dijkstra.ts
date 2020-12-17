@@ -1,7 +1,7 @@
-import { GraphAlgOutput } from '../../utils/types/graph-algorithms/algorithm-results-types';
+import { GraphAlgOutput } from '../../utils/types/graph-types/graph-results-types';
 import { Edges, Graph, GraphNode, ParentVectorType } from './graph';
 import { Heap } from 'ts-heap';
-import { MyDictionary } from '../../utils/dictionary';
+import { MyDictionary } from '../../utils/types/app-types/dictionary';
 
 const heapComparator = (node1: GraphNode, node2: GraphNode): number => {
     if (node1.weight && node2.weight) {

@@ -1,4 +1,4 @@
-import { MyDictionary } from '../../utils/dictionary';
+import { MyDictionary } from '../../utils/types/app-types/dictionary';
 
 export type GraphNode = {
     id: string;

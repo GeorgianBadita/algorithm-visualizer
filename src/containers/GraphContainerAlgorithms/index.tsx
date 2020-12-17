@@ -7,7 +7,7 @@ import {
     VISITED_WEIGHT_NODE,
     VISITED_WEIGHT_SHORTEST_PATH_NODE,
     WEIGHTED_NODE,
-} from '../../utils/types/graph-algorithms/node-type';
+} from '../../utils/types/graph-types/node-type';
 import classes from './GraphContainerAlgorithms.module.css';
 import { connect, ConnectedProps } from 'react-redux';
 import {
@@ -21,17 +21,13 @@ import {
     initGraph,
 } from '../../store/graph/actions';
 import { AlgorithmVisualizerState } from '../../store/state';
-import {
-    algorithmDoesNoatAcceptWeights,
-    copyTableImmutable,
-    createErrorToast,
-    getVisitedNodes,
-} from '../../utils/utilsFunctions';
+import { algorithmDoesNoatAcceptWeights, copyTableImmutable, getVisitedNodes } from '../../utils/graph-utils-functions';
 import NodeTypeButtonGroup from '../../components/NodeTypeButtonGroup';
-import { NodeTypeButtonType, RESTORE_NODE_BUTTON } from '../../utils/types/graph-algorithms/node-type-button-type';
+import { NodeTypeButtonType, RESTORE_NODE_BUTTON } from '../../utils/types/graph-types/node-type-button-type';
 import { changeAlgorithm, changeRunningState, changeSpeed, clearApp } from '../../store/app/actions';
-import { GraphAlgorithmResult, Pair } from '../../utils/types/graph-algorithms/algorithm-results-types';
+import { GraphAlgorithmResult, Pair } from '../../utils/types/graph-types/graph-results-types';
 import { useWindowSize } from '../../hooks/hooks';
+import { createErrorToast } from '../../utils/app-utils-functions';
 
 const DEFAULT_FIRST_PERIOD_VISITED = 2;
 const DEFAULT_INCREMENT_VISITED = 3;

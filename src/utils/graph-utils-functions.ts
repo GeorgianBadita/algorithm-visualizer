@@ -7,7 +7,7 @@ import {
     DIJKSTRA_ALGORITHM,
     GraphAlgoirhtmsType,
     NO_ALGORITHM,
-} from './types/graph-algorithms/graph-algorithm-types';
+} from './types/graph-types/graph-algorithm-types';
 import {
     DESTINATION_NODE,
     SHORTEST_PATH_NODE,
@@ -18,7 +18,7 @@ import {
     VISITED_WEIGHT_SHORTEST_PATH_NODE,
     WALL_NODE,
     WEIGHTED_NODE,
-} from '../utils/types/graph-algorithms/node-type';
+} from './types/graph-types/node-type';
 import {
     DESTINATION_NODE_BUTTON,
     NodeTypeButtonType,
@@ -26,27 +26,19 @@ import {
     SOURCE_NODE_BUTTON,
     WALL_NODE_BUTTON,
     WEIGHTED_NODE_BUTTON,
-} from './types/graph-algorithms/node-type-button-type';
+} from './types/graph-types/node-type-button-type';
 import { TableNodeType } from '../containers/GraphContainerAlgorithms';
 import { GraphState } from '../store/graph/state';
-import { GraphAlgorithmResult, GraphAlgOutput, Pair } from './types/graph-algorithms/algorithm-results-types';
+import { GraphAlgorithmResult, GraphAlgOutput, Pair } from './types/graph-types/graph-results-types';
 import { dijkstra } from '../algorithms/graph-algorithms/dijkstra';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+
 import { aStar } from '../algorithms/graph-algorithms/a_star';
 import { bestFirstSearch } from '../algorithms/graph-algorithms/best-first-search';
-import { HIGH_SPEED, LOW_SPEED, MEDIUM_SPEED, SpeedType } from './types/app-types/alg-speed-type';
 import { AlgorithmType } from './types/app-types/algorithm-classes-types';
+import { createErrorToast } from './app-utils-functions';
 
 export const validCoords = (x: number, y: number, height: number, width: number): boolean => {
     return x >= 0 && y >= 0 && x < height && y < width;
-};
-
-export const generateRandomNumber = (start: number, end: number): number => {
-    start = Math.ceil(start);
-    end = Math.floor(end);
-
-    return Math.floor(Math.random() * (end - start) + start);
 };
 
 export const fromIndexToPair = (index: number, width: number, weight?: number): Pair => {
@@ -65,18 +57,6 @@ export const copyTableImmutable = (table: TableNodeType[][]): TableNodeType[][] 
     return table.map((arr: TableNodeType[]) => {
         return arr.map((elem: TableNodeType) => ({ ...elem } as TableNodeType));
     }) as TableNodeType[][];
-};
-
-export const createErrorToast = (err: string): void => {
-    toast.error(err, {
-        position: 'bottom-right',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-    });
 };
 
 export const wasAlgorithmRunning = (table: TableNodeType[][]): boolean => {
@@ -390,19 +370,6 @@ export const algorithmDoesNoatAcceptWeights = (table: TableNodeType[][], selecte
     const notSupportingWeights: GraphAlgoirhtmsType[] = [BEST_FIRST_SEARCH, BREADTH_FIRST_SEARCH];
 
     return !(notSupportingWeights.filter((alg: GraphAlgoirhtmsType) => alg === selectedAlg).length === 0);
-};
-
-export const speedStrToSpeed = (newSpeed: string): SpeedType => {
-    switch (newSpeed) {
-        case 'Low Speed':
-            return LOW_SPEED;
-        case 'Medium Speed':
-            return MEDIUM_SPEED;
-        case 'High Speed':
-            return HIGH_SPEED;
-        default:
-            return MEDIUM_SPEED;
-    }
 };
 
 export const getWeightFromNode = (adjId: string, nodes: GraphNode[]): number | undefined => {

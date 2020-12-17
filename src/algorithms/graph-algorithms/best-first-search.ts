@@ -1,6 +1,6 @@
 import { GraphState } from '../../store/graph/state';
-import { GraphAlgOutput } from '../../utils/types/graph-algorithms/algorithm-results-types';
-import { computeDistance, fromIndexToPair } from '../../utils/utilsFunctions';
+import { GraphAlgOutput } from '../../utils/types/graph-types/graph-results-types';
+import { computeDistance, fromIndexToPair } from '../../utils/graph-utils-functions';
 import { GraphNode, Graph, ParentVectorType, Edges } from './graph';
 
 export const bestFirstSearch = (

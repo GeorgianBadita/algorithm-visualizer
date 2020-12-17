@@ -12,8 +12,8 @@ import {
     ITEM_TYPE,
     LINK_TYPE,
     NavigationItemType,
-} from '../../../../utils/types/graph-algorithms/navigation-item-type';
-import { NO_ALGORITHM } from '../../../../utils/types/graph-algorithms/graph-algorithm-types';
+} from '../../../../utils/types/graph-types/navigation-item-type';
+import { NO_ALGORITHM } from '../../../../utils/types/graph-types/graph-algorithm-types';
 
 import classes from './NavigationItem.module.css';
 import { withRouter, RouteComponentProps } from 'react-router-dom';

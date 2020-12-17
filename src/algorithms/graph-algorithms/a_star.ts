@@ -1,9 +1,9 @@
-import { GraphAlgOutput, Pair } from '../../utils/types/graph-algorithms/algorithm-results-types';
+import { GraphAlgOutput, Pair } from '../../utils/types/graph-types/graph-results-types';
 import { Edges, Graph, GraphNode, ParentVectorType } from './graph';
 import { Heap } from 'ts-heap';
-import { MyDictionary } from '../../utils/dictionary';
+import { MyDictionary } from '../../utils/types/app-types/dictionary';
 import { GraphState } from '../../store/graph/state';
-import { computeDistance, fromIndexToPair } from '../../utils/utilsFunctions';
+import { computeDistance, fromIndexToPair } from '../../utils/graph-utils-functions';
 
 export const aStar = (source: GraphNode, destination: GraphNode, graphState: GraphState): GraphAlgOutput => {
     const heapComparator = (node1: GraphNode, node2: GraphNode): number => {

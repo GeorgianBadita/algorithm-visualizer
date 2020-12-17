@@ -1,4 +1,4 @@
-import { SortingType } from '../../../store/sorting/state';
-import { GraphAlgoirhtmsType } from '../graph-algorithms/graph-algorithm-types';
+import { GraphAlgoirhtmsType } from '../graph-types/graph-algorithm-types';
+import { SortingAlgorithmsType } from '../sorting-types/sorting-alorithm-types';
 
-export type AlgorithmType = GraphAlgoirhtmsType | SortingType;
+export type AlgorithmType = GraphAlgoirhtmsType | SortingAlgorithmsType;

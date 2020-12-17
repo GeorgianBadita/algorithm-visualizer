@@ -1,5 +1,5 @@
 import { MEDIUM_SPEED } from '../../utils/types/app-types/alg-speed-type';
-import { BREADTH_FIRST_SEARCH } from '../../utils/types/graph-algorithms/graph-algorithm-types';
+import { BREADTH_FIRST_SEARCH } from '../../utils/types/graph-types/graph-algorithm-types';
 import { AppState } from './state';
 import { AppActionTypes, CHANGE_ALGORITHM, CHANGE_RUNNING_STATE, CHANGE_SPEED, CLEAR_APP } from './types';
 

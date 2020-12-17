@@ -1,5 +1,6 @@
 import { Edges, GraphNode } from '../../algorithms/graph-algorithms/graph';
 import { TableNodeType } from '../../containers/GraphContainerAlgorithms';
+import { generateRandomNumber } from '../../utils/app-utils-functions';
 import {
     DESTINATION_NODE,
     SHORTEST_PATH_NODE,
@@ -9,16 +10,15 @@ import {
     VISITED_WEIGHT_NODE,
     VISITED_WEIGHT_SHORTEST_PATH_NODE,
     WEIGHTED_NODE,
-} from '../../utils/types/graph-algorithms/node-type';
+} from '../../utils/types/graph-types/node-type';
 import {
     copyTableImmutable,
     fromIndexToPair,
     fromPairToIndex,
-    generateRandomNumber,
     getWeightFromNode,
     isBlockedNode,
     validCoords,
-} from '../../utils/utilsFunctions';
+} from '../../utils/graph-utils-functions';
 import { GraphState } from './state';
 
 import {

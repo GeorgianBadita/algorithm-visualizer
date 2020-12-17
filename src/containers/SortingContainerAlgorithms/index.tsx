@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { SortingStacks } from '../../components/SortingStacks';
-import { changeAlgorithm } from '../../store/app/actions';
+import SortOptionsButtonGroup from '../../components/SortOptionsButtonGroup';
+import { changeAlgorithm, changeSpeed } from '../../store/app/actions';
 import { changeHighest, changeLowest, initSort } from '../../store/sorting/actions';
 import { AlgorithmVisualizerState } from '../../store/state';
 import classes from './SortingContainerAlgorithms.module.css';
@@ -12,6 +13,7 @@ const DEFAULT_MAX = 50;
 const mapDispatchToProps = {
     initSort: initSort,
     setSelectedAlg: changeAlgorithm,
+    setSpeed: changeSpeed,
     setLowest: changeLowest,
     setHighest: changeHighest,
 };
@@ -40,9 +42,16 @@ const SortingContainerAlgorithms = (props: SortingContainerAlgorithmsProps): JSX
     }, [props.lowest, props.highest]);
 
     return (
-        <div className={classes.sortingContainerAlgorithms}>
-            <SortingStacks heights={props.nums} />
-        </div>
+        <>
+            <SortOptionsButtonGroup
+                running={props.running}
+                setSelectedAlg={props.setSelectedAlg}
+                setSpeed={props.setSpeed}
+            />
+            <div className={classes.sortingContainerAlgorithms}>
+                <SortingStacks heights={props.nums} />
+            </div>
+        </>
     );
 };
 

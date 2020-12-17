@@ -1,5 +1,3 @@
-import { SortingType } from './state';
-
 export const INIT_SORT = 'INIT_SORT';
 export const CHANGE_SORTING_TYPE = 'CHANGE_SORTING_TYPE';
 export const CHANGE_LOWEST = 'CHANGE_LOWEST';
@@ -10,11 +8,6 @@ interface InitSortAction {
     type: typeof INIT_SORT;
     lowest: number;
     highest: number;
-}
-
-interface ChangeSortingTypeAction {
-    type: typeof CHANGE_SORTING_TYPE;
-    newSortingType: SortingType;
 }
 
 interface ChangeLowestAction {
@@ -31,9 +24,4 @@ interface ClearSortAction {
     type: typeof CLEAR_SORT;
 }
 
-export type SortingActions =
-    | InitSortAction
-    | ChangeSortingTypeAction
-    | ChangeLowestAction
-    | ChangeHighestAction
-    | ClearSortAction;
+export type SortingActions = InitSortAction | ChangeLowestAction | ChangeHighestAction | ClearSortAction;

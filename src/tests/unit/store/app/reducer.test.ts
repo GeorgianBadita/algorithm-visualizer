@@ -1,6 +1,6 @@
 import { appReducer } from '../../../../store/app/reducer';
 import { CHANGE_ALGORITHM, CHANGE_RUNNING_STATE } from '../../../../store/app/types';
-import { DIJKSTRA_ALGORITHM, NO_ALGORITHM } from '../../../../utils/types/graph-algorithms/graph-algorithm-types';
+import { DIJKSTRA_ALGORITHM, NO_ALGORITHM } from '../../../../utils/types/graph-types/graph-algorithm-types';
 
 describe('app reducer', () => {
     it('should should handle CHANGE_RUNNING_STATE', () => {

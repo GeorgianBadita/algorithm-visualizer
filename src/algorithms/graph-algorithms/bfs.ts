@@ -1,4 +1,4 @@
-import { GraphAlgOutput } from '../../utils/types/graph-algorithms/algorithm-results-types';
+import { GraphAlgOutput } from '../../utils/types/graph-types/graph-results-types';
 import { GraphNode, Graph, ParentVectorType, Edges } from './graph';
 
 export const bfs = (startNode: GraphNode, destinationNode: GraphNode, graph: Graph): GraphAlgOutput => {

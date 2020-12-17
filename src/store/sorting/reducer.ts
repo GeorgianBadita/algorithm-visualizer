@@ -1,11 +1,11 @@
-import { ASCENDING, SortingState, SortingType } from './state';
-import { CHANGE_HIGHEST, CHANGE_LOWEST, CHANGE_SORTING_TYPE, CLEAR_SORT, INIT_SORT, SortingActions } from './types';
+import { generateRandomNumber } from '../../utils/app-utils-functions';
+import { SortingState } from './state';
+import { CHANGE_HIGHEST, CHANGE_LOWEST, CLEAR_SORT, INIT_SORT, SortingActions } from './types';
 
 const initialSortingState: SortingState = {
     sortingList: { numberList: [] },
     lowest: 0,
     highset: 0,
-    type: ASCENDING,
 };
 
 const initSort = (state: SortingState, lowest: number, highest: number): SortingState => {
@@ -17,16 +17,11 @@ const initSort = (state: SortingState, lowest: number, highest: number): Sorting
         lowest: lowest,
         highest: highest,
         sortingList: {
-            numberList: Array.from({ length: highest }, (x, i) => i).filter((elem: number) => elem >= lowest),
+            numberList: Array.from({ length: highest }, () => generateRandomNumber(lowest, highest + 1)),
         },
     };
     return newState;
 };
-
-const changeSortingType = (state: SortingState, newSortingType: SortingType): SortingState => ({
-    ...state,
-    type: newSortingType,
-});
 
 const changeLowest = (state: SortingState, newLowest: number): SortingState => ({
     ...state,
@@ -40,15 +35,13 @@ const changeHighest = (state: SortingState, newHighest: number): SortingState =>
 
 const clearSort = (state: SortingState): SortingState => ({
     ...initSort(state, state.lowest, state.highset),
-    type: state.type,
 });
 
 export const sortingRedcer = (state = initialSortingState, action: SortingActions): SortingState => {
     switch (action.type) {
         case INIT_SORT:
             return initSort(state, action.lowest, action.highest);
-        case CHANGE_SORTING_TYPE:
-            return changeSortingType(state, action.newSortingType);
+
         case CHANGE_LOWEST:
             return changeLowest(state, action.newLowest);
         case CHANGE_HIGHEST:

@@ -3,7 +3,7 @@ import NavDropdown from 'react-bootstrap/esm/NavDropdown';
 import Nav from 'react-bootstrap/Nav';
 import { AppActionTypes } from '../../../store/app/types';
 import { AlgorithmType } from '../../../utils/types/app-types/algorithm-classes-types';
-import { ITEM_TYPE, BUTTON_TYPE } from '../../../utils/types/graph-algorithms/navigation-item-type';
+import { ITEM_TYPE, BUTTON_TYPE } from '../../../utils/types/graph-types/navigation-item-type';
 import NavigationItem from './NavigationItem';
 
 type NavigationItemsProps = {

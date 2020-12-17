@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import NodeTypeImage from './NodeTypeImage';
 import classes from './NodeTypeButton.module.css';
-import { NodeTypeButtonType } from '../../../utils/types/graph-algorithms/node-type-button-type';
+import { NodeTypeButtonType } from '../../../utils/types/graph-types/node-type-button-type';
 
 type NodeTypeButtonProps = {
     buttonType: NodeTypeButtonType;

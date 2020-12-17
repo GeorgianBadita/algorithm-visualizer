@@ -9,7 +9,7 @@ import {
     VISITED_WEIGHT_SHORTEST_PATH_NODE,
     WALL_NODE,
     WEIGHTED_NODE,
-} from '../../../utils/types/graph-algorithms/node-type';
+} from '../../../utils/types/graph-types/node-type';
 import classes from './Node.module.css';
 
 type NodeProps = {
