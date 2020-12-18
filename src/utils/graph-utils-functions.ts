@@ -36,6 +36,7 @@ import { aStar } from '../algorithms/graph-algorithms/a_star';
 import { bestFirstSearch } from '../algorithms/graph-algorithms/best-first-search';
 import { AlgorithmType } from './types/app-types/algorithm-classes-types';
 import { createErrorToast } from './app-utils-functions';
+import { graphAlgorithms } from './types/graph-types/consts';
 
 export const validCoords = (x: number, y: number, height: number, width: number): boolean => {
     return x >= 0 && y >= 0 && x < height && y < width;
@@ -380,4 +381,8 @@ export const getWeightFromNode = (adjId: string, nodes: GraphNode[]): number | u
         }
     });
     return weight;
+};
+
+export const isGraphAlgorithm = (selectedAlg: AlgorithmType): boolean => {
+    return graphAlgorithms.some((elem: GraphAlgoirhtmsType) => elem === selectedAlg);
 };

@@ -21,7 +21,12 @@ import {
     initGraph,
 } from '../../store/graph/actions';
 import { AlgorithmVisualizerState } from '../../store/state';
-import { algorithmDoesNoatAcceptWeights, copyTableImmutable, getVisitedNodes } from '../../utils/graph-utils-functions';
+import {
+    algorithmDoesNoatAcceptWeights,
+    copyTableImmutable,
+    getVisitedNodes,
+    isGraphAlgorithm,
+} from '../../utils/graph-utils-functions';
 import NodeTypeButtonGroup from '../../components/NodeTypeButtonGroup';
 import { NodeTypeButtonType, RESTORE_NODE_BUTTON } from '../../utils/types/graph-types/node-type-button-type';
 import { changeAlgorithm, changeRunningState, changeSpeed, clearApp } from '../../store/app/actions';
@@ -153,11 +158,11 @@ const GraphContainerAlgorithms = (props: GraphContainerAlgorithmsProps): JSX.Ele
     }, [height, width]);
 
     React.useEffect(() => {
-        if (props.runningAlg && !stillRunning) {
+        if (props.runningAlg && !stillRunning && isGraphAlgorithm(props.selectedAlg)) {
             setStillRunning(true);
             handleAlgorithmStartsRunning();
         }
-    }, [props.runningAlg, stillRunning]);
+    }, [props.runningAlg, stillRunning, props.selectedAlg]);
 
     return (
         <>

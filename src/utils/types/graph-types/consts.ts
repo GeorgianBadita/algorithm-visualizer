@@ -10,6 +10,13 @@ import {
     WALL_NODE_BUTTON,
     WEIGHTED_NODE_BUTTON,
 } from './node-type-button-type';
+import {
+    A_STAR,
+    BEST_FIRST_SEARCH,
+    BREADTH_FIRST_SEARCH,
+    DIJKSTRA_ALGORITHM,
+    GraphAlgoirhtmsType,
+} from './graph-algorithm-types';
 
 export const nodeButtons = [
     {
@@ -66,4 +73,11 @@ export const graphAlgDropdownOptions = [
         value: 'Best First Search',
         text: 'Best First Search',
     },
+];
+
+export const graphAlgorithms: GraphAlgoirhtmsType[] = [
+    BREADTH_FIRST_SEARCH,
+    DIJKSTRA_ALGORITHM,
+    A_STAR,
+    BEST_FIRST_SEARCH,
 ];
