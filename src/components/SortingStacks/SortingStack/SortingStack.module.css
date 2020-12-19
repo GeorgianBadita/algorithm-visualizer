@@ -1,5 +1,20 @@
 .stack {
-    border-left: 15px solid #23282c;
     float: left;
     margin-left: 3px;
+}
+
+.unvisitedStack {
+    border-left: 15px solid #23282c;
+}
+
+.swappingStack {
+    border-left: 15px solid #397bff;
+}
+
+.currentStack {
+    border-left: 15px solid #6435c9;
+}
+
+.sortInPlaceStack {
+    border-left: 15px solid #21ba45;
 }

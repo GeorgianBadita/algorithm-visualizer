@@ -10,7 +10,8 @@ import { AlgorithmType } from '../../utils/types/app-types/algorithm-classes-typ
 import { graphAlgDropdownOptions, nodeButtons } from '../../utils/types/graph-types/consts';
 import { speedDropdownOptions } from '../../utils/types/app-types/consts';
 import AlgPropSelector from '../AlgPropSelector';
-import { algNameToAlgType } from '../../utils/graph-utils-functions';
+import { algNameToAlgType, isGraphAlgorithm } from '../../utils/graph-utils-functions';
+import { BREADTH_FIRST_SEARCH, NO_ALGORITHM } from '../../utils/types/graph-types/graph-algorithm-types';
 
 type NodeTypeButtonGroupProps = {
     activeNodeTypeButton?: NodeTypeButtonType;
@@ -43,6 +44,10 @@ const NodeTypeButtonGroup = (props: NodeTypeButtonGroupProps): JSX.Element => {
             />
         ));
     };
+
+    if (props.selectedAlg === NO_ALGORITHM || !isGraphAlgorithm(props.selectedAlg)) {
+        props.setSelectedAlg(BREADTH_FIRST_SEARCH);
+    }
 
     return (
         <>

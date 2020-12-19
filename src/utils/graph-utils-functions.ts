@@ -27,7 +27,6 @@ import {
     WALL_NODE_BUTTON,
     WEIGHTED_NODE_BUTTON,
 } from './types/graph-types/node-type-button-type';
-import { TableNodeType } from '../containers/GraphContainerAlgorithms';
 import { GraphState } from '../store/graph/state';
 import { GraphAlgorithmResult, GraphAlgOutput, Pair } from './types/graph-types/graph-results-types';
 import { dijkstra } from '../algorithms/graph-algorithms/dijkstra';
@@ -37,6 +36,7 @@ import { bestFirstSearch } from '../algorithms/graph-algorithms/best-first-searc
 import { AlgorithmType } from './types/app-types/algorithm-classes-types';
 import { createErrorToast } from './app-utils-functions';
 import { graphAlgorithms } from './types/graph-types/consts';
+import { TableNodeType } from './types/graph-types/table-node-type';
 
 export const validCoords = (x: number, y: number, height: number, width: number): boolean => {
     return x >= 0 && y >= 0 && x < height && y < width;

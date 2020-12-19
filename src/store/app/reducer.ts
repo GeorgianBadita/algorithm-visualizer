@@ -1,10 +1,10 @@
 import { MEDIUM_SPEED } from '../../utils/types/app-types/alg-speed-type';
-import { BREADTH_FIRST_SEARCH } from '../../utils/types/graph-types/graph-algorithm-types';
+import { NO_ALGORITHM } from '../../utils/types/graph-types/graph-algorithm-types';
 import { AppState } from './state';
 import { AppActionTypes, CHANGE_ALGORITHM, CHANGE_RUNNING_STATE, CHANGE_SPEED, CLEAR_APP } from './types';
 
 export const initialAppState: AppState = {
-    selectedAlg: BREADTH_FIRST_SEARCH,
+    selectedAlg: NO_ALGORITHM,
     running: false,
     speed: MEDIUM_SPEED,
 };

@@ -1,4 +1,5 @@
-import { CHANGE_HIGHEST, CHANGE_LOWEST, CLEAR_SORT, INIT_SORT, SortingActions } from './types';
+import { ArrayStackType } from '../../utils/types/sorting-types/array-stack-type';
+import { CHANGE_HIGHEST, CHANGE_LOWEST, CHANGE_SORTING_LIST, CLEAR_SORT, INIT_SORT, SortingActions } from './types';
 
 export const initSort = (lowest: number, highest: number): SortingActions => ({
     type: INIT_SORT,
@@ -18,4 +19,9 @@ export const changeHighest = (newHighest: number): SortingActions => ({
 
 export const clearSort = (): SortingActions => ({
     type: CLEAR_SORT,
+});
+
+export const changeSortingList = (newSortingList: ArrayStackType[]): SortingActions => ({
+    type: CHANGE_SORTING_LIST,
+    newSortingList: newSortingList,
 });

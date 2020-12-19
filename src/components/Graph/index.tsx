@@ -4,12 +4,12 @@ import Node from './Node/index';
 import classes from './Graph.module.css';
 
 import { checkCanPutWeight, getNewGrid, reduxGraphUpdateDispatchHelper } from '../../utils/graph-utils-functions';
-import { TableNodeType } from '../../containers/GraphContainerAlgorithms';
 import { GraphNode } from '../../algorithms/graph-algorithms/graph';
 import { GraphActionTypes } from '../../store/graph/types';
 import { NodeTypeButtonType } from '../../utils/types/graph-types/node-type-button-type';
 import { toast } from 'react-toastify';
 import { AlgorithmType } from '../../utils/types/app-types/algorithm-classes-types';
+import { TableNodeType } from '../../utils/types/graph-types/table-node-type';
 
 const DEFAULT_WEIGHT_VALUE = 10;
 

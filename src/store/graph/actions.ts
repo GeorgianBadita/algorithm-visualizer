@@ -1,5 +1,5 @@
 import { GraphNode } from '../../algorithms/graph-algorithms/graph';
-import { TableNodeType } from '../../containers/GraphContainerAlgorithms';
+import { TableNodeType } from '../../utils/types/graph-types/table-node-type';
 import {
     GraphActionTypes,
     ADD_NODE,

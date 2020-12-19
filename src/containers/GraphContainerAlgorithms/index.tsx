@@ -46,11 +46,6 @@ const SPEED_MAPPING = {
     'High Speed': 0.75,
 };
 
-export type TableNodeType = {
-    nodeType: NodeType;
-    weight?: number;
-};
-
 const mapDispatchToProps = {
     initGraph: initGraph,
     deleteNode: deleteNode,
@@ -120,7 +115,6 @@ const GraphContainerAlgorithms = (props: GraphContainerAlgorithmsProps): JSX.Ele
             return;
         }
 
-        //Handle the case where there is no path to the destination node
         const { visitedNodesInOrder, shortestPath }: GraphAlgorithmResult = getVisitedNodes(
             props.selectedAlg,
             props.graphState,

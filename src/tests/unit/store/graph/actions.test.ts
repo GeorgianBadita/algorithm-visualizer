@@ -1,5 +1,4 @@
 import { GraphNode } from '../../../../algorithms/graph-algorithms/graph';
-import { TableNodeType } from '../../../../containers/GraphContainerAlgorithms';
 import {
     addNode,
     deleteNode,
@@ -15,6 +14,7 @@ import {
     GraphActionTypes,
     INIT_GRAPH,
 } from '../../../../store/graph/types';
+import { TableNodeType } from '../../../../utils/types/graph-types/table-node-type';
 
 describe('graph actions', () => {
     it('should create an action to add a node', () => {

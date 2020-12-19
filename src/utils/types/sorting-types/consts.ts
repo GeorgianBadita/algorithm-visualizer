@@ -1,3 +1,5 @@
+import { BUBBLE_SORT, MERGE_SORT, QUICK_SORT, SortingAlgorithmsType } from './sorting-alorithm-types';
+
 export const sortingAlgDropdownOptions = [
     {
         key: 'Bubble Sort',
@@ -16,3 +18,5 @@ export const sortingAlgDropdownOptions = [
         text: 'Merge Sort',
     },
 ];
+
+export const sortingALgorithms: SortingAlgorithmsType[] = [BUBBLE_SORT, QUICK_SORT, MERGE_SORT];

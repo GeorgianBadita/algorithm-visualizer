@@ -1,5 +1,4 @@
 import { Edges, GraphNode } from '../../algorithms/graph-algorithms/graph';
-import { TableNodeType } from '../../containers/GraphContainerAlgorithms';
 import { generateRandomNumber } from '../../utils/app-utils-functions';
 import {
     DESTINATION_NODE,
@@ -33,6 +32,7 @@ import {
     INIT_GRAPH,
     RESET_GRAPH_FOR_NEW_ALGORITHM,
 } from './types';
+import { TableNodeType } from '../../utils/types/graph-types/table-node-type';
 
 export const initialGraphState: GraphState = {
     numberOfNodes: 0,
