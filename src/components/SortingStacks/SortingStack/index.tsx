@@ -3,6 +3,8 @@ import classes from './SortingStack.module.css';
 import { DEFAULT_STACK_HEIGHT } from '../../../utils/types/sorting-types/sorting-default-values';
 import {
     CURRENT_STACK,
+    LEFT_TO_MERGE_STACK,
+    MERGING_STACK,
     PUT_IN_PLACE,
     SortingStackType,
     SWAP_STACK,
@@ -12,6 +14,7 @@ import {
 type SortingStackProps = {
     height: number;
     stackType: SortingStackType;
+    width: number;
 };
 
 export const SortingStack = (props: SortingStackProps): JSX.Element => {
@@ -28,7 +31,18 @@ export const SortingStack = (props: SortingStackProps): JSX.Element => {
     if (props.stackType === PUT_IN_PLACE) {
         cssClasses.push(classes.sortInPlaceStack);
     }
+    if (props.stackType === MERGING_STACK) {
+        cssClasses.push(classes.mergingStack);
+    }
+    if (props.stackType === LEFT_TO_MERGE_STACK) {
+        cssClasses.push(classes.leftToMergeStack);
+    }
     return (
-        <div className={cssClasses.join(' ')} style={{ height: `${DEFAULT_STACK_HEIGHT + 12 * props.height}px` }}></div>
+        <div
+            className={cssClasses.join(' ')}
+            style={{ height: `${DEFAULT_STACK_HEIGHT + 12 * props.height}px`, borderWidth: `${props.width}px` }}
+        >
+            {props.width === 20 ? props.height : ''}
+        </div>
     );
 };

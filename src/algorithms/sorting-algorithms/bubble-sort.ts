@@ -38,7 +38,7 @@ export const bubbleSort = (sortingState: SortingState): SortingAlgorithmResult =
         outputList.push({ index: i, type: PLACED_NUMBER });
         current += 1;
     } while (!sorted);
-    for (let index = 0; index <= numbers.length; ++index) {
+    for (let index = 0; index < numbers.length; ++index) {
         outputList.push({ index: index, type: PLACED_NUMBER });
     }
     return {

@@ -40,6 +40,8 @@ const DEFAULT_INCREMENT_VISITED = 3;
 const DEFAULT_FIRST_PERIOD_SHORTEST_PATH = 10;
 const DEFAULT_INCREMENT_SHORTEST_PATH = 5;
 
+const DEFAULT_SQUARE_SIZE = 30;
+
 const SPEED_MAPPING = {
     'Low Speed': 10,
     'Medium Speed': 4,
@@ -77,7 +79,7 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 type GraphContainerAlgorithmsProps = ConnectedProps<typeof connector>;
 
 const GraphContainerAlgorithms = (props: GraphContainerAlgorithmsProps): JSX.Element => {
-    const [width, height] = useWindowSize();
+    const [width, height] = useWindowSize(DEFAULT_SQUARE_SIZE, DEFAULT_SQUARE_SIZE);
     const [activeNodeType, setActiveNodeType] = React.useState(RESTORE_NODE_BUTTON as NodeTypeButtonType);
     const [stillRunning, setStillRunning] = React.useState(false);
     const tableRef = React.useRef(props.table);

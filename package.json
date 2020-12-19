@@ -18,6 +18,7 @@
     "create-react-app": "^4.0.1",
     "react": "^16.13.1",
     "react-bootstrap": "^1.4.0",
+    "react-bootstrap-range-slider": "^2.0.2",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.2",
     "react-router-bootstrap": "^0.25.0",
@@ -57,6 +58,7 @@
   },
   "devDependencies": {
     "@types/jest": "^24.9.1",
+    "@types/react-bootstrap-range-slider": "^1.2.0",
     "@typescript-eslint/eslint-plugin": "^4.2.0",
     "@typescript-eslint/parser": "^4.3.0",
     "eslint": "^6.8.0",

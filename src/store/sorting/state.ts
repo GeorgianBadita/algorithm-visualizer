@@ -5,6 +5,7 @@ export const DESCENDING = 'DESCENDING';
 
 export interface SortingState {
     sortingList: SortingList;
+    listSize: number;
     lowest: number;
     highset: number;
 }

@@ -7,6 +7,8 @@ import { HashRouter as Router } from 'react-router-dom';
 import { rootReducer } from './store/index';
 import { createStore, applyMiddleware } from 'redux';
 import { createLogger } from 'redux-logger';
+import 'bootstrap/dist/css/bootstrap.css'; // or include from a CDN
+import 'react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css';
 
 const store = createStore(rootReducer, applyMiddleware(createLogger()));
 

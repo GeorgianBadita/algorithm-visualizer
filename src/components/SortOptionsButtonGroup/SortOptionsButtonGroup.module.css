@@ -5,3 +5,14 @@
     text-align: center;
     align-items: center;
 }
+
+.regenerateButton {
+    margin-left: 20px;
+}
+
+.slider {
+    float: left;
+    width: 15%;
+    margin-left: 20%;
+    margin-right: -20%;
+}

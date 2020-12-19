@@ -1,17 +1,15 @@
 import React from 'react';
 
-const DEFAULT_SQUARE_SIZE = 30;
-
-export const useWindowSize = (): number[] => {
+export const useWindowSize = (widthDivider: number, heightDivider: number): number[] => {
     const [size, setSize] = React.useState([
-        Math.round((window.innerWidth - 0.12 * window.innerWidth) / DEFAULT_SQUARE_SIZE),
-        Math.round((window.innerHeight - 0.32 * window.innerHeight) / DEFAULT_SQUARE_SIZE),
+        Math.round((window.innerWidth - 0.12 * window.innerWidth) / widthDivider),
+        Math.round((window.innerHeight - 0.32 * window.innerHeight) / heightDivider),
     ]);
     React.useLayoutEffect(() => {
         function updateSize() {
             setSize([
-                Math.round((window.innerWidth - 0.12 * window.innerWidth) / DEFAULT_SQUARE_SIZE),
-                Math.round((window.innerHeight - 0.32 * window.innerHeight) / DEFAULT_SQUARE_SIZE),
+                Math.round((window.innerWidth - 0.12 * window.innerWidth) / widthDivider),
+                Math.round((window.innerHeight - 0.32 * window.innerHeight) / heightDivider),
             ]);
         }
         window.addEventListener('resize', updateSize);
