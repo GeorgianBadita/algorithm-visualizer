@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "7915e26a97f6678a3b93d881108a228d",
+    "revision": "1d5207367e643dd16e792a173d49992b",
     "url": "/algorithm-visualizer/index.html"
   },
   {
-    "revision": "f7d7cb3fb08438cdf40d",
-    "url": "/algorithm-visualizer/static/css/2.7201da20.chunk.css"
+    "revision": "c42502b53bdb73626a55",
+    "url": "/algorithm-visualizer/static/css/2.d8767da3.chunk.css"
   },
   {
-    "revision": "1778603bd7c282f76c13",
-    "url": "/algorithm-visualizer/static/css/main.614294cb.chunk.css"
+    "revision": "3231a542ef53d73378ce",
+    "url": "/algorithm-visualizer/static/css/main.bd4c0890.chunk.css"
   },
   {
-    "revision": "f7d7cb3fb08438cdf40d",
-    "url": "/algorithm-visualizer/static/js/2.f9a38967.chunk.js"
+    "revision": "c42502b53bdb73626a55",
+    "url": "/algorithm-visualizer/static/js/2.6bdff64c.chunk.js"
   },
   {
     "revision": "9f81f95fdf77198dcf92d14b566e110e",
-    "url": "/algorithm-visualizer/static/js/2.f9a38967.chunk.js.LICENSE.txt"
+    "url": "/algorithm-visualizer/static/js/2.6bdff64c.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "1778603bd7c282f76c13",
-    "url": "/algorithm-visualizer/static/js/main.d58e073c.chunk.js"
+    "revision": "3231a542ef53d73378ce",
+    "url": "/algorithm-visualizer/static/js/main.76ae79fc.chunk.js"
   },
   {
     "revision": "73842d6d03bf4c5ec262",
@@ -50,6 +50,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "9c74e172f87984c48ddf5c8108cabe67",
     "url": "/algorithm-visualizer/static/media/flags.9c74e172.png"
+  },
+  {
+    "revision": "1ef33ff75113eb3fa36ea38abf30225d",
+    "url": "/algorithm-visualizer/static/media/graph.1ef33ff7.png"
   },
   {
     "revision": "0ab54153eeeca0ce03978cc463b257f7",
@@ -90,5 +94,9 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "ef60a4f6c25ef7f39f2d25a748dbecfe",
     "url": "/algorithm-visualizer/static/media/outline-icons.ef60a4f6.woff"
+  },
+  {
+    "revision": "7ead9020ed382eaed729575759cc9ab5",
+    "url": "/algorithm-visualizer/static/media/sorting.7ead9020.png"
   }
 ]);
