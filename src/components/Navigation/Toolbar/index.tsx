@@ -1,29 +1,20 @@
 import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
-import { AppActionTypes } from '../../../store/app/types';
-import { AlgorithmType } from '../../../utils/types/app-types/algorithm-classes-types';
+import logo from '../../../assets/images/logo/logo.png';
 import NavigationItems from '../NavigationItems';
+import classes from './Toolbar.module.css';
 
-type ToolbarProps = {
-    title: string;
-    selectedAlg: AlgorithmType;
-    running: boolean;
-    changeRunningState: (state: boolean) => AppActionTypes;
-    resetGraphForRunningAlg: () => void;
-};
-
-const Toolbar = (props: ToolbarProps): JSX.Element => (
+const Toolbar = (): JSX.Element => (
     <header>
-        <Navbar bg="dark" variant="dark" expand="lg">
-            <Navbar.Brand href="/">{props.title}</Navbar.Brand>
+        <Navbar className={classes.navbarHeader} expand="lg">
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Brand className={classes.brand}>
+                <a href="/">
+                    <img className={classes.logo} src={logo}></img>
+                </a>
+            </Navbar.Brand>
             <Navbar.Collapse id="basic-navbar-nav">
-                <NavigationItems
-                    running={props.running}
-                    selectedAlg={props.selectedAlg}
-                    changeApprunningState={props.changeRunningState}
-                    resetGraphForAlg={props.resetGraphForRunningAlg}
-                />
+                <NavigationItems />
             </Navbar.Collapse>
         </Navbar>
     </header>

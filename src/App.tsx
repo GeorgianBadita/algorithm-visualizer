@@ -15,7 +15,7 @@ const App = (props: AppProps): JSX.Element => {
     return (
         <Provider store={props.store}>
             <div>
-                <Layout title={'Algorithm Visualizer'}>
+                <Layout>
                     <AlgVisualizerRouting />
                 </Layout>
                 <ToastContainer

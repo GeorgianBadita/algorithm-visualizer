@@ -12,9 +12,13 @@
 }
 
 .clearButton {
-    margin-left: 20px;
+    margin-right: 20px;
 }
 
 .select {
+    margin-right: 20px;
+}
+
+.startButton {
     margin-right: 20px;
 }

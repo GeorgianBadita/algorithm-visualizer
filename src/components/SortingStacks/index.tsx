@@ -16,8 +16,8 @@ export const SortingStacks = (props: SortingStacksProps): JSX.Element => {
     }
     return (
         <div className={classes.sortingStacks}>
-            {props.heights.map((elem: ArrayStackType) => (
-                <SortingStack height={elem.number} stackType={elem.elemType} width={width} />
+            {props.heights.map((elem: ArrayStackType, index: number) => (
+                <SortingStack key={index} height={elem.number} stackType={elem.elemType} width={width} />
             ))}
         </div>
     );

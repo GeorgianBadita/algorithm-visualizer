@@ -1,7 +1,6 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import Graph from '../../components/Graph';
 import {
-    NodeType,
     SHORTEST_PATH_NODE,
     VISITED_NODE,
     VISITED_WEIGHT_NODE,
@@ -19,6 +18,7 @@ import {
     clearGraph,
     deleteNode,
     initGraph,
+    resetGraphForNewAlgorithm,
 } from '../../store/graph/actions';
 import { AlgorithmVisualizerState } from '../../store/state';
 import {
@@ -27,7 +27,7 @@ import {
     getVisitedNodes,
     isGraphAlgorithm,
 } from '../../utils/graph-utils-functions';
-import NodeTypeButtonGroup from '../../components/NodeTypeButtonGroup';
+import NodeTypeButtonGroup from '../../components/GraphOptionsButtonGroup';
 import { NodeTypeButtonType, RESTORE_NODE_BUTTON } from '../../utils/types/graph-types/node-type-button-type';
 import { changeAlgorithm, changeRunningState, changeSpeed, clearApp } from '../../store/app/actions';
 import { GraphAlgorithmResult, Pair } from '../../utils/types/graph-types/graph-results-types';
@@ -62,6 +62,7 @@ const mapDispatchToProps = {
     clearGraph: clearGraph,
     setSelectedAlg: changeAlgorithm,
     setSpeed: changeSpeed,
+    resetGraphForAlg: resetGraphForNewAlgorithm,
 };
 
 const mapStateToProps = (state: AlgorithmVisualizerState) => ({
@@ -171,6 +172,7 @@ const GraphContainerAlgorithms = (props: GraphContainerAlgorithmsProps): JSX.Ele
                 activeNodeTypeButton={activeNodeType}
                 setActiveNodeTypeButton={setActiveNodeType as Dispatch<SetStateAction<NodeTypeButtonType>>}
                 setSpeed={props.setSpeed}
+                resetGraphForAlg={props.resetGraphForAlg}
             />
             <div className={classes.graphContainerAlgorithms}>
                 <Graph

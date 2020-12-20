@@ -31,6 +31,10 @@ const SortOptionsButtonGroup = (props: SortOptionsButtonGroupProps): JSX.Element
         //TODO: this is a hacky way to do this, solve this issue
     };
 
+    const handleOnAlgStart = () => {
+        props.changeAppRunningState(true);
+    };
+
     if (props.selectedAlg === NO_ALGORITHM || !isSortingAlgorithm(props.selectedAlg)) {
         props.setSelectedAlg(BUBBLE_SORT);
     }
@@ -43,34 +47,39 @@ const SortOptionsButtonGroup = (props: SortOptionsButtonGroupProps): JSX.Element
     };
 
     return (
-        <div className={classes.sortOptionsButtonGroup}>
-            <AlgPropSelector
-                running={props.running}
-                setSelectedAlg={props.setSelectedAlg}
-                setSpeed={props.setSpeed}
-                algOptions={sortingAlgDropdownOptions}
-                speedOptions={speedDropdownOptions}
-                algStringToAlgType={sortNameToSortType}
-            />
-            <div className={classes.slider}>
-                <LabeledSlider
-                    disabled={props.running}
-                    min={props.minLength}
-                    sliderValue={sliderValue}
-                    max={props.maxLength}
-                    step={1}
-                    onSliderChange={onSliderChange}
+        <>
+            <div className={classes.sortOptionsButtonGroup}>
+                <Button //start button
+                    onClick={handleOnAlgStart}
+                    className={classes.startButton}
+                    disabled={props.running && props.running === true}
+                >
+                    Start Algorithm
+                </Button>
+                <div className={classes.slider}>
+                    <LabeledSlider
+                        disabled={props.running}
+                        min={props.minLength}
+                        sliderValue={sliderValue}
+                        max={props.maxLength}
+                        step={1}
+                        onSliderChange={onSliderChange}
+                    />
+                </div>
+                <AlgPropSelector
+                    running={props.running}
+                    setSelectedAlg={props.setSelectedAlg}
+                    setSpeed={props.setSpeed}
+                    algOptions={sortingAlgDropdownOptions}
+                    speedOptions={speedDropdownOptions}
+                    algStringToAlgType={sortNameToSortType}
                 />
+
+                <Button disabled={props.running} onClick={regenerateList} variant="outline-danger">
+                    Generate New List
+                </Button>
             </div>
-            <Button
-                disabled={props.running}
-                className={classes.regenerateButton}
-                onClick={regenerateList}
-                variant="outline-danger"
-            >
-                Generate New List
-            </Button>
-        </div>
+        </>
     );
 };
 

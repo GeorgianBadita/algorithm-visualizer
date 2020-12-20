@@ -2,7 +2,7 @@ import React, { Dispatch, SetStateAction } from 'react';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import { NodeTypeButtonType } from '../../utils/types/graph-types/node-type-button-type';
 import NodeTypeButton from './NodeTypeButton';
-import classes from './NodeTypeButtonGroup.module.css';
+import classes from './GraphOptionsButtonGrooup.module.css';
 
 import Button from 'react-bootstrap/Button';
 import { SpeedType } from '../../utils/types/app-types/alg-speed-type';
@@ -22,6 +22,7 @@ type NodeTypeButtonGroupProps = {
     changeAppRunningState: (newState: boolean) => void;
     setSelectedAlg: (alg: AlgorithmType) => void;
     setSpeed: (speed: SpeedType) => void;
+    resetGraphForAlg: () => void;
 };
 
 const NodeTypeButtonGroup = (props: NodeTypeButtonGroupProps): JSX.Element => {
@@ -30,6 +31,13 @@ const NodeTypeButtonGroup = (props: NodeTypeButtonGroupProps): JSX.Element => {
         props.clearApp();
         window.location.reload();
         //TODO: this is a hacky way to do this, solve this issue
+    };
+
+    const handleOnAlgStart = () => {
+        props.changeAppRunningState(true);
+        if (isGraphAlgorithm(props.selectedAlg)) {
+            props.resetGraphForAlg();
+        }
     };
 
     const getInitButtons = (): JSX.Element[] => {
@@ -52,6 +60,13 @@ const NodeTypeButtonGroup = (props: NodeTypeButtonGroupProps): JSX.Element => {
     return (
         <>
             <div className={classes.nodeTypeButtonGroup}>
+                <Button //clear button
+                    onClick={handleOnAlgStart}
+                    className={classes.startButton}
+                    disabled={props.running && props.running === true}
+                >
+                    Start Algorithm
+                </Button>
                 <AlgPropSelector
                     algOptions={graphAlgDropdownOptions}
                     speedOptions={speedDropdownOptions}
@@ -60,8 +75,6 @@ const NodeTypeButtonGroup = (props: NodeTypeButtonGroupProps): JSX.Element => {
                     running={props.running}
                     algStringToAlgType={algNameToAlgType}
                 />
-
-                <ButtonGroup className={classes.buttons}>{getInitButtons()}</ButtonGroup>
                 <Button //clear button
                     onClick={clear}
                     className={classes.clearButton}
@@ -70,6 +83,7 @@ const NodeTypeButtonGroup = (props: NodeTypeButtonGroupProps): JSX.Element => {
                 >
                     Clear
                 </Button>
+                <ButtonGroup className={classes.buttons}>{getInitButtons()}</ButtonGroup>
             </div>
         </>
     );

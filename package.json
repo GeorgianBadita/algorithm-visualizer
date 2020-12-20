@@ -16,6 +16,8 @@
     "@types/redux-logger": "^3.0.8",
     "bootstrap": "^4.5.3",
     "create-react-app": "^4.0.1",
+    "evergreen-ui": "^5.1.2",
+    "rc-slider": "^9.7.1",
     "react": "^16.13.1",
     "react-bootstrap": "^1.4.0",
     "react-bootstrap-range-slider": "^2.0.2",
