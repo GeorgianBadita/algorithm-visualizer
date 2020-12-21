@@ -1,0 +1,21 @@
+.presentationTitle {
+    color: #fff;
+    font-size: 10em;
+    font-weight: 900;
+}
+
+.presentationText {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.8em;
+    font-weight: 100;
+    margin: -10px 30px 10px;
+}
+
+.presentationSection {
+    display: table;
+    height: 976px;
+    width: 100%;
+    table-layout: fixed;
+    text-align: center;
+    position: relative;
+}

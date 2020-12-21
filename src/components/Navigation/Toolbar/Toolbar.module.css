@@ -1,13 +1,65 @@
-.navbarHeader {
-    background-color: #ebecf0;
+.logoDiv {
+    opacity: 1;
+    position: absolute;
+    left: 20px;
+    top: 14px;
+    z-index: 1;
 }
 
 .logo {
-    width: 40px;
-    height: 40px;
+    width: 64px;
+    height: 64px;
 }
 
-.brand {
-    display: flex;
-    align-items: center;
+.logo:hover {
+    cursor: pointer;
+}
+
+.menu {
+    list-style: none;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 100;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: 1px;
+    font-size: 1.3em;
+}
+
+.menu li {
+    display: inline-block;
+    margin: 10px 0;
+}
+
+.menu a {
+    color: #fff;
+    text-decoration: none;
+    padding: 0 1.1em 1.1em;
+}
+
+.menu a:hover {
+    cursor: pointer;
+}
+
+.menuHighlight {
+    color: #ffffff;
+    background: transparent;
+    border-width: 2px;
+    border-radius: 50px;
+    transition: all 0.2s linear;
+    line-height: 45px;
+}
+
+.menuHighlight a {
+    color: #fff;
+}
+
+.menuHighlight:hover {
+    color: #ffffff;
+    background: #fff;
+    border-color: #fff;
+}
+
+li.menuHighlight:hover a {
+    color: #000;
 }

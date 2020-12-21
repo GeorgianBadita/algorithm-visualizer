@@ -1,23 +1,26 @@
 import React from 'react';
-import Navbar from 'react-bootstrap/Navbar';
+import { Link } from 'react-router-dom';
 import logo from '../../../assets/images/logo/logo.png';
-import NavigationItems from '../NavigationItems';
 import classes from './Toolbar.module.css';
 
-const Toolbar = (): JSX.Element => (
-    <header>
-        <Navbar className={classes.navbarHeader} expand="lg">
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Brand className={classes.brand}>
+const Toolbar = (): JSX.Element => {
+    return (
+        <>
+            <div className={classes.logoDiv}>
                 <a href="/">
                     <img className={classes.logo} src={logo}></img>
                 </a>
-            </Navbar.Brand>
-            <Navbar.Collapse id="basic-navbar-nav">
-                <NavigationItems />
-            </Navbar.Collapse>
-        </Navbar>
-    </header>
-);
+            </div>
+            <ul className={classes.menu}>
+                <li className={classes.menuHighlight}>
+                    <Link to="/graphs">Graphs</Link>
+                </li>
+                <li className={classes.menuHighlight}>
+                    <Link to="/sorting">Sorting</Link>
+                </li>
+            </ul>
+        </>
+    );
+};
 
 export default Toolbar;
