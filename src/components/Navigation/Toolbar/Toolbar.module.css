@@ -63,3 +63,7 @@
 li.menuHighlight:hover a {
     color: #000;
 }
+
+.linkedin img:hover {
+    cursor: pointer;
+}

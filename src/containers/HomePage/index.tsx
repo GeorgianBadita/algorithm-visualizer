@@ -1,10 +1,6 @@
 import classes from './HomePage.module.css';
-import { Heading, Pane } from 'evergreen-ui';
 import React from 'react';
-import { Link, withRouter } from 'react-router-dom';
-import graphImage from '../../assets/images/homepage/graph.png';
-import sortImage from '../../assets/images/homepage/sorting.png';
-import { CarouselImage } from '../../utils/types/app-types/carousel-image-type';
+import { withRouter } from 'react-router-dom';
 import ReactFullPage from '@fullpage/react-fullpage';
 import PresentationSection from './PresentationSection';
 
@@ -31,6 +27,7 @@ const HomePage = withRouter(() => {
                                 <h3>Slide 2.3</h3>
                             </div>
                         </div>
+
                         <div className="section" style={{ textAlign: 'center' }}>
                             <h3>Section 3</h3>
                             <button onClick={() => fullpageApi.moveTo(1, 0)}>Move top</button>
