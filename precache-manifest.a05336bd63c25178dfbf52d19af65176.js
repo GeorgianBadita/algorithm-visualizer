@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "1d5207367e643dd16e792a173d49992b",
+    "revision": "3cb7d8707ad021d9d6bebaa7ee641963",
     "url": "/algorithm-visualizer/index.html"
   },
   {
-    "revision": "c42502b53bdb73626a55",
-    "url": "/algorithm-visualizer/static/css/2.d8767da3.chunk.css"
+    "revision": "bd62d9aa3607f2b9d0c0",
+    "url": "/algorithm-visualizer/static/css/2.84f8b3cf.chunk.css"
   },
   {
-    "revision": "3231a542ef53d73378ce",
-    "url": "/algorithm-visualizer/static/css/main.bd4c0890.chunk.css"
+    "revision": "074518a30adeb5812f87",
+    "url": "/algorithm-visualizer/static/css/main.06a3383e.chunk.css"
   },
   {
-    "revision": "c42502b53bdb73626a55",
-    "url": "/algorithm-visualizer/static/js/2.6bdff64c.chunk.js"
+    "revision": "bd62d9aa3607f2b9d0c0",
+    "url": "/algorithm-visualizer/static/js/2.f89519e2.chunk.js"
   },
   {
-    "revision": "9f81f95fdf77198dcf92d14b566e110e",
-    "url": "/algorithm-visualizer/static/js/2.6bdff64c.chunk.js.LICENSE.txt"
+    "revision": "e827fda95407a54b2a641094c29df1e1",
+    "url": "/algorithm-visualizer/static/js/2.f89519e2.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "3231a542ef53d73378ce",
-    "url": "/algorithm-visualizer/static/js/main.76ae79fc.chunk.js"
+    "revision": "074518a30adeb5812f87",
+    "url": "/algorithm-visualizer/static/js/main.88c459e3.chunk.js"
   },
   {
     "revision": "73842d6d03bf4c5ec262",
@@ -50,10 +50,6 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "9c74e172f87984c48ddf5c8108cabe67",
     "url": "/algorithm-visualizer/static/media/flags.9c74e172.png"
-  },
-  {
-    "revision": "1ef33ff75113eb3fa36ea38abf30225d",
-    "url": "/algorithm-visualizer/static/media/graph.1ef33ff7.png"
   },
   {
     "revision": "0ab54153eeeca0ce03978cc463b257f7",
@@ -94,9 +90,5 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "ef60a4f6c25ef7f39f2d25a748dbecfe",
     "url": "/algorithm-visualizer/static/media/outline-icons.ef60a4f6.woff"
-  },
-  {
-    "revision": "7ead9020ed382eaed729575759cc9ab5",
-    "url": "/algorithm-visualizer/static/media/sorting.7ead9020.png"
   }
 ]);
