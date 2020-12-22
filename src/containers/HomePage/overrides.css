@@ -1,0 +1,15 @@
+/*Overrides must match specificity of pre-loaded styles!*/
+/*The simplest way to get the selector is with devtools*/
+#fp-nav ul li:hover a.active span,
+#fp-nav ul li a.active span,
+.fp-slidesNav ul li:hover a.active span,
+.fp-slidesNav ul li a.active span {
+    background-color: #fff;
+}
+
+.fp-controlArrow.fp-prev {
+    margin-left: 30px;
+}
+.fp-controlArrow.fp-next {
+    margin-right: 30px;
+}

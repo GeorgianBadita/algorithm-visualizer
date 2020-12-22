@@ -1,0 +1,8 @@
+.algorithmsSection {
+    display: table;
+    height: 976px;
+    width: 100%;
+    table-layout: fixed;
+    text-align: center;
+    position: relative;
+}

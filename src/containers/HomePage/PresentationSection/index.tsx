@@ -2,9 +2,7 @@ import React from 'react';
 import GithubStarCount from '../../../components/GithubStarCount';
 import classes from './PresentationSection.module.css';
 
-export type PresentationSectionProps = { something: string };
-
-const PresentationSection = (props: PresentationSectionProps): JSX.Element => {
+const PresentationSection = (): JSX.Element => {
     return (
         <div className={`section ${classes.presentationSection}`}>
             <h1 className={classes.presentationTitle}>Algorithm Visualizer</h1>

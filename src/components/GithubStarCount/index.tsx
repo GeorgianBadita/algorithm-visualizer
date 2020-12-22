@@ -1,9 +1,10 @@
 import React from 'react';
 import classes from './GithubStarCount.module.css';
 
-const GithubStarCount = () => {
+const GithubStarCount = (): JSX.Element => {
     return (
         <iframe
+            title="GithubStars"
             className={classes.gitHubStarsButton}
             tabIndex={-1}
             src={

@@ -1,6 +1,6 @@
 .stack {
     display: inline-block;
-    color: white;
+    color: #23282c;
     font-weight: bold;
     font-size: 13px;
     margin-left: 4px;
@@ -8,8 +8,8 @@
 }
 
 .unvisitedStack {
-    border-color: #23282c;
-    background-color: #23282c;
+    border-color: #f5f5f5;
+    background-color: #f5f5f5;
 }
 
 .swappingStack {
@@ -23,8 +23,8 @@
 }
 
 .sortInPlaceStack {
-    border-color: #21ba45;
-    background-color: #21ba45;
+    border-color: #ddc9b4;
+    background-color: #ddc9b4;
 }
 
 .mergingStack {

@@ -6,6 +6,10 @@
     z-index: 1;
 }
 
+.toolbar {
+    background-color: #666a86;
+}
+
 .logo {
     width: 64px;
     height: 64px;

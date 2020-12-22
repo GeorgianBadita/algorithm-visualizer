@@ -1,0 +1,24 @@
+.algorithmTitle {
+    color: #fff;
+    font-size: 5em;
+    font-weight: 900;
+}
+
+.algorithmText {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.8em;
+    font-weight: 100;
+    margin: -10px 30px 10px;
+}
+
+.algorithmText:hover {
+    cursor: pointer;
+}
+
+.algorithmTitle:hover {
+    cursor: pointer;
+}
+
+.pane:hover {
+    cursor: pointer;
+}
