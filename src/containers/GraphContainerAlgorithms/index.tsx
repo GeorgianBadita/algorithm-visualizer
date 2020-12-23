@@ -31,7 +31,7 @@ import NodeTypeButtonGroup from '../../components/GraphOptionsButtonGroup';
 import { NodeTypeButtonType, RESTORE_NODE_BUTTON } from '../../utils/types/graph-types/node-type-button-type';
 import { changeAlgorithm, changeRunningState, changeSpeed, clearApp } from '../../store/app/actions';
 import { GraphAlgorithmResult, Pair } from '../../utils/types/graph-types/graph-results-types';
-import { useWindowSize } from '../../hooks/hooks';
+import { useWindowSizeDivided } from '../../hooks/hooks';
 import { createErrorToast } from '../../utils/app-utils-functions';
 
 const DEFAULT_FIRST_PERIOD_VISITED = 2;
@@ -80,7 +80,7 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 type GraphContainerAlgorithmsProps = ConnectedProps<typeof connector>;
 
 const GraphContainerAlgorithms = (props: GraphContainerAlgorithmsProps): JSX.Element => {
-    const [width, height] = useWindowSize(DEFAULT_SQUARE_SIZE, DEFAULT_SQUARE_SIZE);
+    const [width, height] = useWindowSizeDivided(DEFAULT_SQUARE_SIZE, DEFAULT_SQUARE_SIZE);
     const [activeNodeType, setActiveNodeType] = React.useState(RESTORE_NODE_BUTTON as NodeTypeButtonType);
     const [stillRunning, setStillRunning] = React.useState(false);
     const tableRef = React.useRef(props.table);

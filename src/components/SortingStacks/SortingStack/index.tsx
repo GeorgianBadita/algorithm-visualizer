@@ -10,6 +10,7 @@ import {
     SWAP_STACK,
     UNVISITED_STACK,
 } from '../../../utils/types/sorting-types/sorting-stack-type';
+import { useWindowSize } from '../../../hooks/hooks';
 
 type SortingStackProps = {
     height: number;
@@ -17,7 +18,10 @@ type SortingStackProps = {
     width: number;
 };
 
+const NOT_NEED_FOR_SCROLLING_HEIGHT = 865;
+
 export const SortingStack = (props: SortingStackProps): JSX.Element => {
+    const [_, height] = useWindowSize();
     const cssClasses = [classes.stack];
     if (props.stackType === UNVISITED_STACK) {
         cssClasses.push(classes.unvisitedStack);
@@ -37,11 +41,14 @@ export const SortingStack = (props: SortingStackProps): JSX.Element => {
     if (props.stackType === LEFT_TO_MERGE_STACK) {
         cssClasses.push(classes.leftToMergeStack);
     }
+
+    let stackHeight = DEFAULT_STACK_HEIGHT + 12 * props.height;
+    if (height && height <= NOT_NEED_FOR_SCROLLING_HEIGHT) {
+        const diff = (NOT_NEED_FOR_SCROLLING_HEIGHT - height) / 50;
+        stackHeight = (stackHeight * (1 - diff / 10)) | 0;
+    }
     return (
-        <div
-            className={cssClasses.join(' ')}
-            style={{ height: `${DEFAULT_STACK_HEIGHT + 12 * props.height}px`, borderWidth: `${props.width}px` }}
-        >
+        <div className={cssClasses.join(' ')} style={{ height: `${stackHeight}px`, borderWidth: `${props.width}px` }}>
             {props.width === 20 ? props.height : ''}
         </div>
     );
