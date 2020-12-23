@@ -1,13 +1,14 @@
 .nodeTypeImage {
-    /* padding: 8px;
-    height: 100%;
-    box-sizing: border-box;
-    border-radius: 5px; */
     float: left;
 }
 
 .nodeTypeImage img {
     height: 30px;
     width: 30px;
+    margin: 3px;
     margin-right: 5px;
+}
+
+.nodeTypeImage img:hover {
+    cursor: pointer;
 }

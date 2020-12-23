@@ -1,5 +1,5 @@
 .nodeTypeButtonGroup {
-    margin-top: 90px;
+    margin-top: 100px;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
@@ -11,6 +11,11 @@
     grid-column-gap: 20px;
 }
 
+@media screen and (max-width: 1765px) {
+    .buttons {
+        margin-top: 15px;
+    }
+}
 .clearButton {
     margin-right: 20px;
 }

@@ -78,7 +78,7 @@ const NodeTypeButtonGroup = (props: NodeTypeButtonGroupProps): JSX.Element => {
                 <Button //clear button
                     onClick={clear}
                     className={classes.clearButton}
-                    variant="outline-danger"
+                    variant="danger"
                     disabled={props.running && props.running === true}
                 >
                     Clear

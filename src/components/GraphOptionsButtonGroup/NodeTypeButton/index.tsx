@@ -20,7 +20,7 @@ const NodeTypeButton = (props: NodeTypeButtonProps): JSX.Element => {
     return (
         <button className={cssClasses.join(' ')} onClick={() => props.setActiveNodeButtonType(props.buttonType)}>
             <NodeTypeImage image={props.image} altTxt={props.text} />
-            {props.text}
+            <div className={classes.text}>{props.text}</div>
         </button>
     );
 };

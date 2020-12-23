@@ -75,7 +75,7 @@ const SortOptionsButtonGroup = (props: SortOptionsButtonGroupProps): JSX.Element
                     algStringToAlgType={sortNameToSortType}
                 />
 
-                <Button disabled={props.running} onClick={regenerateList} variant="outline-danger">
+                <Button disabled={props.running} onClick={regenerateList} variant="danger">
                     Generate New List
                 </Button>
             </div>

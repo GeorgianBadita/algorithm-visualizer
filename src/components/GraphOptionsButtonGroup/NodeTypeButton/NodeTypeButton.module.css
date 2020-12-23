@@ -1,8 +1,21 @@
 .nodeTypeButton {
-    border: 3px solid #000;
-    border-radius: 40px;
-    background: white;
-    color: #000;
+    border: 1px solid #fff;
+    /* border-radius: 40px; */
+    color: #fff;
+    background: transparent;
+    display: inline-flex;
+}
+
+.text {
+    width: fit-content;
+    /* padding-right: 5px;
+    padding-top: 5px; */
+    font-size: 1.2em;
+    padding: 10px;
+}
+
+.text:hover {
+    cursor: pointer;
 }
 
 .nodeTypeButton:focus {
@@ -10,8 +23,8 @@
 }
 
 .nodeTypeButton:hover {
+    cursor: pointer;
     background: #23282c;
-    color: white;
 }
 
 .nodeTypeButtonActive {

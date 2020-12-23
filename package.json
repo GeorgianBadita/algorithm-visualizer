@@ -27,6 +27,7 @@
     "react-bootstrap": "^1.4.0",
     "react-bootstrap-range-slider": "^2.0.2",
     "react-dom": "^16.13.1",
+    "react-dropdown": "^1.9.0",
     "react-redux": "^7.2.2",
     "react-router-bootstrap": "^0.25.0",
     "react-router-dom": "^5.2.0",
