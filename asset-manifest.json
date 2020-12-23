@@ -1,26 +1,26 @@
 {
   "files": {
-    "main.css": "/algorithm-visualizer/static/css/main.57d80ec3.chunk.css",
-    "main.js": "/algorithm-visualizer/static/js/main.e24f3035.chunk.js",
-    "main.js.map": "/algorithm-visualizer/static/js/main.e24f3035.chunk.js.map",
+    "main.css": "/algorithm-visualizer/static/css/main.180b2f36.chunk.css",
+    "main.js": "/algorithm-visualizer/static/js/main.2f5a3996.chunk.js",
+    "main.js.map": "/algorithm-visualizer/static/js/main.2f5a3996.chunk.js.map",
     "runtime-main.js": "/algorithm-visualizer/static/js/runtime-main.19db2af3.js",
     "runtime-main.js.map": "/algorithm-visualizer/static/js/runtime-main.19db2af3.js.map",
     "static/css/2.d8767da3.chunk.css": "/algorithm-visualizer/static/css/2.d8767da3.chunk.css",
-    "static/js/2.13df4788.chunk.js": "/algorithm-visualizer/static/js/2.13df4788.chunk.js",
-    "static/js/2.13df4788.chunk.js.map": "/algorithm-visualizer/static/js/2.13df4788.chunk.js.map",
+    "static/js/2.47f22fd6.chunk.js": "/algorithm-visualizer/static/js/2.47f22fd6.chunk.js",
+    "static/js/2.47f22fd6.chunk.js.map": "/algorithm-visualizer/static/js/2.47f22fd6.chunk.js.map",
     "index.html": "/algorithm-visualizer/index.html",
-    "precache-manifest.24ae7356045b038eb379d8aa64418cc1.js": "/algorithm-visualizer/precache-manifest.24ae7356045b038eb379d8aa64418cc1.js",
+    "precache-manifest.df8dbfe3fb6913c4c2fabf45330c370c.js": "/algorithm-visualizer/precache-manifest.df8dbfe3fb6913c4c2fabf45330c370c.js",
     "service-worker.js": "/algorithm-visualizer/service-worker.js",
     "static/css/2.d8767da3.chunk.css.map": "/algorithm-visualizer/static/css/2.d8767da3.chunk.css.map",
-    "static/css/main.57d80ec3.chunk.css.map": "/algorithm-visualizer/static/css/main.57d80ec3.chunk.css.map",
-    "static/js/2.13df4788.chunk.js.LICENSE.txt": "/algorithm-visualizer/static/js/2.13df4788.chunk.js.LICENSE.txt",
+    "static/css/main.180b2f36.chunk.css.map": "/algorithm-visualizer/static/css/main.180b2f36.chunk.css.map",
+    "static/js/2.47f22fd6.chunk.js.LICENSE.txt": "/algorithm-visualizer/static/js/2.47f22fd6.chunk.js.LICENSE.txt",
     "static/media/semantic.min.css": "/algorithm-visualizer/static/media/outline-icons.ef60a4f6.woff"
   },
   "entrypoints": [
     "static/js/runtime-main.19db2af3.js",
     "static/css/2.d8767da3.chunk.css",
-    "static/js/2.13df4788.chunk.js",
-    "static/css/main.57d80ec3.chunk.css",
-    "static/js/main.e24f3035.chunk.js"
+    "static/js/2.47f22fd6.chunk.js",
+    "static/css/main.180b2f36.chunk.css",
+    "static/js/main.2f5a3996.chunk.js"
   ]
 }
