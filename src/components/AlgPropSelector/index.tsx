@@ -2,12 +2,13 @@ import React from 'react';
 import { Dropdown } from 'semantic-ui-react';
 import { speedStrToSpeed } from '../../utils/app-utils-functions';
 import { SpeedType } from '../../utils/types/app-types/alg-speed-type';
-import { AlgorithmType } from '../../utils/types/app-types/algorithm-classes-types';
+import { AlgDropdownOption, AlgorithmType } from '../../utils/types/app-types/algorithm-classes-types';
+import { speedDropdownOption } from '../../utils/types/app-types/consts';
 import classes from './AlgPropSelector.module.css';
 
 export type AlgPropSelectorProps = {
-    algOptions: any[];
-    speedOptions: any[];
+    algOptions: AlgDropdownOption[];
+    speedOptions: speedDropdownOption[];
     running: boolean;
     setSelectedAlg: (alg: AlgorithmType) => void;
     setSpeed: (speed: SpeedType) => void;
@@ -16,7 +17,7 @@ export type AlgPropSelectorProps = {
 
 const AlgPropSelector = (props: AlgPropSelectorProps): JSX.Element => {
     return (
-        <span>
+        <>
             <Dropdown // Dropdown for Algorithm selection
                 className={classes.select}
                 selection
@@ -37,7 +38,7 @@ const AlgPropSelector = (props: AlgPropSelectorProps): JSX.Element => {
                 }}
                 disabled={props.running}
             />
-        </span>
+        </>
     );
 };
 

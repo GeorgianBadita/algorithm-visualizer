@@ -17,6 +17,7 @@ import {
     DIJKSTRA_ALGORITHM,
     GraphAlgoirhtmsType,
 } from './graph-algorithm-types';
+import { AlgDropdownOption } from '../app-types/algorithm-classes-types';
 
 export const nodeButtons = [
     {
@@ -51,7 +52,7 @@ export const nodeButtons = [
     },
 ];
 
-export const graphAlgDropdownOptions = [
+export const graphAlgDropdownOptions: AlgDropdownOption[] = [
     {
         key: 'Breadth First Search',
         value: 'Breadth First Search',

@@ -1,6 +1,7 @@
+import { AlgDropdownOption } from '../app-types/algorithm-classes-types';
 import { BUBBLE_SORT, MERGE_SORT, QUICK_SORT, SortingAlgorithmsType } from './sorting-alorithm-types';
 
-export const sortingAlgDropdownOptions = [
+export const sortingAlgDropdownOptions: AlgDropdownOption[] = [
     {
         key: 'Bubble Sort',
         value: 'Bubble Sort',

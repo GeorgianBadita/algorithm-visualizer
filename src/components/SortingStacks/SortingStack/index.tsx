@@ -21,7 +21,7 @@ type SortingStackProps = {
 const NOT_NEED_FOR_SCROLLING_HEIGHT = 865;
 
 export const SortingStack = (props: SortingStackProps): JSX.Element => {
-    const [_, height] = useWindowSize();
+    const [, height] = useWindowSize();
     const cssClasses = [classes.stack];
     if (props.stackType === UNVISITED_STACK) {
         cssClasses.push(classes.unvisitedStack);

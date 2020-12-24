@@ -1,4 +1,10 @@
-export const speedDropdownOptions = [
+export type speedDropdownOption = {
+    key: string;
+    value: string;
+    text: string;
+};
+
+export const speedDropdownOptions: speedDropdownOption[] = [
     {
         key: 'Low Speed',
         value: 'Low Speed',
