@@ -3,7 +3,14 @@ import { connect, ConnectedProps } from 'react-redux';
 import { SortingStacks } from '../../components/SortingStacks';
 import SortOptionsButtonGroup from '../../components/SortOptionsButtonGroup';
 import { changeAlgorithm, changeRunningState, changeSpeed, clearApp } from '../../store/app/actions';
-import { changeHighest, changeListSize, changeLowest, changeSortingList, initSort } from '../../store/sorting/actions';
+import {
+    changeHighest,
+    changeListSize,
+    changeLowest,
+    changeSortingList,
+    initSort,
+    resetList,
+} from '../../store/sorting/actions';
 import { AlgorithmVisualizerState } from '../../store/state';
 import {
     copyNumbersImmutable,
@@ -57,13 +64,14 @@ const mapDispatchToProps = {
     setRunning: changeRunningState,
     changeRunningState: changeRunningState,
     clearApp: clearApp,
+    resetList: resetList,
     setListSize: changeListSize,
 };
 
 const mapStateToProps = (state: AlgorithmVisualizerState) => ({
     running: state.app.running,
     lowest: state.sorting.lowest,
-    highest: state.sorting.highset,
+    highest: state.sorting.highest,
     nums: state.sorting.sortingList.numberList,
     selectedAlg: state.app.selectedAlg,
     sortingState: state.sorting,
@@ -94,6 +102,11 @@ const SortingContainerAlgorithms = (props: SortingContainerAlgorithmsProps): JSX
             props.initSort(props.lowest, props.highest, props.listSize);
         }
     }, [props.lowest, props.highest, props.listSize]);
+
+    const clearApp = () => {
+        props.clearApp();
+        props.resetList();
+    };
 
     const handleAlgorithmStartsRunning = () => {
         const algSortingResult = getSorginAlgorithmOutput(props.selectedAlg, props.sortingState);
@@ -169,7 +182,7 @@ const SortingContainerAlgorithms = (props: SortingContainerAlgorithmsProps): JSX
                 selectedAlg={props.selectedAlg}
                 setSpeed={props.setSpeed}
                 changeAppRunningState={props.changeRunningState}
-                clearApp={props.clearApp}
+                clearApp={clearApp}
                 changeListSize={props.setListSize}
             />
             <div className={classes.sortingContainerAlgorithms}>

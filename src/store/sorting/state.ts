@@ -7,5 +7,5 @@ export interface SortingState {
     sortingList: SortingList;
     listSize: number;
     lowest: number;
-    highset: number;
+    highest: number;
 }

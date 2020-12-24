@@ -27,10 +27,8 @@ type NodeTypeButtonGroupProps = {
 
 const NodeTypeButtonGroup = (props: NodeTypeButtonGroupProps): JSX.Element => {
     const clear = () => {
-        props.changeAppRunningState(false);
         props.clearApp();
-        window.location.reload();
-        //TODO: this is a hacky way to do this, solve this issue
+        props.resetGraphForAlg();
     };
 
     const handleOnAlgStart = () => {
@@ -61,11 +59,12 @@ const NodeTypeButtonGroup = (props: NodeTypeButtonGroupProps): JSX.Element => {
         <>
             <div className={classes.nodeTypeButtonGroup}>
                 <Button //clear button
-                    onClick={handleOnAlgStart}
-                    className={classes.startButton}
+                    onClick={clear}
+                    className={classes.clearButton}
+                    variant="danger"
                     disabled={props.running && props.running === true}
                 >
-                    Start Algorithm
+                    Clear
                 </Button>
                 <AlgPropSelector
                     algOptions={graphAlgDropdownOptions}
@@ -75,13 +74,13 @@ const NodeTypeButtonGroup = (props: NodeTypeButtonGroupProps): JSX.Element => {
                     running={props.running}
                     algStringToAlgType={algNameToAlgType}
                 />
+
                 <Button //clear button
-                    onClick={clear}
-                    className={classes.clearButton}
-                    variant="danger"
+                    onClick={handleOnAlgStart}
+                    className={classes.startButton}
                     disabled={props.running && props.running === true}
                 >
-                    Clear
+                    Start Algorithm
                 </Button>
                 <ButtonGroup className={classes.buttons}>{getInitButtons()}</ButtonGroup>
             </div>

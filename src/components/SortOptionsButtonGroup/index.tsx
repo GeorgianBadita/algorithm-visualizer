@@ -25,10 +25,7 @@ export type SortOptionsButtonGroupProps = {
 
 const SortOptionsButtonGroup = (props: SortOptionsButtonGroupProps): JSX.Element => {
     const regenerateList = () => {
-        props.changeAppRunningState(false);
         props.clearApp();
-        window.location.reload();
-        //TODO: this is a hacky way to do this, solve this issue
     };
 
     const handleOnAlgStart = () => {
@@ -49,13 +46,15 @@ const SortOptionsButtonGroup = (props: SortOptionsButtonGroupProps): JSX.Element
     return (
         <>
             <div className={classes.sortOptionsButtonGroup}>
-                <Button //start button
-                    onClick={handleOnAlgStart}
-                    className={classes.startButton}
-                    disabled={props.running && props.running === true}
+                <Button
+                    className={classes.clearButton}
+                    disabled={props.running}
+                    onClick={regenerateList}
+                    variant="danger"
                 >
-                    Start Algorithm
+                    Generate New List
                 </Button>
+
                 <div className={classes.slider}>
                     <LabeledSlider
                         disabled={props.running}
@@ -74,9 +73,12 @@ const SortOptionsButtonGroup = (props: SortOptionsButtonGroupProps): JSX.Element
                     speedOptions={speedDropdownOptions}
                     algStringToAlgType={sortNameToSortType}
                 />
-
-                <Button disabled={props.running} onClick={regenerateList} variant="danger">
-                    Generate New List
+                <Button //start button
+                    onClick={handleOnAlgStart}
+                    className={classes.startButton}
+                    disabled={props.running && props.running === true}
+                >
+                    Start Algorithm
                 </Button>
             </div>
         </>

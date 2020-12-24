@@ -9,6 +9,7 @@ type NodeTypeButtonProps = {
     image: string;
     active: boolean;
     setActiveNodeButtonType: Dispatch<SetStateAction<NodeTypeButtonType>>;
+    running?: boolean;
 };
 
 const NodeTypeButton = (props: NodeTypeButtonProps): JSX.Element => {
@@ -18,7 +19,11 @@ const NodeTypeButton = (props: NodeTypeButtonProps): JSX.Element => {
     }
 
     return (
-        <button className={cssClasses.join(' ')} onClick={() => props.setActiveNodeButtonType(props.buttonType)}>
+        <button
+            disabled={props.running && props.running === true}
+            className={cssClasses.join(' ')}
+            onClick={() => props.setActiveNodeButtonType(props.buttonType)}
+        >
             <NodeTypeImage image={props.image} altTxt={props.text} />
             <div className={classes.text}>{props.text}</div>
         </button>

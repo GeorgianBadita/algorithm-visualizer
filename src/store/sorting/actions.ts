@@ -6,6 +6,7 @@ import {
     CHANGE_SORTING_LIST,
     CLEAR_SORT,
     INIT_SORT,
+    RESET_LIST,
     SortingActions,
 } from './types';
 
@@ -38,4 +39,8 @@ export const changeSortingList = (newSortingList: ArrayStackType[]): SortingActi
 export const changeListSize = (newSize: number): SortingActions => ({
     type: CHANGE_LIST_SIZE,
     newSize: newSize,
+});
+
+export const resetList = (): SortingActions => ({
+    type: RESET_LIST,
 });

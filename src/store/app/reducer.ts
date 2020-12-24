@@ -25,7 +25,8 @@ export const appReducer = (state = initialAppState, action: AppActionTypes): App
             };
         case CLEAR_APP:
             return {
-                ...initialAppState,
+                ...state,
+                running: false,
             };
         case CHANGE_SPEED:
             return {

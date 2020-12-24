@@ -10,6 +10,7 @@ import {
     CHANGE_SORTING_LIST,
     CLEAR_SORT,
     INIT_SORT,
+    RESET_LIST,
     SortingActions,
 } from './types';
 
@@ -17,7 +18,7 @@ const initialSortingState: SortingState = {
     sortingList: { numberList: [] },
     listSize: 0,
     lowest: 0,
-    highset: 0,
+    highest: 0,
 };
 
 const initSort = (state: SortingState, lowest: number, highest: number, size: number): SortingState => {
@@ -45,11 +46,11 @@ const changeLowest = (state: SortingState, newLowest: number): SortingState => (
 
 const changeHighest = (state: SortingState, newHighest: number): SortingState => ({
     ...state,
-    highset: newHighest,
+    highest: newHighest,
 });
 
 const clearSort = (state: SortingState): SortingState => ({
-    ...initSort(state, state.lowest, state.highset, state.listSize),
+    ...initSort(state, state.lowest, state.highest, state.listSize),
 });
 
 const changeSortingList = (state: SortingState, newSortingList: ArrayStackType[]): SortingState => ({
@@ -60,6 +61,10 @@ const changeSortingList = (state: SortingState, newSortingList: ArrayStackType[]
 const changeListSize = (state: SortingState, newSize: number): SortingState => ({
     ...state,
     listSize: newSize,
+});
+
+const resetList = (state: SortingState): SortingState => ({
+    ...initSort(state, state.lowest, state.highest, state.listSize),
 });
 
 export const sortingRedcer = (state = initialSortingState, action: SortingActions): SortingState => {
@@ -76,6 +81,8 @@ export const sortingRedcer = (state = initialSortingState, action: SortingAction
             return changeSortingList(state, action.newSortingList);
         case CHANGE_LIST_SIZE:
             return changeListSize(state, action.newSize);
+        case RESET_LIST:
+            return resetList(state);
         default:
             return state;
     }
