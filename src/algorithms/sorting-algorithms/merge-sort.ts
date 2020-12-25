@@ -26,11 +26,12 @@ const merge = (numbers: number[], start: number, mid: number, end: number, resLi
     let i = 0;
     let j = 0;
     let k = start;
+    const localMergeOps: SortingOutputElementType[] = [];
     while (i < firstHalf.length && j < secondHalf.length) {
         if (firstHalf[i] < secondHalf[j]) {
             resList.push({ type: MERGE_PAIR, firstIndex: start + i, secondIndex: mid + 1 + j });
             numbers[k] = firstHalf[i];
-            resList.push({
+            localMergeOps.push({
                 type: FINISHED_MERGE_PAIR,
                 firstIndex: start + i,
                 secondIndex: mid + 1 + j,
@@ -40,9 +41,8 @@ const merge = (numbers: number[], start: number, mid: number, end: number, resLi
             i += 1;
         } else {
             resList.push({ type: MERGE_PAIR, firstIndex: start + i, secondIndex: mid + 1 + j });
-
             numbers[k] = secondHalf[j];
-            resList.push({
+            localMergeOps.push({
                 type: FINISHED_MERGE_PAIR,
                 firstIndex: start + i,
                 secondIndex: mid + 1 + j,
@@ -53,6 +53,10 @@ const merge = (numbers: number[], start: number, mid: number, end: number, resLi
         }
         k += 1;
     }
+
+    localMergeOps.forEach((el: SortingOutputElementType) => {
+        resList.push(el);
+    });
 
     while (i < firstHalf.length) {
         resList.push({ type: LEFT_TO_MERGE, indexLeftToMerge: start + i });
