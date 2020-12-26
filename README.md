@@ -52,6 +52,7 @@ npm run start
 ![Algorithm-Visualizer Demo](https://media.giphy.com/media/mhcti1UA16oZI0vW6g/source.gif)
 
 **Sorting**
+
 ![Algorithm-Visualizer Demo](https://media.giphy.com/media/OrvgRvM18ooYQNbOJ0/source.gif)
 
 ## Future work
