@@ -1,4 +1,5 @@
 import { bubbleSort } from '../algorithms/sorting-algorithms/bubble-sort';
+import { heapSort } from '../algorithms/sorting-algorithms/heap-sort';
 import { mergeSort } from '../algorithms/sorting-algorithms/merge-sort';
 import { quickSort } from '../algorithms/sorting-algorithms/quick-sort';
 import { SortingState } from '../store/sorting/state';
@@ -7,6 +8,7 @@ import { ArrayStackType } from './types/sorting-types/array-stack-type';
 import { sortingALgorithms } from './types/sorting-types/consts';
 import {
     BUBBLE_SORT,
+    HEAP_SORT,
     MERGE_SORT,
     QUICK_SORT,
     SortingAlgorithmsType,
@@ -21,6 +23,8 @@ export const sortNameToSortType = (name: string): SortingAlgorithmsType => {
             return QUICK_SORT;
         case 'Merge Sort':
             return MERGE_SORT;
+        case 'Heap Sort':
+            return HEAP_SORT;
         default:
             return BUBBLE_SORT; //TODO: come up with an abstraction for NO_ALGORITHM
     }
@@ -40,6 +44,9 @@ export const getSorginAlgorithmOutput = (alg: AlgorithmType, sortingState: Sorti
         }
         case QUICK_SORT: {
             return { ...quickSort(sortingState) };
+        }
+        case HEAP_SORT: {
+            return { ...heapSort(sortingState) };
         }
         default:
             return { output: [] };

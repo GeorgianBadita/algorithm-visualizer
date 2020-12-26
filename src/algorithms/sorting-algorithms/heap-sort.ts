@@ -3,156 +3,80 @@ import { copyNumbersImmutable } from '../../utils/sorting-utils-functions';
 import { ArrayStackType } from '../../utils/types/sorting-types/array-stack-type';
 import {
     CURRENT_INDEX,
+    FINISHED_VISITING_INDEX,
+    PLACED_NUMBER,
     SortingAlgorithmResult,
     SortingOutputElementType,
+    SWAPPED_PAIR,
+    SWAP_PAIR,
 } from '../../utils/types/sorting-types/sorting-results-types';
 
 class Heap {
-    readonly heapArr: (number | null)[];
+    readonly heapArr: number[];
     readonly heapSize: number;
     readonly resList: SortingOutputElementType[];
     private currentSize: number;
-    //relation should return < 0 if a < b, 0 if a=b and > 0 if a > b
-    readonly relation: (a: number | null, b: number | null) => number;
 
-    constructor(numbers: (number | null)[], relation: (a: number | null, b: number | null) => number) {
+    constructor(numbers: number[]) {
         this.heapSize = numbers.length;
         this.currentSize = numbers.length;
-        this.relation = relation;
-        this.heapArr = numbers;
+        this.heapArr = [...numbers];
         this.resList = [];
-        this.heapify;
+        this.heapify();
     }
 
-    public heapify = (): void => {
+    private heapify = (): void => {
         const currIdx = ((this.currentSize / 2) | 0) - 1;
-        for (let i = currIdx; i > 0; i--) {
-            this.heapifyDown(currIdx);
+        for (let i = currIdx; i >= 0; i--) {
+            this.resList.push({ type: CURRENT_INDEX, index: i });
+            this.heapifyDown(i);
+            this.resList.push({ type: FINISHED_VISITING_INDEX, index: i });
         }
-    };
-
-    public addToHeap = (elem: number): void => {
-        if (this.currentSize == this.heapSize) {
-            throw 'Heap is full!';
-        }
-        // this.resList.push({type: CURRENT_INDEX, index: this.})
-        this.heapArr[this.currentSize] = elem;
-        this.currentSize += 1;
-        this.heapifyUp(this.currentSize - 1);
-    };
-
-    public top = (): number | null => {
-        if (this.currentSize == 0) {
-            throw 'Heap is empty!';
-        }
-
-        const toReturn = this.heapArr[0];
-        this.heapArr[0] = this.heapArr[this.currentSize - 1];
-        this.heapArr[this.currentSize - 1] = null;
-        this.currentSize--;
-        this.heapifyDown(0);
-        return toReturn;
     };
 
     public heapSort = (): void => {
         for (let i = 0; i < this.heapSize; i++) {
-            const topElem = this.top();
-            this.heapArr[this.currentSize] = topElem;
-        }
-    };
-
-    private getLeftChild = (index: number): number | null => {
-        if (2 * index + 1 < this.currentSize) {
-            return 2 * index + 1;
-        }
-        return null;
-    };
-
-    private getRightChild = (index: number): number | null => {
-        if (2 * index + 2 < this.currentSize) {
-            return 2 * index + 2;
-        }
-        return null;
-    };
-
-    private getParent = (index: number): number | null => {
-        if (index >= this.currentSize) {
-            return null;
-        }
-        return index % 2 === 0 ? ((index - 1) / 2) | 0 : (index / 2) | 0;
-    };
-
-    private heapifyUp = (index: number): void => {
-        let currentIndex = index;
-        let parentIndex = this.getParent(currentIndex);
-        if (parentIndex === null) {
-            return;
-        }
-        while (
-            currentIndex !== null &&
-            parentIndex !== null &&
-            this.relation(this.heapArr[parentIndex], this.heapArr[currentIndex]) > 0
-        ) {
-            const tmp = this.heapArr[parentIndex];
-            this.heapArr[parentIndex] = this.heapArr[currentIndex];
-            this.heapArr[currentIndex] = tmp;
-            currentIndex = parentIndex;
-            parentIndex = this.getParent(parentIndex);
+            this.resList.push({ type: SWAP_PAIR, firstIndex: 0, secondIndex: this.currentSize - 1 });
+            const tmp = this.heapArr[0];
+            this.heapArr[0] = this.heapArr[this.currentSize - 1];
+            this.heapArr[this.currentSize - 1] = tmp;
+            this.resList.push({ type: SWAPPED_PAIR, firstIndex: 0, secondIndex: this.currentSize - 1 });
+            this.resList.push({ type: PLACED_NUMBER, index: this.currentSize - 1 });
+            this.currentSize--;
+            this.heapifyDown(0);
         }
     };
 
     private heapifyDown = (index: number): void => {
-        let currentIndex = index;
+        let largest = index;
+        const leftChild = 2 * index + 1;
+        const rightChild = 2 * index + 2;
 
-        while (currentIndex !== null) {
-            const leftChild = this.getLeftChild(currentIndex);
-            const rightChild = this.getRightChild(currentIndex);
+        if (leftChild < this.currentSize && this.heapArr[largest] < this.heapArr[leftChild]) {
+            largest = leftChild;
+        }
 
-            if (leftChild === null) {
-                break;
-            }
+        if (rightChild < this.currentSize && this.heapArr[largest] < this.heapArr[rightChild]) {
+            largest = rightChild;
+        }
 
-            if (
-                (rightChild !== null &&
-                    this.relation(this.heapArr[currentIndex], this.heapArr[leftChild]) <= 0 &&
-                    this.relation(this.heapArr[currentIndex], this.heapArr[rightChild]) <= 0) ||
-                (rightChild === null && this.relation(this.heapArr[currentIndex], this.heapArr[leftChild]) <= 0)
-            ) {
-                break;
-            }
-
-            let toSwap = leftChild;
-            if (
-                rightChild &&
-                this.relation(this.heapArr[currentIndex], this.heapArr[leftChild]) <
-                    this.relation(this.heapArr[currentIndex], this.heapArr[rightChild])
-            ) {
-                toSwap = rightChild;
-            }
-            const tmp = this.heapArr[currentIndex];
-            this.heapArr[currentIndex] = this.heapArr[toSwap];
-            this.heapArr[toSwap] = tmp;
-
-            currentIndex = toSwap;
+        if (largest !== index) {
+            this.resList.push({ type: SWAP_PAIR, firstIndex: largest, secondIndex: index });
+            const tmp = this.heapArr[index];
+            this.heapArr[index] = this.heapArr[largest];
+            this.heapArr[largest] = tmp;
+            this.resList.push({ type: SWAPPED_PAIR, firstIndex: largest, secondIndex: index });
+            this.heapifyDown(largest);
         }
     };
 }
-
-const relation = (a: number | null, b: number | null): number => {
-    if (a === null || b === null) {
-        return 0;
-    }
-    return -a + b;
-};
-
 export const heapSort = (sortingState: SortingState): SortingAlgorithmResult => {
     const numbers = copyNumbersImmutable(sortingState.sortingList.numberList).map(
         (elem: ArrayStackType) => elem.number,
     );
 
-    const heap = new Heap(numbers, relation);
+    const heap = new Heap(numbers);
     heap.heapSort();
-
     return {
         output: heap.resList,
     };
