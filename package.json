@@ -18,6 +18,8 @@
     "bootstrap": "^4.5.3",
     "create-react-app": "^4.0.1",
     "evergreen-ui": "^5.1.2",
+    "identity-obj-proxy": "^3.0.0",
+    "jest-transform-css": "^2.1.0",
     "npm": "^6.14.10",
     "rc-slider": "^9.7.1",
     "react": "^16.13.1",
@@ -83,6 +85,12 @@
     "prettier": "2.2.1",
     "ts-jest": "^26.4.4",
     "typescript": "^3.7.5"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+      "\\.(css|less)$": "identity-obj-proxy"
+    }
   },
   "homepage": "http://GeorgianBadita.github.io/algorithm-visualizer"
 }

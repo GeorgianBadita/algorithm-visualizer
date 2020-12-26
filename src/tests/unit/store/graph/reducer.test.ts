@@ -1,9 +1,9 @@
 import { Graph, GraphNode } from '../../../../algorithms/graph-algorithms/graph';
-import { TableNodeType } from '../../../../containers/GraphContainerAlgorithms';
 import { graphReducer, initialGraphState } from '../../../../store/graph/reducer';
 import { GraphState } from '../../../../store/graph/state';
 import { ADD_NODE, DELETE_NODE, INIT_GRAPH } from '../../../../store/graph/types';
 import { SIMPLE_NODE } from '../../../../utils/types/graph-types/node-type';
+import { TableNodeType } from '../../../../utils/types/graph-types/table-node-type';
 
 const width = 3;
 const height = 3;

@@ -1,9 +1,10 @@
 import { appReducer } from '../../../../store/app/reducer';
-import { CHANGE_ALGORITHM, CHANGE_RUNNING_STATE } from '../../../../store/app/types';
+import { CHANGE_ALGORITHM, CHANGE_RUNNING_STATE, CHANGE_SPEED } from '../../../../store/app/types';
+import { HIGH_SPEED, MEDIUM_SPEED } from '../../../../utils/types/app-types/alg-speed-type';
 import { DIJKSTRA_ALGORITHM, NO_ALGORITHM } from '../../../../utils/types/graph-types/graph-algorithm-types';
 
 describe('app reducer', () => {
-    it('should should handle CHANGE_RUNNING_STATE', () => {
+    it('should handle CHANGE_RUNNING_STATE', () => {
         expect(
             appReducer(undefined, {
                 type: CHANGE_RUNNING_STATE,
@@ -11,6 +12,7 @@ describe('app reducer', () => {
             }),
         ).toEqual({
             selectedAlg: NO_ALGORITHM,
+            speed: MEDIUM_SPEED,
             running: true,
         });
     });
@@ -23,6 +25,20 @@ describe('app reducer', () => {
             }),
         ).toEqual({
             selectedAlg: DIJKSTRA_ALGORITHM,
+            speed: MEDIUM_SPEED,
+            running: false,
+        });
+    });
+
+    it('should handle CHANGE_SPEED', () => {
+        expect(
+            appReducer(undefined, {
+                type: CHANGE_SPEED,
+                speed: HIGH_SPEED,
+            }),
+        ).toEqual({
+            selectedAlg: NO_ALGORITHM,
+            speed: HIGH_SPEED,
             running: false,
         });
     });
