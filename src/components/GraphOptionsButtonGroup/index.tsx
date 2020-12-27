@@ -4,7 +4,6 @@ import { NodeTypeButtonType } from '../../utils/types/graph-types/node-type-butt
 import NodeTypeButton from './NodeTypeButton';
 import classes from './GraphOptionsButtonGrooup.module.css';
 
-import Button from 'react-bootstrap/Button';
 import { SpeedType } from '../../utils/types/app-types/alg-speed-type';
 import { AlgorithmType } from '../../utils/types/app-types/algorithm-classes-types';
 import { graphAlgDropdownOptions, nodeButtons } from '../../utils/types/graph-types/consts';
@@ -12,6 +11,7 @@ import { speedDropdownOptions } from '../../utils/types/app-types/consts';
 import AlgPropSelector from '../AlgPropSelector';
 import { algNameToAlgType, isGraphAlgorithm } from '../../utils/graph-utils-functions';
 import { BREADTH_FIRST_SEARCH, NO_ALGORITHM } from '../../utils/types/graph-types/graph-algorithm-types';
+import { Dropdown } from 'semantic-ui-react';
 
 type NodeTypeButtonGroupProps = {
     activeNodeTypeButton?: NodeTypeButtonType;
@@ -58,14 +58,13 @@ const NodeTypeButtonGroup = (props: NodeTypeButtonGroupProps): JSX.Element => {
     return (
         <>
             <div className={classes.nodeTypeButtonGroup}>
-                <Button //clear button
+                <button //clear button
                     onClick={clear}
-                    className={classes.clearButton}
-                    variant="danger"
+                    className={`${classes.btn} ${classes.clearButton}`}
                     disabled={props.running && props.running === true}
                 >
                     Clear
-                </Button>
+                </button>
                 <AlgPropSelector
                     algOptions={graphAlgDropdownOptions}
                     speedOptions={speedDropdownOptions}
@@ -75,13 +74,13 @@ const NodeTypeButtonGroup = (props: NodeTypeButtonGroupProps): JSX.Element => {
                     algStringToAlgType={algNameToAlgType}
                 />
 
-                <Button //clear button
+                <button //start button
                     onClick={handleOnAlgStart}
-                    className={classes.startButton}
+                    className={`${classes.btn} ${classes.startButton}`}
                     disabled={props.running && props.running === true}
                 >
                     Start Algorithm
-                </Button>
+                </button>
                 <ButtonGroup className={classes.buttons}>{getInitButtons()}</ButtonGroup>
             </div>
         </>

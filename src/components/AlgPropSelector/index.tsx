@@ -29,7 +29,7 @@ const AlgPropSelector = (props: AlgPropSelectorProps): JSX.Element => {
                 disabled={props.running}
             />
             <Dropdown // Dropdown for speed selection
-                className={classes.select}
+                className={`${classes.select}`}
                 selection
                 options={props.speedOptions}
                 defaultValue={props.speedOptions[1].value}

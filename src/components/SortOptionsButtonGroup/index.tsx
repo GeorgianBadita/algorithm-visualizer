@@ -1,5 +1,4 @@
 import React from 'react';
-import Button from 'react-bootstrap/esm/Button';
 import { isSortingAlgorithm, sortNameToSortType } from '../../utils/sorting-utils-functions';
 import { SpeedType } from '../../utils/types/app-types/alg-speed-type';
 import { AlgorithmType } from '../../utils/types/app-types/algorithm-classes-types';
@@ -46,14 +45,13 @@ const SortOptionsButtonGroup = (props: SortOptionsButtonGroupProps): JSX.Element
     return (
         <>
             <div className={classes.sortOptionsButtonGroup}>
-                <Button
-                    className={classes.clearButton}
+                <button
+                    className={`${classes.btn} ${classes.clearButton}`}
                     disabled={props.running}
                     onClick={regenerateList}
-                    variant="danger"
                 >
                     Generate New List
-                </Button>
+                </button>
 
                 <div className={classes.slider}>
                     <LabeledSlider
@@ -73,13 +71,13 @@ const SortOptionsButtonGroup = (props: SortOptionsButtonGroupProps): JSX.Element
                     speedOptions={speedDropdownOptions}
                     algStringToAlgType={sortNameToSortType}
                 />
-                <Button //start button
+                <button //start button
                     onClick={handleOnAlgStart}
-                    className={classes.startButton}
+                    className={`${classes.btn} ${classes.startButton}`}
                     disabled={props.running && props.running === true}
                 >
                     Start Algorithm
-                </Button>
+                </button>
             </div>
         </>
     );

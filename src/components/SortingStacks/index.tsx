@@ -1,4 +1,5 @@
 import React from 'react';
+import { useWindowSize } from '../../hooks/hooks';
 import { ArrayStackType } from '../../utils/types/sorting-types/array-stack-type';
 import { SortingStack } from './SortingStack';
 import classes from './SortingStacks.module.css';
@@ -8,16 +9,14 @@ type SortingStacksProps = {
 };
 
 export const SortingStacks = (props: SortingStacksProps): JSX.Element => {
-    let width = 5;
-    if (props.heights.length <= 10) {
-        width = 20;
-    } else if (props.heights.length > 40) {
-        width = 2;
-    }
+    const [width, _] = useWindowSize();
+    const stacksWidth = (width * 0.3) | 0;
+    const oneStackWidth = (stacksWidth / props.heights.length) | 0;
+
     return (
         <div className={classes.sortingStacks}>
             {props.heights.map((elem: ArrayStackType, index: number) => (
-                <SortingStack key={index} height={elem.number} stackType={elem.elemType} width={width} />
+                <SortingStack key={index} height={elem.number} stackType={elem.elemType} width={oneStackWidth} />
             ))}
         </div>
     );

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Form } from 'react-bootstrap';
 import RangeSlider from 'react-bootstrap-range-slider';
 import classes from './LabeledSlider.module.css';
 
@@ -15,8 +14,9 @@ export type LabeledSliderProps = {
 const LabeledSlider = (props: LabeledSliderProps): JSX.Element => {
     return (
         <>
-            <Form.Label className={classes.label}>{`Change sorting list size: ${props.sliderValue}`} </Form.Label>
+            <label className={classes.label}>{`Change sorting list size: ${props.sliderValue}`} </label>
             <RangeSlider
+                variant="light"
                 disabled={props.disabled}
                 step={props.step}
                 min={props.min}

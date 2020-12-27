@@ -40,10 +40,10 @@ import {
 import classes from './SortingContainerAlgorithms.module.css';
 
 const DEFAULT_MIN = 1;
-const DEFAULT_MAX = 45;
+const DEFAULT_MAX = 50;
 
 const MIN_ARR_LENGTH = 4;
-const MAX_ARR_LENGTH = 76;
+const MAX_ARR_LENGTH = 90;
 
 const DEFAULT_FIRST_PERIOD = 50;
 const DEFAULT_INCREMENT = 50;

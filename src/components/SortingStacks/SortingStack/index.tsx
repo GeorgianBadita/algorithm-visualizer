@@ -18,7 +18,7 @@ type SortingStackProps = {
     width: number;
 };
 
-const NOT_NEED_FOR_SCROLLING_HEIGHT = 865;
+const NOT_NEED_FOR_SCROLLING_HEIGHT = 935;
 
 export const SortingStack = (props: SortingStackProps): JSX.Element => {
     const [, height] = useWindowSize();
@@ -48,8 +48,9 @@ export const SortingStack = (props: SortingStackProps): JSX.Element => {
         stackHeight = (stackHeight * (1 - diff / 10)) | 0;
     }
     return (
-        <div className={cssClasses.join(' ')} style={{ height: `${stackHeight}px`, borderWidth: `${props.width}px` }}>
-            {props.width === 20 ? props.height : ''}
-        </div>
+        <div
+            className={cssClasses.join(' ')}
+            style={{ height: `${stackHeight}px`, borderWidth: `${props.width}px` }}
+        ></div>
     );
 };
