@@ -1,12 +1,10 @@
 import React, { Dispatch, SetStateAction } from 'react';
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import { NodeTypeButtonType } from '../../utils/types/graph-types/node-type-button-type';
-import NodeTypeButton from './NodeTypeButton';
 import classes from './GraphOptionsButtonGrooup.module.css';
 
 import { SpeedType } from '../../utils/types/app-types/alg-speed-type';
 import { AlgorithmType } from '../../utils/types/app-types/algorithm-classes-types';
-import { graphAlgDropdownOptions, nodeButtons } from '../../utils/types/graph-types/consts';
+import { addNodesDropdownOptions, graphAlgDropdownOptions } from '../../utils/types/graph-types/consts';
 import { speedDropdownOptions } from '../../utils/types/app-types/consts';
 import AlgPropSelector from '../AlgPropSelector';
 import { algNameToAlgType, isGraphAlgorithm } from '../../utils/graph-utils-functions';
@@ -38,19 +36,6 @@ const NodeTypeButtonGroup = (props: NodeTypeButtonGroupProps): JSX.Element => {
         }
     };
 
-    const getInitButtons = (): JSX.Element[] => {
-        return nodeButtons.map((buttonData) => (
-            <NodeTypeButton
-                buttonType={buttonData.type as NodeTypeButtonType}
-                key={buttonData.text}
-                text={buttonData.text}
-                image={buttonData.image}
-                active={buttonData.type === props.activeNodeTypeButton ? true : false}
-                setActiveNodeButtonType={props.setActiveNodeTypeButton}
-            />
-        ));
-    };
-
     if (props.selectedAlg === NO_ALGORITHM || !isGraphAlgorithm(props.selectedAlg)) {
         props.setSelectedAlg(BREADTH_FIRST_SEARCH);
     }
@@ -63,7 +48,7 @@ const NodeTypeButtonGroup = (props: NodeTypeButtonGroupProps): JSX.Element => {
                     className={`${classes.btn} ${classes.clearButton}`}
                     disabled={props.running && props.running === true}
                 >
-                    Clear
+                    Clear Graph
                 </button>
                 <AlgPropSelector
                     algOptions={graphAlgDropdownOptions}
@@ -73,7 +58,13 @@ const NodeTypeButtonGroup = (props: NodeTypeButtonGroupProps): JSX.Element => {
                     running={props.running}
                     algStringToAlgType={algNameToAlgType}
                 />
-
+                <Dropdown
+                    className={classes.dropdown}
+                    options={addNodesDropdownOptions}
+                    defaultValue={addNodesDropdownOptions[2].value}
+                    onChange={(_, data) => props.setActiveNodeTypeButton(data.value as NodeTypeButtonType)}
+                    disabled={props.running && props.running === true}
+                />
                 <button //start button
                     onClick={handleOnAlgStart}
                     className={`${classes.btn} ${classes.startButton}`}
@@ -81,7 +72,6 @@ const NodeTypeButtonGroup = (props: NodeTypeButtonGroupProps): JSX.Element => {
                 >
                     Start Algorithm
                 </button>
-                <ButtonGroup className={classes.buttons}>{getInitButtons()}</ButtonGroup>
             </div>
         </>
     );

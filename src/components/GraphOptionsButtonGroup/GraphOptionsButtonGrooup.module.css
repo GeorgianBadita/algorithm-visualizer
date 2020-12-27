@@ -6,16 +6,6 @@
     align-items: center;
 }
 
-.buttons {
-    grid-auto-flow: column;
-    grid-column-gap: 20px;
-}
-
-@media screen and (max-width: 1765px) {
-    .buttons {
-        margin-top: 15px;
-    }
-}
 .clearButton {
     margin-right: 20px;
 }
@@ -35,7 +25,7 @@
     -ms-user-select: none;
     user-select: none;
     border: 1px solid transparent;
-    padding: 0.375rem 0.75rem;
+    padding: 8px;
     font-size: 1rem;
     line-height: 1.5;
     border-radius: 0.25rem;
@@ -104,4 +94,13 @@
 .clearButton:not(:disabled):not(.disabled).active:focus,
 .clearButton.dropdown-toggle:focus {
     box-shadow: 0 0 0 0.2rem #e48031;
+}
+
+.dropdown {
+    border-radius: 0.25rem;
+    color: #000;
+    margin-right: 20px;
+    border: 1px solid #fff;
+    background-color: white;
+    padding: 9px;
 }

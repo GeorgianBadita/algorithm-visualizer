@@ -19,36 +19,36 @@ import {
 } from './graph-algorithm-types';
 import { AlgDropdownOption } from '../app-types/algorithm-classes-types';
 
-export const nodeButtons = [
+export const addNodesDropdownOptions = [
     {
+        key: 'Add wall nodes',
         text: 'Add wall nodes',
-        image: wall,
-        active: false,
-        type: WALL_NODE_BUTTON,
+        value: WALL_NODE_BUTTON,
+        image: { avatar: true, src: wall },
     },
     {
+        key: 'Add weighted nodes',
         text: 'Add weighted nodes',
-        image: weight,
-        active: false,
-        type: WEIGHTED_NODE_BUTTON,
+        value: WEIGHTED_NODE_BUTTON,
+        image: { avatar: true, src: weight },
     },
     {
+        key: 'Restore nodes',
         text: 'Restore nodes',
-        image: simple,
-        active: false,
-        type: RESTORE_NODE_BUTTON,
+        value: RESTORE_NODE_BUTTON,
+        image: { avatar: true, src: simple },
     },
     {
+        key: 'Move source node',
         text: 'Move source node',
-        image: start,
-        active: false,
-        type: SOURCE_NODE_BUTTON,
+        image: { avatar: true, src: start },
+        value: SOURCE_NODE_BUTTON,
     },
     {
+        key: 'Move destination node',
         text: 'Move destination node',
-        image: destination,
-        active: false,
-        type: DESTINATION_NODE_BUTTON,
+        image: { avatar: true, src: destination },
+        value: DESTINATION_NODE_BUTTON,
     },
 ];
 
