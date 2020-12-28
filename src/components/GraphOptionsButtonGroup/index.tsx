@@ -21,14 +21,10 @@ type NodeTypeButtonGroupProps = {
     setSelectedAlg: (alg: AlgorithmType) => void;
     setSpeed: (speed: SpeedType) => void;
     resetGraphForAlg: () => void;
+    clearButton: () => void;
 };
 
 const NodeTypeButtonGroup = (props: NodeTypeButtonGroupProps): JSX.Element => {
-    const clear = () => {
-        props.clearApp();
-        props.resetGraphForAlg();
-    };
-
     const handleOnAlgStart = () => {
         props.changeAppRunningState(true);
         if (isGraphAlgorithm(props.selectedAlg)) {
@@ -44,7 +40,7 @@ const NodeTypeButtonGroup = (props: NodeTypeButtonGroupProps): JSX.Element => {
         <>
             <div className={classes.nodeTypeButtonGroup}>
                 <button //clear button
-                    onClick={clear}
+                    onClick={props.clearButton}
                     className={`${classes.btn} ${classes.clearButton}`}
                     disabled={props.running && props.running === true}
                 >
@@ -66,11 +62,10 @@ const NodeTypeButtonGroup = (props: NodeTypeButtonGroupProps): JSX.Element => {
                     disabled={props.running && props.running === true}
                 />
                 <button //start button
-                    onClick={handleOnAlgStart}
+                    onClick={props.running && props.running === true ? props.clearApp : handleOnAlgStart}
                     className={`${classes.btn} ${classes.startButton}`}
-                    disabled={props.running && props.running === true}
                 >
-                    Start Algorithm
+                    {props.running && props.running === true ? 'Stop Algorithm' : 'Start Algorithm'}
                 </button>
             </div>
         </>

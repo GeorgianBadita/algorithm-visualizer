@@ -5,4 +5,5 @@ export interface AppState {
     selectedAlg: AlgorithmType;
     running: boolean;
     speed: SpeedType;
+    uiActions: ReturnType<typeof setTimeout>[];
 }

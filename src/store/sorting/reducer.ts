@@ -16,6 +16,7 @@ import {
 
 const initialSortingState: SortingState = {
     sortingList: { numberList: [] },
+    initSortingList: { numberList: [] },
     listSize: 0,
     lowest: 0,
     highest: 0,
@@ -25,15 +26,19 @@ const initSort = (state: SortingState, lowest: number, highest: number, size: nu
     if (highest < lowest) {
         return state;
     }
+    const numList = Array.from({ length: size }, () => ({
+        elemType: UNVISITED_STACK as SortingStackType,
+        number: generateRandomNumber(lowest, highest + 1),
+    }));
     const newState = {
         ...state,
         lowest: lowest,
         highest: highest,
         sortingList: {
-            numberList: Array.from({ length: size }, () => ({
-                elemType: UNVISITED_STACK as SortingStackType,
-                number: generateRandomNumber(lowest, highest + 1),
-            })),
+            numberList: numList,
+        },
+        initSortingList: {
+            numberList: copyNumbersImmutable(numList),
         },
     };
     return newState;

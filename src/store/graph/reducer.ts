@@ -55,11 +55,6 @@ const initData = (height: number, width: number): TableNodeType[][] => {
 const addNodeToGraph = (node: GraphNode, table: TableNodeType[][], state: GraphState): GraphState => {
     if (!state.nodes.some((elem: GraphNode) => elem.id === node.id)) {
         const newEdges = { ...state.edges };
-        // const newEdges = Object.keys(state.edges).reduce((edges: Edges, key: string) => {
-        //     edges[key] = state.edges[key].map((node: GraphNode) => ({ ...node }));
-
-        //     return edges;
-        // }, {});
 
         newEdges[node.id] = [];
         const { row, col } = fromIndexToPair(parseInt(node.id, 10), state.width);

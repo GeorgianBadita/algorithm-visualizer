@@ -20,15 +20,21 @@ export type SortOptionsButtonGroupProps = {
     minLength: number;
     maxLength: number;
     changeListSize: (newSize: number) => void;
+    resetList: () => void;
+    reInitList: () => void;
 };
 
 const SortOptionsButtonGroup = (props: SortOptionsButtonGroupProps): JSX.Element => {
     const regenerateList = () => {
         props.clearApp();
+        props.resetList();
     };
 
     const handleOnAlgStart = () => {
         props.changeAppRunningState(true);
+        if (isSortingAlgorithm(props.selectedAlg)) {
+            props.reInitList();
+        }
     };
 
     if (props.selectedAlg === NO_ALGORITHM || !isSortingAlgorithm(props.selectedAlg)) {
@@ -72,11 +78,10 @@ const SortOptionsButtonGroup = (props: SortOptionsButtonGroupProps): JSX.Element
                     algStringToAlgType={sortNameToSortType}
                 />
                 <button //start button
-                    onClick={handleOnAlgStart}
+                    onClick={props.running && props.running === true ? props.clearApp : handleOnAlgStart}
                     className={`${classes.btn} ${classes.startButton}`}
-                    disabled={props.running && props.running === true}
                 >
-                    Start Algorithm
+                    {props.running && props.running === true ? 'Stop Algorithm' : 'Start Algorithm'}
                 </button>
             </div>
         </>

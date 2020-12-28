@@ -15,7 +15,7 @@ export const useWindowSizeDivided = (widthDivider: number, heightDivider: number
         window.addEventListener('resize', updateSize);
         updateSize();
         return () => window.removeEventListener('resize', updateSize);
-    }, []);
+    }, [heightDivider, widthDivider]);
     return size;
 };
 

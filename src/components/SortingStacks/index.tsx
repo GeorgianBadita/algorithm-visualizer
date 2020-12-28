@@ -9,7 +9,7 @@ type SortingStacksProps = {
 };
 
 export const SortingStacks = (props: SortingStacksProps): JSX.Element => {
-    const [width, _] = useWindowSize();
+    const [width] = useWindowSize();
     const stacksWidth = (width * 0.3) | 0;
     const oneStackWidth = (stacksWidth / props.heights.length) | 0;
 
