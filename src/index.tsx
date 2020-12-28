@@ -9,6 +9,7 @@ import { createStore, applyMiddleware } from 'redux';
 import { createLogger } from 'redux-logger';
 import 'react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css';
 import 'rc-tooltip/assets/bootstrap.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const store = createStore(rootReducer, applyMiddleware(createLogger()));
 
