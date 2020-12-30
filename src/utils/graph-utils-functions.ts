@@ -137,7 +137,7 @@ export const getNewGrid = (
             return newTable;
         }
         case DESTINATION_NODE_BUTTON: {
-            const condition = window.experimental
+            const condition = !window.experimental
                 ? table[x][y].nodeType !== SIMPLE_NODE
                 : table[x][y].nodeType !== SIMPLE_NODE &&
                   table[x][y].nodeType !== VISITED_NODE &&
@@ -196,13 +196,17 @@ export const reduxGraphUpdateDispatchHelper = (
 
             break;
         case DESTINATION_NODE_BUTTON: {
-            const condition = window.experimental
+            const condition = !window.experimental
                 ? table[x][y].nodeType !== SIMPLE_NODE
                 : table[x][y].nodeType !== SIMPLE_NODE &&
                   table[x][y].nodeType !== VISITED_NODE &&
                   table[x][y].nodeType !== SHORTEST_PATH_NODE;
 
             if (condition) {
+                break;
+            }
+
+            if (!window.experimental && wasAlgorithmRunning(table)) {
                 break;
             }
 

@@ -129,7 +129,7 @@ const Graph = (props: GraphProps): JSX.Element => {
             props.activeNodeTypeButton === DESTINATION_NODE_BUTTON &&
             wasAlgorithmRunning(tableRef.current)
         ) {
-            setTimeout(() => handleRedrawOnDestinationMove(), 200);
+            setTimeout(() => handleRedrawOnDestinationMove(), 300);
         }
     };
 
@@ -185,7 +185,7 @@ const Graph = (props: GraphProps): JSX.Element => {
             props.activeNodeTypeButton === DESTINATION_NODE_BUTTON &&
             wasAlgorithmRunning(tableRef.current)
         ) {
-            setTimeout(() => handleRedrawOnDestinationMove(), 200);
+            setTimeout(() => handleRedrawOnDestinationMove(), 300);
         }
         setIsClicked(true);
     };
