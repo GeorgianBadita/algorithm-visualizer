@@ -63,7 +63,7 @@ const mapDispatchToProps = {
     changeList: changeSortingList,
     setRunning: changeRunningState,
     clearAll: clearApp,
-    resetList: resetList,
+    regenList: resetList,
     setListSize: changeListSize,
     setTimeouts: setUiActions,
 };
@@ -104,6 +104,7 @@ const SortingContainerAlgorithms = (props: SortingContainerAlgorithmsProps): JSX
         setSpeed,
         clearAll,
         initializeSort,
+        regenList,
     } = props;
     const [stillRunning, setStillRunning] = React.useState(false);
     const timeOutsRef = React.useRef(props.timeOuts);
@@ -215,7 +216,7 @@ const SortingContainerAlgorithms = (props: SortingContainerAlgorithmsProps): JSX
                 setSpeed={setSpeed}
                 changeAppRunningState={setRunning}
                 clearApp={clearAll}
-                resetList={resetList}
+                resetList={regenList}
                 changeListSize={setListSize}
                 reInitList={reinitList}
             />
