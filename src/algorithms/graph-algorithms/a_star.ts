@@ -71,7 +71,9 @@ export const aStar = (source: GraphNode, destination: GraphNode, graphState: Gra
             }
         });
     }
-    visitedNodes.pop();
+    if (visitedNodes[visitedNodes.length - 1].id === destination.id) {
+        visitedNodes.pop();
+    }
     visitedNodes.shift();
 
     return {

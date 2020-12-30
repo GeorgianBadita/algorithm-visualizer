@@ -64,7 +64,10 @@ export const bestFirstSearch = (
         });
     }
     visitedInOrder.shift();
-    visitedInOrder.pop();
+    if (visitedInOrder[visitedInOrder.length - 1].id === destinationNode.id) {
+        visitedInOrder.pop();
+    }
+
     return {
         visitedNodes: visitedInOrder,
         parentVector: parent,

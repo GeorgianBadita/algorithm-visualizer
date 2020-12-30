@@ -61,7 +61,9 @@ export const dijkstra = (source: GraphNode, destination: GraphNode, graph: Graph
             }
         });
     }
-    visitedNodes.pop();
+    if (visitedNodes[visitedNodes.length - 1].id === destination.id) {
+        visitedNodes.pop();
+    }
     visitedNodes.shift();
 
     return {

@@ -46,7 +46,9 @@ export const bfs = (startNode: GraphNode, destinationNode: GraphNode, graph: Gra
         });
     }
     visitedInOrder.shift();
-    visitedInOrder.pop();
+    if (visitedInOrder[visitedInOrder.length - 1].id === destinationNode.id) {
+        visitedInOrder.pop();
+    }
     return {
         visitedNodes: visitedInOrder,
         parentVector: parent,
