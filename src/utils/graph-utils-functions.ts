@@ -137,13 +137,21 @@ export const getNewGrid = (
             return newTable;
         }
         case DESTINATION_NODE_BUTTON: {
-            if (table[x][y].nodeType !== SIMPLE_NODE) {
+            const condition = window.experimental
+                ? table[x][y].nodeType !== SIMPLE_NODE
+                : table[x][y].nodeType !== SIMPLE_NODE &&
+                  table[x][y].nodeType !== VISITED_NODE &&
+                  table[x][y].nodeType !== SHORTEST_PATH_NODE;
+
+            if (condition) {
                 return table as TableNodeType[][];
             }
-            if (wasAlgorithmRunning(table)) {
+
+            if (!window.experimental && wasAlgorithmRunning(table)) {
                 createErrorToast('You cannot move the destination node, on a visited graph');
                 return table as TableNodeType[][];
             }
+
             const newTable = copyTableImmutable(table).map((row: TableNodeType[]): TableNodeType[] => {
                 return row.map(
                     (elem: TableNodeType): TableNodeType => {
@@ -155,7 +163,7 @@ export const getNewGrid = (
                 );
             });
 
-            newTable[x][y].nodeType = DESTINATION_NODE;
+            newTable[x][y] = { nodeType: DESTINATION_NODE };
             return newTable;
         }
         default:
@@ -187,15 +195,20 @@ export const reduxGraphUpdateDispatchHelper = (
             changeSourceNodeHandler({ id: `${fromPairToIndex({ row: x, col: y }, width)}` });
 
             break;
-        case DESTINATION_NODE_BUTTON:
-            if (table[x][y].nodeType !== SIMPLE_NODE) {
+        case DESTINATION_NODE_BUTTON: {
+            const condition = window.experimental
+                ? table[x][y].nodeType !== SIMPLE_NODE
+                : table[x][y].nodeType !== SIMPLE_NODE &&
+                  table[x][y].nodeType !== VISITED_NODE &&
+                  table[x][y].nodeType !== SHORTEST_PATH_NODE;
+
+            if (condition) {
                 break;
             }
-            if (wasAlgorithmRunning(table)) {
-                break;
-            }
+
             changeDestinationNodeHandler({ id: `${fromPairToIndex({ row: x, col: y }, width)}` });
             break;
+        }
         case WALL_NODE_BUTTON:
             if (table[x][y].nodeType !== SIMPLE_NODE && table[x][y].nodeType !== WEIGHTED_NODE) {
                 break;

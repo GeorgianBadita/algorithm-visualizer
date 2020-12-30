@@ -86,6 +86,7 @@
     animation-iteration-count: 1;
     animation-play-state: running;
     animation-fill-mode: forwards;
+    color: #fff;
     z-index: -1;
 }
 
@@ -102,7 +103,7 @@
     animation-play-state: running;
     animation-fill-mode: forwards;
     z-index: -1;
-    color: black;
+    color: #fff;
 }
 
 .visited {

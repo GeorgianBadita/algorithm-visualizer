@@ -7,7 +7,7 @@ import { withRouter } from 'react-router-dom';
 
 import classes from './Toolbar.module.css';
 
-export interface ToolbarProps extends RouteComponentProps<any> {
+export interface ToolbarProps extends RouteComponentProps<never> {
     clearApp: () => void;
 }
 

@@ -228,6 +228,7 @@ const GraphContainerAlgorithms = (props: GraphContainerAlgorithmsProps): JSX.Ele
                     height={height}
                     table={table}
                     activeNodeTypeButton={activeNodeType}
+                    setActiveNodeTypeButton={setActiveNodeType as Dispatch<SetStateAction<NodeTypeButtonType>>}
                     selectedAlg={selectedAlg}
                     setGraph={setTable}
                     changeSourceNode={changeSorce}
@@ -236,6 +237,7 @@ const GraphContainerAlgorithms = (props: GraphContainerAlgorithmsProps): JSX.Ele
                     addNode={insertNode}
                     addWeightedNode={addWeighted}
                     running={running}
+                    graphState={graphState}
                 />
             </div>
         </>

@@ -38,18 +38,18 @@ export const addNodesDropdownOptions = [
         value: RESTORE_NODE_BUTTON,
         image: { avatar: true, src: simple },
     },
-    {
-        key: 'Move source node',
-        text: 'Move source node',
-        image: { avatar: true, src: start },
-        value: SOURCE_NODE_BUTTON,
-    },
-    {
-        key: 'Move destination node',
-        text: 'Move destination node',
-        image: { avatar: true, src: destination },
-        value: DESTINATION_NODE_BUTTON,
-    },
+    // {
+    //     key: 'Move source node',
+    //     text: 'Move source node',
+    //     image: { avatar: true, src: start },
+    //     value: SOURCE_NODE_BUTTON,
+    // },
+    // {
+    //     key: 'Move destination node',
+    //     text: 'Move destination node',
+    //     image: { avatar: true, src: destination },
+    //     value: DESTINATION_NODE_BUTTON,
+    // },
 ];
 
 export const graphAlgDropdownOptions: AlgDropdownOption[] = [
